@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.Frag_movimientos"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/gray">
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,9 +25,8 @@
         android:id="@+id/et_transaccion"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:ems="100"
+        android:ems="15"
         android:text="0"
-        android:paddingRight="20dp"
         android:textColor="@color/white"
         android:inputType="numberDecimal"
         android:textAlignment="viewEnd"
@@ -34,72 +34,109 @@
         android:layout_marginBottom="10dp"
         android:background="@color/transparent"/>
 
-        <TextView
-            android:id="@+id/textView"
+        <Spinner
+            android:id="@+id/sp_moneda"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="TextView" />
+            android:layout_height="10dp"
+            android:paddingRight="20dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:text="€"
+            android:spinnerMode="dialog"/>
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
         android:orientation="horizontal"
-        android:layout_weight=".1"
-        android:layout_marginBottom="10dp">
-
-        <Spinner
-            android:id="@+id/sp_categoria"
-            android:layout_width="350dp"
-            android:layout_height="50dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight=".1"
-            android:ems="10"
-            android:gravity="center"
-            android:text="Categoria"
+        android:background="@color/gray">
+        <TextView
+            android:id="@+id/tv_billeteraIzq"
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            android:textSize="20sp"
             android:textAlignment="viewStart"
-            android:textSize="24sp" />
+            android:gravity="center"
+            android:paddingLeft="15dp"
 
-        <Button
-            android:id="@+id/btn_nuevaCategoria_dialogo"
-            android:layout_width="60dp"
-            android:layout_height="50dp"
-            android:layout_weight=".1"
-            android:text="+" />
+            android:drawableLeft="@drawable/outline_wallet_24"
+            android:drawablePadding="5dp"
+            android:text="@string/tv_billeteraIZQ"/>
+
+        <TextView
+            android:id="@+id/tv_billeteraDer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textAlignment="viewEnd"
+            android:textSize="16sp"
+            android:paddingRight="15dp"
+            android:text="BilleteraEscogida" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+
+        android:background="@color/gray">
+
+        <TextView
+            android:id="@+id/tv_fechaIzq"
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            android:textSize="20sp"
+            android:textAlignment="viewStart"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:drawablePadding="5dp"
+            android:drawableLeft="@drawable/outline_calendar_month_24"
+            android:text="@string/hoy"/>
+
+        <TextView
+            android:id="@+id/tv_fechaDer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textAlignment="viewEnd"
+            android:textSize="16sp"
+            android:paddingRight="15dp"
+            android:text="@string/ayer" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/tv_fecha"
-        android:backgroundTint="@color/gray"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight=".1"
-        android:ems="10"
-        android:inputType="date"
-        android:hint="Selecciona una fecha"
-        android:textSize="22sp"
-        android:layout_marginBottom="10dp"
-        style="@style/Widget.MaterialComponents.Button.Icon"
-        />
 
     <EditText
+        android:drawableLeft="@drawable/outline_sticky_note_2_24"
         android:id="@+id/et_nota"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight=".9"
-        android:ems="10"
-        android:hint="Nota" />
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center">
+        android:layout_height="120dp"
+        android:background="@color/transparent"
+        android:paddingLeft="15dp"
+        android:drawablePadding="5dp"
+        android:background="@color/gray"
+
+        android:hint="@string/et_nota" />
+
+    <TextView
+        android:id="@+id/tv_agregarFoto"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:textSize="20sp"
+        android:textAlignment="viewStart"
+        android:gravity="center"
+        android:paddingLeft="15dp"
+        android:drawablePadding="5dp"
+        android:drawableLeft="@drawable/outline_photo_camera_24"
+        android:text="@string/tv_agregarFoto"
+        android:background="@color/gray"/>
+
         <Button
             android:id="@+id/btn_aceptar"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:text="OK"/>
-    </LinearLayout>
+            android:layout_gravity="center|bottom"
+            android:gravity="center"
+            android:text="OK"
+            android:background="@color/purple"/>
+
 
 </LinearLayout>
