@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.Frag_movimientos"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/purple">
+        <ImageView
+            android:id="@+id/iv_circuloCategoria"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/outline_circle_24"
+            android:layout_gravity="bottom"
+            android:backgroundTint="@color/black"
+            android:layout_marginBottom="10dp"
+            />
+    <EditText
+        android:id="@+id/et_transaccion"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:ems="100"
+        android:text="0"
+        android:paddingRight="20dp"
+        android:textColor="@color/white"
+        android:inputType="numberDecimal"
+        android:textAlignment="viewEnd"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/transparent"/>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TextView" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight=".1"
+        android:layout_marginBottom="10dp">
+
+        <Spinner
+            android:id="@+id/sp_categoria"
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight=".1"
+            android:ems="10"
+            android:gravity="center"
+            android:text="Categoria"
+            android:textAlignment="viewStart"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/btn_nuevaCategoria_dialogo"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_weight=".1"
+            android:text="+" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/tv_fecha"
+        android:backgroundTint="@color/gray"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".1"
+        android:ems="10"
+        android:inputType="date"
+        android:hint="Selecciona una fecha"
+        android:textSize="22sp"
+        android:layout_marginBottom="10dp"
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        />
+
+    <EditText
+        android:id="@+id/et_nota"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".9"
+        android:ems="10"
+        android:hint="Nota" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+        <Button
+            android:id="@+id/btn_aceptar"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="OK"/>
+    </LinearLayout>
+
+</LinearLayout>

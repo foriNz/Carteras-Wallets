@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="Movimientos"
+        android:id="@+id/movimientos"
+        android:icon="@drawable/outline_format_list_bulleted_24"
+        />
+    <item
+        android:title="Billeteras"
+        android:id="@+id/billeteras"
+        android:icon="@drawable/outline_wallet_24"
+        />
+    <item
+        android:title="Metas"
+        android:id="@+id/metas"
+        android:icon="@drawable/outline_money_24"
+        />
+    <item
+        android:title="Recordatorios"
+        android:id="@+id/recordatorios"
+        android:icon="@drawable/outline_punch_clock_24"
+        />
+    <item
+        android:title="Ajustes"
+        android:id="@+id/ajustes"
+        android:icon="@drawable/outline_settings_24"
+        />
+</menu>
