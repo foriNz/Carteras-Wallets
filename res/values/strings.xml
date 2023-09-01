@@ -13,9 +13,11 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
     <string name="tv_billeteraIZQ">Billetera</string>
     <string name="hoy">Hoy</string>
     <string name="ayer">Ayer</string>
     <string name="et_nota">Escriba una nota</string>
-    <string name="tv_agregarFoto">Agrega una foto</string>
+    <string name="tv_agregarFoto">Selecciona una foto</string>
+    <string name="tv_dialogo_billetera">Selecciona una billetera</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.cartera_v1.Activities;
+package com.example.cartera_v1.Activities.Fragments;
 
 import android.os.Bundle;
 

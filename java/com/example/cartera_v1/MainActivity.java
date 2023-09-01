@@ -7,11 +7,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
-import com.example.cartera_v1.Activities.Frag_ajustes;
-import com.example.cartera_v1.Activities.Frag_billeteras;
-import com.example.cartera_v1.Activities.Frag_metas;
-import com.example.cartera_v1.Activities.Frag_movimientos;
-import com.example.cartera_v1.Activities.Frag_recordatorios;
+import com.example.cartera_v1.Activities.Fragments.Frag_ajustes;
+import com.example.cartera_v1.Activities.Fragments.Frag_billeteras;
+import com.example.cartera_v1.Activities.Fragments.Frag_metas;
+import com.example.cartera_v1.Activities.Fragments.Frag_movimientos;
+import com.example.cartera_v1.Activities.Fragments.Frag_recordatorios;
 import com.example.cartera_v1.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {

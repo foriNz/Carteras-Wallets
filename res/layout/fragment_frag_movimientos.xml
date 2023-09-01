@@ -4,139 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.Frag_movimientos"
-    android:orientation="vertical"
-    android:background="@color/gray">
-    <LinearLayout
+    tools:context=".Activities.Fragments.Frag_movimientos"
+    android:orientation="vertical">
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/purple">
-        <ImageView
-            android:id="@+id/iv_circuloCategoria"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/outline_circle_24"
-            android:layout_gravity="bottom"
-            android:backgroundTint="@color/black"
-            android:layout_marginBottom="10dp"
-            />
-    <EditText
-        android:id="@+id/et_transaccion"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:ems="15"
-        android:text="0"
-        android:textColor="@color/white"
-        android:inputType="numberDecimal"
-        android:textAlignment="viewEnd"
-        android:layout_marginTop="0dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/transparent"/>
-
-        <Spinner
-            android:id="@+id/sp_moneda"
-            android:layout_width="wrap_content"
-            android:layout_height="10dp"
-            android:paddingRight="20dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:text="€"
-            android:spinnerMode="dialog"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:orientation="horizontal"
-        android:background="@color/gray">
-        <TextView
-            android:id="@+id/tv_billeteraIzq"
-            android:layout_width="250dp"
-            android:layout_height="match_parent"
-            android:textSize="20sp"
-            android:textAlignment="viewStart"
-            android:gravity="center"
-            android:paddingLeft="15dp"
-
-            android:drawableLeft="@drawable/outline_wallet_24"
-            android:drawablePadding="5dp"
-            android:text="@string/tv_billeteraIZQ"/>
-
-        <TextView
-            android:id="@+id/tv_billeteraDer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:textAlignment="viewEnd"
-            android:textSize="16sp"
-            android:paddingRight="15dp"
-            android:text="BilleteraEscogida" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:orientation="horizontal"
-
-        android:background="@color/gray">
-
-        <TextView
-            android:id="@+id/tv_fechaIzq"
-            android:layout_width="250dp"
-            android:layout_height="match_parent"
-            android:textSize="20sp"
-            android:textAlignment="viewStart"
-            android:gravity="center"
-            android:paddingLeft="15dp"
-            android:drawablePadding="5dp"
-            android:drawableLeft="@drawable/outline_calendar_month_24"
-            android:text="@string/hoy"/>
-
-        <TextView
-            android:id="@+id/tv_fechaDer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:textAlignment="viewEnd"
-            android:textSize="16sp"
-            android:paddingRight="15dp"
-            android:text="@string/ayer" />
-    </LinearLayout>
-
-
-    <EditText
-        android:drawableLeft="@drawable/outline_sticky_note_2_24"
-        android:id="@+id/et_nota"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:background="@color/transparent"
-        android:paddingLeft="15dp"
-        android:drawablePadding="5dp"
-        android:background="@color/gray"
-
-        android:hint="@string/et_nota" />
-
-    <TextView
-        android:id="@+id/tv_agregarFoto"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:textSize="20sp"
-        android:textAlignment="viewStart"
-        android:gravity="center"
-        android:paddingLeft="15dp"
-        android:drawablePadding="5dp"
-        android:drawableLeft="@drawable/outline_photo_camera_24"
-        android:text="@string/tv_agregarFoto"
-        android:background="@color/gray"/>
-
-        <Button
-            android:id="@+id/btn_aceptar"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|bottom"
-            android:gravity="center"
-            android:text="OK"
-            android:background="@color/purple"/>
-
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/outline_add_24"
+        android:layout_margin="16dp" />
 
 </LinearLayout>
