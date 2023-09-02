@@ -20,4 +20,9 @@
     <string name="et_nota">Escriba una nota</string>
     <string name="tv_agregarFoto">Selecciona una foto</string>
     <string name="tv_dialogo_billetera">Selecciona una billetera</string>
+    <string name="cv_creacion_billetera">Crear una billetera</string>
+    <string name="nombre_cartera_creacion_cartera">Introduzca un nombre a su billetera</string>
+    <string name="balance_predeterminado_creacion_cartera">Introduzca el saldo inicial</string>
+    <string name="btn_aceptar_nombre_vacio">Introduzca un nombre a la billetera</string>
+
 </resources>

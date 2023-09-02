@@ -1,14 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Activities.Fragments.Frag_billeteras">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="horizontal"
+        android:layout_height="50sp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight=".8"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/outline_search_24"/>
 
-</FrameLayout>
+    </LinearLayout>
+    <com.github.mikephil.charting.charts.LineChart
+        android:padding="15sp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/lineChart_billetera"
+        android:elevation="10sp"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_billeteras_billetera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15sp">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_creacion_cartera"
+        android:layout_width="match_parent"
+        android:layout_height="70sp"
+        android:padding="15sp"
+        android:backgroundTint="@color/gray"
+        android:focusable="true"
+        android:clickable="true"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+android:layout_marginLeft="15sp"
+            android:src="@drawable/outline_wallet_24"
+            android:layout_gravity="center|left"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cv_creacion_billetera"
+            android:layout_gravity="center"/>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

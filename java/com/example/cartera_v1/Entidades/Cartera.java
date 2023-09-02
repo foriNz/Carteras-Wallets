@@ -4,6 +4,16 @@ public class Cartera {
     private double balance;
     private String nombre;
 
+    public Cartera(String nombre) {
+        this.nombre = nombre;
+        balance = 0;
+    }
+
+    public Cartera(String nombre, double balance) {
+        this.nombre = nombre;
+        this.balance = balance;
+    }
+
     public double getBalance() {
         return balance;
     }

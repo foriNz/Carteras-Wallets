@@ -14,7 +14,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
     public static final String TABLA_CATEGORIAS_GASTOS = "t_categorias_gastos";
     public static final String TABLA_CATEGORIAS_INGRESOS = "t_categorias_ingresos";
 
-    public BBDDHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
+    public BBDDHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

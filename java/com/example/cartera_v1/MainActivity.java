@@ -45,6 +45,27 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
     }
+    public void redirigitAFragmento(int indice) {
+        switch(indice) {
+            case 0:
+                remplazarFragmento(new Frag_movimientos());
+                break;
+            case 1:
+                remplazarFragmento(new Frag_billeteras());
+                break;
+            case 2:
+                remplazarFragmento(new Frag_metas());
+                break;
+            case 3:
+                remplazarFragmento(new Frag_recordatorios());
+                break;
+            case 4:
+                remplazarFragmento(new Frag_ajustes());
+                break;
+            default:
+                assert false;
+        }
+    }
 
     private void remplazarFragmento(Fragment fragment) {
         FragmentManager fm = getSupportFragmentManager();
