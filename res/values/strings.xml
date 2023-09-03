@@ -24,5 +24,6 @@
     <string name="nombre_cartera_creacion_cartera">Introduzca un nombre a su billetera</string>
     <string name="balance_predeterminado_creacion_cartera">Introduzca el saldo inicial</string>
     <string name="btn_aceptar_nombre_vacio">Introduzca un nombre a la billetera</string>
+    <string name="tv_dialogo_categoria">Selecciona una categoria</string>
 
 </resources>

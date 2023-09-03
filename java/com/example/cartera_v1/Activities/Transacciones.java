@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.cartera_v1.Activities.Dialogos.Dialogo_EleccionBilletera;
+import com.example.cartera_v1.Activities.Dialogos.Dialogo_EleccionCategoria;
 import com.example.cartera_v1.R;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 
@@ -27,10 +28,11 @@ import java.util.Calendar;
 public class Transacciones extends AppCompatActivity {
     EditText et_transaccion, et_nota;
     TextView tv_billetera, tv_fechaIzq, tv_fechaDer, tv_agregarFoto;
-    ImageView iv_foto;
+    ImageView iv_foto, iv_categoria;
     Button btn_aceptar;
     private int anio, mes, dia;
     Dialogo_EleccionBilletera dialogoEleccionBilletera;
+    Dialogo_EleccionCategoria dialogoEleccionCategoria;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class Transacciones extends AppCompatActivity {
         btn_aceptar = findViewById(R.id.btn_aceptar);
         tv_agregarFoto = findViewById(R.id.tv_agregarFoto);
         iv_foto = findViewById(R.id.iv_foto);
+        iv_categoria = findViewById(R.id.iv_circuloCategoria);
         agregarfuncionalidades();
     }
 
@@ -108,6 +111,16 @@ public class Transacciones extends AppCompatActivity {
 
             }
         });
+        iv_categoria.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dialogo_EleccionCategoria dialogo = new Dialogo_EleccionCategoria();
+                dialogoEleccionCategoria = dialogo;
+                dialogo.setCancelable(false);
+                dialogo.show(getSupportFragmentManager(), "dialogo");
+            }
+        });
+        // TODO: 02/09/2023 boton aceptar
     }
 
     private void abrirDialogoFecha() {
