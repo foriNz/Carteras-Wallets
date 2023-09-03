@@ -15,6 +15,7 @@
         android:text="@string/tv_dialogo_categoria"
         android:layout_weight=".1"/>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fb_eleccion_categoria"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="center|center_horizontal"
