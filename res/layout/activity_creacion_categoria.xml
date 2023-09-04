@@ -1,9 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Activities.CreacionCategoria">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:orientation="horizontal">
+    <ImageView
+        android:id="@+id/btn_atras_creacion_categoria"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/baseline_arrow_back_24"
+        android:layout_gravity="center"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:foregroundGravity="center"
+        android:layout_weight=".8"
+        android:text="@string/tv_creacion_categoria"/>
+    <ImageView
+        android:id="@+id/btn_guardar_borrar_categoria"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/outline_save_24"
+        android:layout_gravity="center"/>
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80sp"
+        android:orientation="horizontal">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civ_icono_seleccionado"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/baseline_circle_24"
+        app:civ_border_color="@color/transparent"
+        app:civ_border_width="2sp"
+        android:layout_gravity="center"
+        android:layout_marginStart="20sp"/>
+        <EditText
+            android:id="@+id/et_nombre_categoria_creacion"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10sp"
+            android:hint="@string/et_nueva_categoria"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30sp"
+        android:text="@string/tv_colores_categoria_eleccion"
+        android:textSize="13sp"
+        android:gravity="center|start"
+        android:layout_marginStart="10sp"/>
+    <RadioGroup
+        android:id="@+id/rg_colores_categorias"
+        android:layout_width="wrap_content"
+        android:layout_height="45sp"
+        android:layout_marginStart="10sp"
+        android:orientation="horizontal"
+        />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30sp"
+        android:text="@string/tv_iconos_categoria_eleccion"
+        android:textSize="13sp"
+        android:gravity="center|start"
+        android:layout_marginStart="10sp"/>
+    <RadioGroup
+        android:id="@+id/rg_iconos_categorias"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10sp"/>
+</LinearLayout>
