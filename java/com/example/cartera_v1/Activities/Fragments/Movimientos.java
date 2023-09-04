@@ -1,7 +1,6 @@
 package com.example.cartera_v1.Activities.Fragments;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,14 +13,14 @@ import com.example.cartera_v1.Activities.Transacciones;
 import com.example.cartera_v1.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class Frag_movimientos extends Fragment {
+public class Movimientos extends Fragment {
     ImageView iv_circuloCategoria;
     FloatingActionButton fab;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_frag_movimientos, container, false);
+        View view = inflater.inflate(R.layout.fragment_movimientos, container, false);
         fab = view.findViewById(R.id.fab);
         agregarFuncionalidades();
         return view;

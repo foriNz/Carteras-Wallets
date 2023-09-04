@@ -7,39 +7,40 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
-import com.example.cartera_v1.Activities.Fragments.Frag_ajustes;
-import com.example.cartera_v1.Activities.Fragments.Frag_billeteras;
-import com.example.cartera_v1.Activities.Fragments.Frag_metas;
-import com.example.cartera_v1.Activities.Fragments.Frag_movimientos;
-import com.example.cartera_v1.Activities.Fragments.Frag_recordatorios;
+import com.example.cartera_v1.Activities.Fragments.Ajustes;
+import com.example.cartera_v1.Activities.Fragments.Billeteras;
+import com.example.cartera_v1.Activities.Fragments.Metas;
+import com.example.cartera_v1.Activities.Fragments.Movimientos;
+import com.example.cartera_v1.Activities.Fragments.Recordatorios;
 import com.example.cartera_v1.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        remplazarFragmento(new Frag_movimientos());
+        remplazarFragmento(new Movimientos());
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch(item.getItemId()) {
                 case R.id.movimientos:
-                    remplazarFragmento(new Frag_movimientos());
+                    remplazarFragmento(new Movimientos());
                     break;
                 case R.id.billeteras:
-                    remplazarFragmento(new Frag_billeteras());
+                    remplazarFragmento(new Billeteras());
                     break;
                 case R.id.metas:
-                    remplazarFragmento(new Frag_metas());
+                    remplazarFragmento(new Metas());
                     break;
                 case R.id.recordatorios:
-                    remplazarFragmento(new Frag_recordatorios());
+                    remplazarFragmento(new Recordatorios());
                     break;
                 case R.id.ajustes:
-                    remplazarFragmento(new Frag_ajustes());
+                    remplazarFragmento(new Ajustes());
                     break;
             }
             return true;
@@ -48,19 +49,19 @@ public class MainActivity extends AppCompatActivity {
     public void redirigitAFragmento(int indice) {
         switch(indice) {
             case 0:
-                remplazarFragmento(new Frag_movimientos());
+                remplazarFragmento(new Movimientos());
                 break;
             case 1:
-                remplazarFragmento(new Frag_billeteras());
+                remplazarFragmento(new Billeteras());
                 break;
             case 2:
-                remplazarFragmento(new Frag_metas());
+                remplazarFragmento(new Metas());
                 break;
             case 3:
-                remplazarFragmento(new Frag_recordatorios());
+                remplazarFragmento(new Recordatorios());
                 break;
             case 4:
-                remplazarFragmento(new Frag_ajustes());
+                remplazarFragmento(new Ajustes());
                 break;
             default:
                 assert false;

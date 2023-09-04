@@ -19,12 +19,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cartera_v1.Adaptadores.ListaCarteraAdapter_Transaccion;
-import com.example.cartera_v1.BBDD.BDCarteras;
+import com.example.cartera_v1.Activities.AdministradorCategorias;
 import com.example.cartera_v1.BBDD.BDCategorias;
 import com.example.cartera_v1.Entidades.Categoria;
 import com.example.cartera_v1.R;
@@ -32,7 +28,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-public class Dialogo_EleccionCategoria extends AppCompatDialogFragment {
+public class EleccionCategoria extends AppCompatDialogFragment {
     public Window window;
 
     TableLayout tableLayout;
@@ -43,7 +39,7 @@ public class Dialogo_EleccionCategoria extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialogo_eleccion_categoria, null);
+        View view = inflater.inflate(R.layout.eleccion_categoria, null);
         tableLayout = view.findViewById(R.id.tl_dialogo_eleccion_categoria);
         floatingButton = view.findViewById(R.id.fb_eleccion_categoria);
         floatingButton.setOnClickListener(new View.OnClickListener() {

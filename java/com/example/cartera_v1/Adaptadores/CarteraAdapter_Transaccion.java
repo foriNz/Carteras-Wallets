@@ -9,27 +9,25 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cartera_v1.Activities.Dialogos.Dialogo_EleccionBilletera;
 import com.example.cartera_v1.Activities.Transacciones;
 import com.example.cartera_v1.Entidades.Cartera;
 import com.example.cartera_v1.R;
 
 import java.util.ArrayList;
 
-public class ListaCarteraAdapter_Transaccion extends RecyclerView.Adapter<ListaCarteraAdapter_Transaccion.CarteraViewHolder> {
+public class CarteraAdapter_Transaccion extends RecyclerView.Adapter<CarteraAdapter_Transaccion.CarteraViewHolder> {
 
     Context context;
     ArrayList<Cartera> listaCartera;
-    Dialogo_EleccionBilletera listener;
 
-    public ListaCarteraAdapter_Transaccion(ArrayList<Cartera> listaCartera, Context context) {
+    public CarteraAdapter_Transaccion(ArrayList<Cartera> listaCartera, Context context) {
         this.listaCartera = listaCartera;
         this.context = context;
     }
 
     @NonNull
     @Override
-    public ListaCarteraAdapter_Transaccion.CarteraViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CarteraAdapter_Transaccion.CarteraViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_lista_cartera_transaccion,null,false);
         view.setFocusable(true);
 
@@ -37,7 +35,7 @@ public class ListaCarteraAdapter_Transaccion extends RecyclerView.Adapter<ListaC
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ListaCarteraAdapter_Transaccion.CarteraViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CarteraAdapter_Transaccion.CarteraViewHolder holder, int position) {
         holder.tv_nombrebilletera.setText(listaCartera.get(position).getNombre());
         holder.tv_dinerobilletera.setText(String.valueOf(listaCartera.get(position).getBalance()));
     }

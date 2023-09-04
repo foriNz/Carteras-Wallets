@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -16,10 +17,10 @@
         android:layout_weight=".1"/>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fb_eleccion_categoria"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center|center_horizontal"
-
+        app:fabCustomSize="44dp"
        android:src="@drawable/outline_settings_24"
         android:tint="@color/white"/>
 

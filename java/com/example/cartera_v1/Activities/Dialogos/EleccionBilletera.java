@@ -16,20 +16,20 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cartera_v1.Adaptadores.ListaCarteraAdapter_Transaccion;
+import com.example.cartera_v1.Adaptadores.CarteraAdapter_Transaccion;
 import com.example.cartera_v1.BBDD.BDCarteras;
 import com.example.cartera_v1.R;
 
-public class Dialogo_EleccionBilletera extends AppCompatDialogFragment {
+public class EleccionBilletera extends AppCompatDialogFragment {
     public Window window;
     RecyclerView rv_dialogo;
-    ListaCarteraAdapter_Transaccion carterasAdapter;
+    CarteraAdapter_Transaccion carterasAdapter;
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialogo_eleccion_billetera,null);
+        View view = inflater.inflate(R.layout.eleccion_billetera,null);
 
         rv_dialogo = view.findViewById(R.id.rv_dialogo_eleccion_billetera);
         rv_dialogo.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -41,7 +41,7 @@ public class Dialogo_EleccionBilletera extends AppCompatDialogFragment {
 
     private void refrescarRecyclerView() {
         BDCarteras bdCarteras = new BDCarteras(getContext());
-        carterasAdapter = new ListaCarteraAdapter_Transaccion(bdCarteras.getCarteras(), getContext());
+        carterasAdapter = new CarteraAdapter_Transaccion(bdCarteras.getCarteras(), getContext());
         rv_dialogo.setAdapter(carterasAdapter);
     }
 

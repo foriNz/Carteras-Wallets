@@ -1,15 +1,13 @@
 package com.example.cartera_v1.Adaptadores;
 
-import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.cartera_v1.Activities.Fragments.Frag_categorias_gastos;
-import com.example.cartera_v1.Activities.Fragments.Frag_categorias_ingresos;
+import com.example.cartera_v1.Activities.Fragments.CategoriasGastos;
+import com.example.cartera_v1.Activities.Fragments.CategoriasIngresos;
 
 public class VPAdapter extends FragmentStateAdapter {
 
@@ -25,10 +23,10 @@ public class VPAdapter extends FragmentStateAdapter {
         Fragment fragment = null;
         switch (position) {
             case 0:
-                fragment = new Frag_categorias_gastos();
+                fragment = new CategoriasGastos();
                 break;
             case 1:
-                fragment = new Frag_categorias_ingresos();
+                fragment = new CategoriasIngresos();
                 break;
 
             default: assert false : "Error: no hay ningun fragment encontrado";

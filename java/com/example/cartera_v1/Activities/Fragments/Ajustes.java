@@ -6,7 +6,7 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import com.example.cartera_v1.R;
 
-public class Frag_ajustes extends PreferenceFragmentCompat {
+public class Ajustes extends PreferenceFragmentCompat {
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {

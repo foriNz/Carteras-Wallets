@@ -5,21 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.cartera_v1.Activities.Dialogos.Dialogo_EleccionBilletera;
-import com.example.cartera_v1.Activities.Dialogos.Dialogo_EleccionCategoria;
+import com.example.cartera_v1.Activities.Dialogos.EleccionBilletera;
+import com.example.cartera_v1.Activities.Dialogos.EleccionCategoria;
 import com.example.cartera_v1.R;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 
@@ -31,8 +27,8 @@ public class Transacciones extends AppCompatActivity {
     ImageView iv_foto, iv_categoria;
     Button btn_aceptar;
     private int anio, mes, dia;
-    Dialogo_EleccionBilletera dialogoEleccionBilletera;
-    Dialogo_EleccionCategoria dialogoEleccionCategoria;
+    EleccionBilletera dialogoEleccionBilletera;
+    EleccionCategoria dialogoEleccionCategoria;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +100,7 @@ public class Transacciones extends AppCompatActivity {
         tv_billetera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Dialogo_EleccionBilletera dialogo = new Dialogo_EleccionBilletera();
+                EleccionBilletera dialogo = new EleccionBilletera();
                 dialogoEleccionBilletera = dialogo;
                 dialogo.setCancelable(false);
                 dialogo.show(getSupportFragmentManager(), "dialogo");
@@ -114,7 +110,7 @@ public class Transacciones extends AppCompatActivity {
         iv_categoria.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Dialogo_EleccionCategoria dialogo = new Dialogo_EleccionCategoria();
+                EleccionCategoria dialogo = new EleccionCategoria();
                 dialogoEleccionCategoria = dialogo;
                 dialogo.setCancelable(false);
                 dialogo.show(getSupportFragmentManager(), "dialogo");

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.Fragments.Frag_categorias_gastos">
+    tools:context=".Activities.Fragments.CategoriasGastos">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_admin_categorias_gastos"
