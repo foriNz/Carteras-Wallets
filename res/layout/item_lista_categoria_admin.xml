@@ -13,7 +13,6 @@
     android:src="@drawable/outline_search_24"
     app:civ_border_width="2dp"
     app:civ_border_color="@color/transparent"
-    app:civ_circle_background_color="@color/yellow"
     android:layout_gravity="center|center_horizontal"/>
     <LinearLayout
         android:paddingLeft="10sp"
@@ -36,18 +35,14 @@
             android:textSize="12sp"
             android:text="USANZAS EN LAS CARTERAS"/>
 </LinearLayout>
-    <ImageView
-        android:id="@+id/iv_visibilidad_categoria"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
-        android:src="@drawable/baseline_eye"
-        android:layout_gravity="center"/>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_movimiento_categoria"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         app:fabCustomSize="44dp"
+
         android:src="@drawable/baseline_mover_categorias"/>
 
 </LinearLayout>

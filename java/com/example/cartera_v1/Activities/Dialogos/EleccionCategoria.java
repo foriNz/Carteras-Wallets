@@ -28,6 +28,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class EleccionCategoria extends AppCompatDialogFragment {
     public Window window;
 
@@ -74,15 +76,15 @@ public class EleccionCategoria extends AppCompatDialogFragment {
                 tableLayout.addView(tr);
             }
             LayoutInflater inflater = getActivity().getLayoutInflater();
-            ImageView imageView;
+            CircleImageView imageView;
             TextView textView;
             View view = inflater.inflate(R.layout.view_cardview_categoria, null);
             imageView = view.findViewById(R.id.iv_cardview_icono_categoria);
             textView = view.findViewById(R.id.tv_cardview_nombre_categoria);
-            imageView.setBackgroundResource(getResources().getIdentifier(categorias.get(i).getIcono(),
+            imageView.setImageResource(getResources().getIdentifier(categorias.get(i).getIcono(),
                     "drawable", getActivity().getPackageName()));
-            // TODO: 05/09/2023 COLOR FILTER
-            //imageView.setColorFilter(Color.parseColor(categorias.get(i).getColor()));
+            System.out.println(categorias.get(i).getColor());
+            imageView.setColorFilter(Color.parseColor(categorias.get(i).getColor()));
             textView.setText(categorias.get(i).getNombre());
             textView.setTextSize(12);
             imageView.setForegroundGravity(Gravity.CENTER);

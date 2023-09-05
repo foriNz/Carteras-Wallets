@@ -26,6 +26,7 @@ public class CreacionCategoria extends AppCompatActivity {
     CircleImageView icono_seleccion;
     TableLayout tl_iconos_categorias, tl_colores_categorias;
     int idRecursoIconoSeleccionado;
+    String  color_seleccion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class CreacionCategoria extends AppCompatActivity {
                 // TODO: 04/09/2023 BOTON GUARDAR/BORRAR CATEGORI
                 BDCategorias bdCategorias = new BDCategorias(CreacionCategoria.this);
                 bdCategorias.addCategoria(nombre_categoria.getText().toString(),
-                        Integer.toString(icono_seleccion.getBorderColor()),
+                        color_seleccion,
                         String.valueOf(idRecursoIconoSeleccionado), "gasto");
                 System.out.println("CREACION CATEGORIA: EL INT DEL COLOR DE LA CATEGORIA INSERTADA ES " + icono_seleccion.getBorderColor());
                 finish();
@@ -83,7 +84,6 @@ public class CreacionCategoria extends AppCompatActivity {
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
                     icono_seleccion.setImageResource(a);
                     idRecursoIconoSeleccionado = getResources().getIdentifier(getResources().getResourceEntryName(a), "drawable", getPackageName());
 
@@ -158,6 +158,7 @@ public class CreacionCategoria extends AppCompatActivity {
             imageView = view.findViewById(R.id.civ_cardview_colores_categoria);
             imageView.getLayoutParams().height = 70;
             imageView.getLayoutParams().width = 70;
+            String b = colores[i];
             int a = Color.parseColor(colores[i]);
             imageView.setBackgroundColor(a);
             //imageView.setColorFilter(i);
@@ -168,6 +169,7 @@ public class CreacionCategoria extends AppCompatActivity {
                     System.out.println("CREACION CATEGORIA: EL INT DEL COLOR DEL FILTRO ES " + a);
                     icono_seleccion.setColorFilter(a);
                     icono_seleccion.setBorderColor(a);
+                    color_seleccion = b;
 
 
                 }

@@ -46,7 +46,7 @@ public class CategoriasAdapter_Administrador extends RecyclerView.Adapter<Catego
     public void onBindViewHolder(@NonNull CategoriasAdapter_Administrador.CategoriaViewHolder holder, int position) {
         holder.icono_categoria.setImageResource(Integer.parseInt(listaCategorias.get(position).getIcono()));
         holder.categoria.setText(listaCategorias.get(position).getNombre());
-        //holder.icono_categoria.setCircleBackgroundColor(Color.parseColor(listaCategorias.get(position).getColor()));
+        holder.icono_categoria.setCircleBackgroundColor(Color.parseColor(listaCategorias.get(position).getColor()));
         // TODO: 04/09/2023 USANZAS CATEGORIA EN MOVIMIENTOS
     }
 
@@ -56,13 +56,11 @@ public class CategoriasAdapter_Administrador extends RecyclerView.Adapter<Catego
     }
     public class CategoriaViewHolder extends RecyclerView.ViewHolder {
         CircleImageView icono_categoria;
-        ImageView visibilidad;
         TextView categoria, usanzas;
         FloatingActionButton fab_movimiento;
         public CategoriaViewHolder(@NonNull View itemView) {
             super(itemView);
            icono_categoria = itemView.findViewById(R.id.ci_recyclerview_icono_categoria);
-           visibilidad = itemView.findViewById(R.id.iv_visibilidad_categoria);
            categoria = itemView.findViewById(R.id.tv_item_categoria);
            usanzas = itemView.findViewById(R.id.tv_item_usanzas);
            fab_movimiento = itemView.findViewById(R.id.fab_movimiento_categoria);
@@ -74,12 +72,7 @@ public class CategoriasAdapter_Administrador extends RecyclerView.Adapter<Catego
                     // TODO: 05/09/2023 Editar categoria
                 }
             });
-           visibilidad.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View view) {
-                   // TODO: 04/09/2023 VISIBILIDAD DE CATEGORIAS
-               }
-           });
+
            fab_movimiento.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {

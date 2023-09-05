@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class BBDDHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 9;
+    private static final int DATABASE_VERSION = 11;
     private static final String DATABASE_NAME = "usuario.db";
     public static final String TABLA_CARTERAS = "t_carteras";
     public static final String TABLA_MOVIMIENTOS = "t_movimientos";
@@ -29,7 +29,6 @@ public class BBDDHelper extends SQLiteOpenHelper {
                 "color TEXT NOT NULL, " +
                 "icono TEXT NOT NULL, " +
                 "tipo TEXT NOT NULL, " +
-                "visible boolean not null, " +
                 "PRIMARY KEY (id,nombre,tipo))");
     }
 
