@@ -29,5 +29,6 @@
     <string name="et_nueva_categoria">Nombre de la categoria</string>
     <string name="tv_colores_categoria_eleccion">Color de la categoria</string>
     <string name="tv_iconos_categoria_eleccion">Icono de categoria</string>
+    <string name="tv_administrador_categorias">Categorias</string>
 
 </resources>

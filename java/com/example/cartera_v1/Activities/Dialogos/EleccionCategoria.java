@@ -69,6 +69,8 @@ public class EleccionCategoria extends AppCompatDialogFragment {
         for (int i = 0; i < categorias.size(); i++) {
             if (i % 4 == 0) {
                 tr = new TableRow(getContext());
+                tr.setPadding(10,10,10,10);
+                tr.setGravity(Gravity.CENTER);
                 tableLayout.addView(tr);
             }
             LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -79,8 +81,12 @@ public class EleccionCategoria extends AppCompatDialogFragment {
             textView = view.findViewById(R.id.tv_cardview_nombre_categoria);
             imageView.setBackgroundResource(getResources().getIdentifier(categorias.get(i).getIcono(),
                     "drawable", getActivity().getPackageName()));
-            imageView.setColorFilter(Color.parseColor(categorias.get(i).getColor()));
+            // TODO: 05/09/2023 COLOR FILTER
+            //imageView.setColorFilter(Color.parseColor(categorias.get(i).getColor()));
             textView.setText(categorias.get(i).getNombre());
+            textView.setTextSize(12);
+            imageView.setForegroundGravity(Gravity.CENTER);
+            textView.setForegroundGravity(Gravity.CENTER);
             if (tr != null)
                 tr.addView(view);
 

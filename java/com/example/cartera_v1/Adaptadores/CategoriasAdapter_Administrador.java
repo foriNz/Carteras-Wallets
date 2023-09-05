@@ -2,6 +2,7 @@ package com.example.cartera_v1.Adaptadores;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,7 @@ public class CategoriasAdapter_Administrador extends RecyclerView.Adapter<Catego
     public void onBindViewHolder(@NonNull CategoriasAdapter_Administrador.CategoriaViewHolder holder, int position) {
         holder.icono_categoria.setImageResource(Integer.parseInt(listaCategorias.get(position).getIcono()));
         holder.categoria.setText(listaCategorias.get(position).getNombre());
+        //holder.icono_categoria.setCircleBackgroundColor(Color.parseColor(listaCategorias.get(position).getColor()));
         // TODO: 04/09/2023 USANZAS CATEGORIA EN MOVIMIENTOS
     }
 
@@ -67,8 +69,9 @@ public class CategoriasAdapter_Administrador extends RecyclerView.Adapter<Catego
            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(context, CreacionCategoria.class);
-                    context.startActivity(intent);
+                    /*Intent intent = new Intent(context, CreacionCategoria.class);
+                    context.startActivity(intent);*/
+                    // TODO: 05/09/2023 Editar categoria
                 }
             });
            visibilidad.setOnClickListener(new View.OnClickListener() {

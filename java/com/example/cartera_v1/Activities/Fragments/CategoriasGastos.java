@@ -39,5 +39,9 @@ public class CategoriasGastos extends Fragment {
         }
     }
 
-
+    @Override
+    public void onResume() {
+        refrescarRecycler();
+        super.onResume();
+    }
 }
