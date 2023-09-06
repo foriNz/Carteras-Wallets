@@ -2,9 +2,19 @@ package com.example.cartera_v1.Entidades;
 
 public class Categoria {
     private String nombre, color, icono;
+    int id;
 
 
-    public Categoria(String nombre, String color, String icono) {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Categoria(int id, String nombre, String color, String icono) {
+        this.id = id;
         this.nombre = nombre;
         this.color = color;
         this.icono = icono;

@@ -30,5 +30,6 @@
     <string name="tv_colores_categoria_eleccion">Color de la categoria</string>
     <string name="tv_iconos_categoria_eleccion">Icono de categoria</string>
     <string name="tv_administrador_categorias">Categorias</string>
+    <string name="balance_fragmento_movimientos">Flujo de fondos</string>
 
 </resources>

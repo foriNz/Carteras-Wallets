@@ -2,6 +2,7 @@ package com.example.cartera_v1.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
@@ -65,5 +66,6 @@ public class AdministradorCategorias extends AppCompatActivity {
                 tabLayout.selectTab(tabLayout.getTabAt(position));
             }
         });
+
     }
 }

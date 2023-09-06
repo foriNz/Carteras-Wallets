@@ -39,11 +39,11 @@ public class BDCategorias extends BBDDHelper {
                 default:
                     assert false;
             }
+            values.put("id", getId(tipo));
             values.put("nombre", nombre);
             values.put("color", color);
             values.put("icono", icono);
             values.put("tipo", tipo);
-            values.put("visible",true);
             id = bd.insert(TABLA_CATEGORIAS, null, values);
         } catch (Exception e) {
             e.toString();
@@ -51,6 +51,15 @@ public class BDCategorias extends BBDDHelper {
         return id;
     }
 
+    public long getId(String tipo) {
+        long resultado;
+        if (tipo.equals("ingreso"))
+            resultado = getCategoriasIngreso().size();
+        else
+            resultado = getCategoriasGasto().size();
+        return resultado;
+
+    }
     public ArrayList<Categoria> getCategoriasIngreso() {
         BBDDHelper bbddHelper = new BBDDHelper(contexto);
         SQLiteDatabase bd = bbddHelper.getWritableDatabase();
@@ -61,7 +70,7 @@ public class BDCategorias extends BBDDHelper {
         cursorCategoria = bd.rawQuery("SELECT * FROM " + TABLA_CATEGORIAS + " WHERE tipo = \'ingreso\' ORDER BY id ASC", null);
         if (cursorCategoria.moveToFirst()) {
             do {
-                categoria = new Categoria(cursorCategoria.getString(1), cursorCategoria.getString(2), cursorCategoria.getString(3));
+                categoria = new Categoria(cursorCategoria.getInt(0), cursorCategoria.getString(1), cursorCategoria.getString(2), cursorCategoria.getString(3));
                 listaCategorias.add(categoria);
             } while (cursorCategoria.moveToNext());
         }
@@ -79,7 +88,7 @@ public class BDCategorias extends BBDDHelper {
         cursorCategoria = bd.rawQuery("SELECT * FROM " + TABLA_CATEGORIAS + " WHERE tipo = \'gasto\' ORDER BY id ASC", null);
         if (cursorCategoria.moveToFirst()) {
             do {
-                categoria = new Categoria(cursorCategoria.getString(1), cursorCategoria.getString(2), cursorCategoria.getString(3));
+                categoria = new Categoria(cursorCategoria.getInt(0),cursorCategoria.getString(1), cursorCategoria.getString(2), cursorCategoria.getString(3));
                 listaCategorias.add(categoria);
             } while (cursorCategoria.moveToNext());
         }
@@ -97,7 +106,7 @@ public class BDCategorias extends BBDDHelper {
         cursorCategoria = bd.rawQuery("SELECT * FROM " + TABLA_CATEGORIAS + " WHERE tipo = \'transferencia\' ORDER BY id ASC", null);
         if (cursorCategoria.moveToFirst()) {
             do {
-                categoria = new Categoria(cursorCategoria.getString(1), cursorCategoria.getString(2), cursorCategoria.getString(3));
+                categoria = new Categoria(cursorCategoria.getInt(0), cursorCategoria.getString(1), cursorCategoria.getString(2), cursorCategoria.getString(3));
                 listaCategorias.add(categoria);
             } while (cursorCategoria.moveToNext());
         }

@@ -10,9 +10,8 @@ import android.os.Bundle;
 import com.example.cartera_v1.Activities.Fragments.Ajustes;
 import com.example.cartera_v1.Activities.Fragments.Billeteras;
 import com.example.cartera_v1.Activities.Fragments.Metas;
-import com.example.cartera_v1.Activities.Fragments.Movimientos;
+import com.example.cartera_v1.Activities.Fragments.Cronologia;
 import com.example.cartera_v1.Activities.Fragments.Recordatorios;
-import com.example.cartera_v1.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
@@ -23,12 +22,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        remplazarFragmento(new Movimientos());
+        remplazarFragmento(new Cronologia());
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch(item.getItemId()) {
                 case R.id.movimientos:
-                    remplazarFragmento(new Movimientos());
+                    remplazarFragmento(new Cronologia());
                     break;
                 case R.id.billeteras:
                     remplazarFragmento(new Billeteras());
@@ -49,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     public void redirigitAFragmento(int indice) {
         switch(indice) {
             case 0:
-                remplazarFragmento(new Movimientos());
+                remplazarFragmento(new Cronologia());
                 break;
             case 1:
                 remplazarFragmento(new Billeteras());

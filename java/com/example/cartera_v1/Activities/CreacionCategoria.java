@@ -56,7 +56,6 @@ public class CreacionCategoria extends AppCompatActivity {
                 bdCategorias.addCategoria(nombre_categoria.getText().toString(),
                         color_seleccion,
                         String.valueOf(idRecursoIconoSeleccionado), "gasto");
-                System.out.println("CREACION CATEGORIA: EL INT DEL COLOR DE LA CATEGORIA INSERTADA ES " + icono_seleccion.getBorderColor());
                 finish();
             }
         });
@@ -166,7 +165,6 @@ public class CreacionCategoria extends AppCompatActivity {
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    System.out.println("CREACION CATEGORIA: EL INT DEL COLOR DEL FILTRO ES " + a);
                     icono_seleccion.setColorFilter(a);
                     icono_seleccion.setBorderColor(a);
                     color_seleccion = b;

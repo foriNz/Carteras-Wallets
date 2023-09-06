@@ -24,12 +24,23 @@ public class BBDDHelper extends SQLiteOpenHelper {
                 "nombre TEXT PRIMARY KEY, " +
                 "balance NUMERIC NOT NULL)");
         sqLiteDatabase.execSQL("CREATE TABLE "+ TABLA_CATEGORIAS +" (" +
-                "id TEXT NOT NULL," +
+                "id NUMERIC NOT NULL," +
                 "nombre TEXT NOT NULL, " +
                 "color TEXT NOT NULL, " +
                 "icono TEXT NOT NULL, " +
                 "tipo TEXT NOT NULL, " +
                 "PRIMARY KEY (id,nombre,tipo))");
+        sqLiteDatabase.execSQL("CREATE TABLE " + TABLA_MOVIMIENTOS + "(" +
+                "id NUMERIC, " +
+                "nombre_cartera TEXT NOT NULL, " +
+                "anio NUMERIC, " +
+                "mes NUMERIC, " +
+                "dia NUMERIC, " +
+                "transaccion NUMERIC NOT NULL, " +
+                "categoria TEXT NOT NULL, " +
+                "nota TEXT, " +
+                "PRIMARY KEY(id, anio, mes ,dia))");
+
     }
 
     @Override
