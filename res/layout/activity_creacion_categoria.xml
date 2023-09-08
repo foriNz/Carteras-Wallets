@@ -50,6 +50,21 @@
             android:layout_marginStart="10sp"
             android:hint="@string/et_nueva_categoria"/>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <CheckBox
+        android:id="@+id/cb_ingreso"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="@string/ingreso"/>
+    <CheckBox
+        android:id="@+id/cb_gasto"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="@string/gasto"/>
+    </LinearLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="30sp"

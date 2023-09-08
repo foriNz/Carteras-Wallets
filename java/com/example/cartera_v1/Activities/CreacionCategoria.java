@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
@@ -27,6 +28,7 @@ public class CreacionCategoria extends AppCompatActivity {
     TableLayout tl_iconos_categorias, tl_colores_categorias;
     int idRecursoIconoSeleccionado;
     String  color_seleccion;
+    CheckBox cb_gasto, cb_ingreso;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,8 @@ public class CreacionCategoria extends AppCompatActivity {
         icono_seleccion = findViewById(R.id.civ_icono_seleccionado);
         tl_iconos_categorias = findViewById(R.id.tl_iconos_categorias);
         tl_colores_categorias = findViewById(R.id.tl_colores_categorias);
+        cb_ingreso = findViewById(R.id.cb_ingreso);
+        cb_gasto = findViewById(R.id.cb_gasto);
         btn_atras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,11 +55,16 @@ public class CreacionCategoria extends AppCompatActivity {
         btn_guardar_borrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: 04/09/2023 BOTON GUARDAR/BORRAR CATEGORI
+
                 BDCategorias bdCategorias = new BDCategorias(CreacionCategoria.this);
+                if (cb_gasto.isChecked())
                 bdCategorias.addCategoria(nombre_categoria.getText().toString(),
                         color_seleccion,
                         String.valueOf(idRecursoIconoSeleccionado), "gasto");
+                if (cb_ingreso.isChecked())
+                    bdCategorias.addCategoria(nombre_categoria.getText().toString(),
+                            color_seleccion,
+                            String.valueOf(idRecursoIconoSeleccionado), "ingreso");
                 finish();
             }
         });

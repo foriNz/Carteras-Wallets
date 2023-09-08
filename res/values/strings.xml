@@ -31,5 +31,7 @@
     <string name="tv_iconos_categoria_eleccion">Icono de categoria</string>
     <string name="tv_administrador_categorias">Categorias</string>
     <string name="balance_fragmento_movimientos">Flujo de fondos</string>
+    <string name="ingreso">Ingreso</string>
+    <string name="gasto">Gasto</string>
 
 </resources>
