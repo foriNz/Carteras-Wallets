@@ -51,6 +51,7 @@ public class BDCategorias extends BBDDHelper {
         return id;
     }
 
+    // Devuelve el ID siguiente (siempre lo pone el ultimo)
     public long getId(String tipo) {
         long resultado;
         if (tipo.equals("ingreso"))

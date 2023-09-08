@@ -12,9 +12,12 @@ import com.example.cartera_v1.Activities.Fragments.Billeteras;
 import com.example.cartera_v1.Activities.Fragments.Metas;
 import com.example.cartera_v1.Activities.Fragments.Cronologia;
 import com.example.cartera_v1.Activities.Fragments.Recordatorios;
+import com.example.cartera_v1.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
+
+
 
 
     @Override
@@ -23,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         remplazarFragmento(new Cronologia());
-
+        // Barra de abajo
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch(item.getItemId()) {
                 case R.id.movimientos:

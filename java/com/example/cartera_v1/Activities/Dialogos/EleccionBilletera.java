@@ -24,6 +24,13 @@ public class EleccionBilletera extends AppCompatDialogFragment {
     public Window window;
     RecyclerView rv_dialogo;
     CarteraAdapter_Transaccion carterasAdapter;
+
+    @Override
+    public void onResume() {
+        refrescarRecyclerView();
+        super.onResume();
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -48,6 +55,8 @@ public class EleccionBilletera extends AppCompatDialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // Asignamos la window, la posicion(gravity), la anchura(width), agregamos los atributo y
+        // el activamos si clickamos fuera del dialogo se cierra
         window = getDialog().getWindow();
         window.setGravity(Gravity.BOTTOM);
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();

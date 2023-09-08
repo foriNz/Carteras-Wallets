@@ -83,7 +83,7 @@ public class EleccionCategoria extends AppCompatDialogFragment {
             textView = view.findViewById(R.id.tv_cardview_nombre_categoria);
             imageView.setImageResource(getResources().getIdentifier(categorias.get(i).getIcono(),
                     "drawable", getActivity().getPackageName()));
-            System.out.println(categorias.get(i).getColor());
+            // Color del icono
             imageView.setColorFilter(Color.parseColor(categorias.get(i).getColor()));
             textView.setText(categorias.get(i).getNombre());
             textView.setTextSize(12);

@@ -46,6 +46,7 @@ public class Transacciones extends AppCompatActivity {
         agregarfuncionalidades();
     }
 
+    // Pone la imagen insertada
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -53,12 +54,14 @@ public class Transacciones extends AppCompatActivity {
         iv_foto.setImageURI(uri);
     }
 
+
     private void agregarfuncionalidades() {
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
         asignarFecha(year, month, day);
+        // Shortcut al día de hoy y a ayer
         tv_fechaDer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,6 +119,12 @@ public class Transacciones extends AppCompatActivity {
                 dialogo.show(getSupportFragmentManager(), "dialogo");
             }
         });
+        btn_aceptar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         // TODO: 02/09/2023 boton aceptar
     }
 
@@ -144,10 +153,8 @@ public class Transacciones extends AppCompatActivity {
                     asignarFecha(i, i1, i2);
                 }
             }
-        }, year, month + 1, day);
-        // Que el dialogo aparezca por abajo
-        // Window w = datePickerDialog.getWindow();
-        // w.setGravity(Gravity.BOTTOM);
+        }, year, month + 1, day);//Previsualizacion
+
 
         datePickerDialog.updateDate(year, month, day);
         datePickerDialog.show();
