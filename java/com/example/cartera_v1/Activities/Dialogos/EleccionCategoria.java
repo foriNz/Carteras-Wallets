@@ -35,7 +35,11 @@ public class EleccionCategoria extends AppCompatDialogFragment {
 
     TableLayout tableLayout;
     FloatingActionButton floatingButton;
+    ImageView icono;
 
+    public EleccionCategoria(ImageView imageView) {
+        icono = imageView;
+    }
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -89,12 +93,28 @@ public class EleccionCategoria extends AppCompatDialogFragment {
             textView.setTextSize(12);
             imageView.setForegroundGravity(Gravity.CENTER);
             textView.setForegroundGravity(Gravity.CENTER);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    icono.setImageDrawable(imageView.getDrawable());
+                    Bundle datos = new Bundle();
+                    datos.putString("categoria", textView.getText().toString());
+                    EleccionCategoria.this.setArguments(datos);
+                    try {
+                        finalize();
+                    } catch (Throwable e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
             if (tr != null)
                 tr.addView(view);
 
         }
     }
-
+    public interface EleccionCategoriaListener {
+        void aplicarEleccioncategoria(String nombre_categoria);
+    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

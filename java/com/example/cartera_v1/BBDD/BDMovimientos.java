@@ -16,4 +16,11 @@ public class BDMovimientos extends BBDDHelper{
     public ArrayList<Movimiento> getMovimientos() {
         return null;
     }
+    public int getId() {
+        return getMovimientos().size();
+    }
+
+    public void addMovimiento(Movimiento m) {
+
+    }
 }

@@ -21,7 +21,7 @@
             android:name=".Activities.CreacionCartera"
             android:exported="false" />
         <activity
-            android:name=".Activities.Transacciones"
+            android:name=".Activities.Transaccion"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

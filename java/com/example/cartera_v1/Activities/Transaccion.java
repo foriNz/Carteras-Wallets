@@ -16,12 +16,14 @@ import android.widget.TextView;
 
 import com.example.cartera_v1.Activities.Dialogos.EleccionBilletera;
 import com.example.cartera_v1.Activities.Dialogos.EleccionCategoria;
+import com.example.cartera_v1.BBDD.BDMovimientos;
+import com.example.cartera_v1.Entidades.Movimiento;
 import com.example.cartera_v1.R;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 
 import java.util.Calendar;
 
-public class Transacciones extends AppCompatActivity {
+public class Transaccion extends AppCompatActivity implements EleccionCategoria.EleccionCategoriaListener {
     EditText et_transaccion, et_nota;
     TextView tv_billetera, tv_fechaIzq, tv_fechaDer, tv_agregarFoto;
     ImageView iv_foto, iv_categoria;
@@ -29,6 +31,7 @@ public class Transacciones extends AppCompatActivity {
     private int anio, mes, dia;
     EleccionBilletera dialogoEleccionBilletera;
     EleccionCategoria dialogoEleccionCategoria;
+    String categoria;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +96,7 @@ public class Transacciones extends AppCompatActivity {
         tv_agregarFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ImagePicker.Companion.with(Transacciones.this)
+                ImagePicker.Companion.with(Transaccion.this)
                         .crop()
                         .compress(1024)
                         .maxResultSize(1080, 1080)
@@ -113,7 +116,7 @@ public class Transacciones extends AppCompatActivity {
         iv_categoria.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EleccionCategoria dialogo = new EleccionCategoria();
+                EleccionCategoria dialogo = new EleccionCategoria(iv_foto);
                 dialogoEleccionCategoria = dialogo;
                 dialogo.setCancelable(false);
                 dialogo.show(getSupportFragmentManager(), "dialogo");
@@ -122,10 +125,20 @@ public class Transacciones extends AppCompatActivity {
         btn_aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // TODO: 09/09/2023 mirar primero si estan las variables requeridas
+                BDMovimientos bdMovimientos = new BDMovimientos(Transaccion.this);
+                Movimiento m = new Movimiento();
+                m.setNombre_cartera(tv_billetera.toString());
+                m.setTransaccion(Double.parseDouble(et_transaccion.getText().toString()));
+                m.setCategoria(categoria);
+                m.setNota(et_nota.getText().toString());
+                m.setAnio(anio);
+                m.setDia(dia);
+                m.setMes(mes);
+                m.setId(bdMovimientos.getId());
+                bdMovimientos.addMovimiento(m);
             }
         });
-        // TODO: 02/09/2023 boton aceptar
     }
 
     private void abrirDialogoFecha() {
@@ -169,5 +182,10 @@ public class Transacciones extends AppCompatActivity {
         anio = year;
         mes = month;
         dia = day;
+    }
+
+    @Override
+    public void aplicarEleccioncategoria(String nombre_categoria) {
+        categoria = nombre_categoria;
     }
 }

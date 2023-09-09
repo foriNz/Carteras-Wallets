@@ -61,6 +61,7 @@ public class BDCategorias extends BBDDHelper {
         return resultado;
 
     }
+
     public ArrayList<Categoria> getCategoriasIngreso() {
         BBDDHelper bbddHelper = new BBDDHelper(contexto);
         SQLiteDatabase bd = bbddHelper.getWritableDatabase();
@@ -89,7 +90,7 @@ public class BDCategorias extends BBDDHelper {
         cursorCategoria = bd.rawQuery("SELECT * FROM " + TABLA_CATEGORIAS + " WHERE tipo = \'gasto\' ORDER BY id ASC", null);
         if (cursorCategoria.moveToFirst()) {
             do {
-                categoria = new Categoria(cursorCategoria.getInt(0),cursorCategoria.getString(1), cursorCategoria.getString(2), cursorCategoria.getString(3));
+                categoria = new Categoria(cursorCategoria.getInt(0), cursorCategoria.getString(1), cursorCategoria.getString(2), cursorCategoria.getString(3));
                 listaCategorias.add(categoria);
             } while (cursorCategoria.moveToNext());
         }
@@ -115,4 +116,16 @@ public class BDCategorias extends BBDDHelper {
         return listaCategorias;
     }
 
+    // Devuelve el icono
+    public int getIcono(String nombre_categoria) {
+        BBDDHelper bbddHelper = new BBDDHelper(contexto);
+        SQLiteDatabase bd = bbddHelper.getWritableDatabase();
+        int resultado;
+        Cursor cursorCategoria = null;
+
+        cursorCategoria = bd.rawQuery("SELECT * FROM " + TABLA_CATEGORIAS + " WHERE nombre = \'" + nombre_categoria + "\'", null);
+        if (cursorCategoria.moveToFirst())
+            return cursorCategoria.getInt(3);
+        else return 0;
+    }
 }

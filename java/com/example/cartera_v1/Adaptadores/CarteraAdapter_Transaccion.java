@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cartera_v1.Activities.Transacciones;
+import com.example.cartera_v1.Activities.Transaccion;
 import com.example.cartera_v1.Entidades.Cartera;
 import com.example.cartera_v1.R;
 
@@ -53,8 +53,8 @@ public class CarteraAdapter_Transaccion extends RecyclerView.Adapter<CarteraAdap
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (context instanceof Transacciones)
-                        ((Transacciones)context).aplicarEleccionBilletera(tv_nombrebilletera.getText().toString());
+                    if (context instanceof Transaccion)
+                        ((Transaccion)context).aplicarEleccionBilletera(tv_nombrebilletera.getText().toString());
                 }
             });
         }
