@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -12,10 +13,12 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.cartera_v1.Activities.Dialogos.EleccionBilletera;
 import com.example.cartera_v1.Activities.Dialogos.EleccionCategoria;
+import com.example.cartera_v1.BBDD.BDCategorias;
 import com.example.cartera_v1.BBDD.BDMovimientos;
 import com.example.cartera_v1.Entidades.Movimiento;
 import com.example.cartera_v1.R;
@@ -23,11 +26,12 @@ import com.github.dhaval2404.imagepicker.ImagePicker;
 
 import java.util.Calendar;
 
-public class Transaccion extends AppCompatActivity implements EleccionCategoria.EleccionCategoriaListener {
+public class Transaccion extends AppCompatActivity {
     EditText et_transaccion, et_nota;
-    TextView tv_billetera, tv_fechaIzq, tv_fechaDer, tv_agregarFoto;
+    TextView tv_billeteraDer, tv_fechaIzq, tv_fechaDer, tv_agregarFoto;
     ImageView iv_foto, iv_categoria;
     Button btn_aceptar;
+    LinearLayout ll_panel_transacciones;
     private int anio, mes, dia;
     EleccionBilletera dialogoEleccionBilletera;
     EleccionCategoria dialogoEleccionCategoria;
@@ -39,13 +43,14 @@ public class Transaccion extends AppCompatActivity implements EleccionCategoria.
         setContentView(R.layout.activity_transacciones);
         et_transaccion = findViewById(R.id.et_transaccion);
         et_nota = findViewById(R.id.et_nota);
-        tv_billetera = findViewById(R.id.tv_billeteraDer);
+        tv_billeteraDer = findViewById(R.id.tv_billeteraDer);
         tv_fechaIzq = findViewById(R.id.tv_fechaIzq);
         tv_fechaDer = findViewById(R.id.tv_fechaDer);
         btn_aceptar = findViewById(R.id.btn_aceptar);
         tv_agregarFoto = findViewById(R.id.tv_agregarFoto);
         iv_foto = findViewById(R.id.iv_foto);
         iv_categoria = findViewById(R.id.iv_circuloCategoria);
+        ll_panel_transacciones = findViewById(R.id.ll_panel_transacciones);
         agregarfuncionalidades();
     }
 
@@ -103,7 +108,7 @@ public class Transaccion extends AppCompatActivity implements EleccionCategoria.
                         .start();
             }
         });
-        tv_billetera.setOnClickListener(new View.OnClickListener() {
+      /*  tv_billeteraDer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 EleccionBilletera dialogo = new EleccionBilletera();
@@ -112,11 +117,21 @@ public class Transaccion extends AppCompatActivity implements EleccionCategoria.
                 dialogo.show(getSupportFragmentManager(), "dialogo");
 
             }
+        });*/
+        LinearLayout ll_billeteras_transaccion = findViewById(R.id.ll_billeteras_transaccion);
+        ll_billeteras_transaccion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            EleccionBilletera dialogo = new EleccionBilletera();
+            dialogoEleccionBilletera = dialogo;
+            dialogo.setCancelable(false);
+            dialogo.show(getSupportFragmentManager(), "dialogo");
+            }
         });
         iv_categoria.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EleccionCategoria dialogo = new EleccionCategoria(iv_foto);
+                EleccionCategoria dialogo = new EleccionCategoria(Transaccion.this);
                 dialogoEleccionCategoria = dialogo;
                 dialogo.setCancelable(false);
                 dialogo.show(getSupportFragmentManager(), "dialogo");
@@ -128,7 +143,7 @@ public class Transaccion extends AppCompatActivity implements EleccionCategoria.
                 // TODO: 09/09/2023 mirar primero si estan las variables requeridas
                 BDMovimientos bdMovimientos = new BDMovimientos(Transaccion.this);
                 Movimiento m = new Movimiento();
-                m.setNombre_cartera(tv_billetera.toString());
+                m.setNombre_cartera(tv_billeteraDer.toString());
                 m.setTransaccion(Double.parseDouble(et_transaccion.getText().toString()));
                 m.setCategoria(categoria);
                 m.setNota(et_nota.getText().toString());
@@ -137,6 +152,7 @@ public class Transaccion extends AppCompatActivity implements EleccionCategoria.
                 m.setMes(mes);
                 m.setId(bdMovimientos.getId());
                 bdMovimientos.addMovimiento(m);
+                finish();
             }
         });
     }
@@ -173,10 +189,21 @@ public class Transaccion extends AppCompatActivity implements EleccionCategoria.
         datePickerDialog.show();
     }
 
-    public void aplicarEleccionBilletera(String nombre) {
-        tv_billetera.setText(nombre);
+    public void aplicarEleccionCartera(String nombre) {
+        tv_billeteraDer.setText(nombre);
         dialogoEleccionBilletera.dismiss();
     }
+    public void aplicarEleccionCategoria(String nombre_categoria) {
+        BDCategorias bdCategorias = new BDCategorias(this);
+        iv_categoria.setBackgroundResource(0);
+        iv_categoria.setImageResource(0);
+        iv_categoria.setImageResource(bdCategorias.getIcono(nombre_categoria));
+        categoria = nombre_categoria;
+        ll_panel_transacciones.setBackgroundColor(Color.parseColor(bdCategorias.getColor(nombre_categoria)));
+        dialogoEleccionCategoria.dismiss();
+
+    }
+
 
     private void asignarFecha(int year, int month, int day) {
         anio = year;
@@ -184,8 +211,4 @@ public class Transaccion extends AppCompatActivity implements EleccionCategoria.
         dia = day;
     }
 
-    @Override
-    public void aplicarEleccioncategoria(String nombre_categoria) {
-        categoria = nombre_categoria;
-    }
 }

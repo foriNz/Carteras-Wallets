@@ -34,7 +34,7 @@ public class CreacionCartera extends AppCompatActivity {
                     bdCarteras.addCartera(et_nombre_cartera.getText().toString(),
                             Double.parseDouble(et_saldo_inicial.getText().toString()));
                     finish();
-                    ((MainActivity)getApplicationContext()).redirigitAFragmento(0);
+
                 }
             }
         });

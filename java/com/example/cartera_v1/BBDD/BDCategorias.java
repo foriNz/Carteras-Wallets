@@ -128,4 +128,15 @@ public class BDCategorias extends BBDDHelper {
             return cursorCategoria.getInt(3);
         else return 0;
     }
+    public String getColor(String nombre_categoria) {
+        BBDDHelper bbddHelper = new BBDDHelper(contexto);
+        SQLiteDatabase bd = bbddHelper.getWritableDatabase();
+        int resultado;
+        Cursor cursorCategoria = null;
+
+        cursorCategoria = bd.rawQuery("SELECT * FROM " + TABLA_CATEGORIAS + " WHERE nombre = \'" + nombre_categoria + "\'", null);
+        if (cursorCategoria.moveToFirst())
+            return cursorCategoria.getString(2);
+        else return "";
+    }
 }

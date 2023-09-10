@@ -34,10 +34,16 @@ public class Billeteras extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        refrescarRecylclerView();
+    }
+
     private void agregarFuncionalidades() {
-        BDCarteras bdCarteras = new BDCarteras(getContext());
+
         rv_billeteras.setLayoutManager(new LinearLayoutManager(getContext()));
-        rv_billeteras.setAdapter(new CarteraAdapter_Transaccion(bdCarteras.getCarteras(),getContext()));
+        refrescarRecylclerView();
         cv_creacion_cartera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,6 +52,12 @@ public class Billeteras extends Fragment {
             }
         });
     }
+    private void refrescarRecylclerView() {
+        BDCarteras bdCarteras = new BDCarteras(getContext());
+        rv_billeteras.setAdapter(new CarteraAdapter_Transaccion(bdCarteras.getCarteras(),getContext()));
+
+    }
+
 
     private void setLineChart() {
         // TODO: 02/09/2023 hacer linechart

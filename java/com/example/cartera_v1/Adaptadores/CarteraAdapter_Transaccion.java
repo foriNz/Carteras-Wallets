@@ -54,7 +54,7 @@ public class CarteraAdapter_Transaccion extends RecyclerView.Adapter<CarteraAdap
                 @Override
                 public void onClick(View view) {
                     if (context instanceof Transaccion)
-                        ((Transaccion)context).aplicarEleccionBilletera(tv_nombrebilletera.getText().toString());
+                        ((Transaccion)context).aplicarEleccionCartera(tv_nombrebilletera.getText().toString());
                 }
             });
         }

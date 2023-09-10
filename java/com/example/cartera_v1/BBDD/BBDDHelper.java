@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class BBDDHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 11;
+    private static final int DATABASE_VERSION = 12;
     private static final String DATABASE_NAME = "usuario.db";
     public static final String TABLA_CARTERAS = "t_carteras";
     public static final String TABLA_MOVIMIENTOS = "t_movimientos";
@@ -46,7 +46,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE if exists " + TABLA_CARTERAS);
-        //sqLiteDatabase.execSQL("DROP TABLE if exists " + TABLA_MOVIMIENTOS);
+        sqLiteDatabase.execSQL("DROP TABLE if exists " + TABLA_MOVIMIENTOS);
         sqLiteDatabase.execSQL("DROP TABLE if exists " + TABLA_CATEGORIAS);
 
         onCreate(sqLiteDatabase);

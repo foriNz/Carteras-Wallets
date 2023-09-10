@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void remplazarFragmento(Fragment fragment) {
+    public void remplazarFragmento(Fragment fragment) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.frameLayoutMA,fragment);

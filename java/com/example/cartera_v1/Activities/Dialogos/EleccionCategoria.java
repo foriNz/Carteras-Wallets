@@ -2,6 +2,7 @@ package com.example.cartera_v1.Activities.Dialogos;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.cartera_v1.Activities.AdministradorCategorias;
+import com.example.cartera_v1.Activities.Transaccion;
 import com.example.cartera_v1.BBDD.BDCategorias;
 import com.example.cartera_v1.Entidades.Categoria;
 import com.example.cartera_v1.R;
@@ -35,10 +37,10 @@ public class EleccionCategoria extends AppCompatDialogFragment {
 
     TableLayout tableLayout;
     FloatingActionButton floatingButton;
-    ImageView icono;
+    Context context;
 
-    public EleccionCategoria(ImageView imageView) {
-        icono = imageView;
+    public EleccionCategoria(Context context) {
+        this.context = context;
     }
     @NonNull
     @Override
@@ -96,15 +98,7 @@ public class EleccionCategoria extends AppCompatDialogFragment {
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    icono.setImageDrawable(imageView.getDrawable());
-                    Bundle datos = new Bundle();
-                    datos.putString("categoria", textView.getText().toString());
-                    EleccionCategoria.this.setArguments(datos);
-                    try {
-                        finalize();
-                    } catch (Throwable e) {
-                        throw new RuntimeException(e);
-                    }
+                    ((Transaccion)context).aplicarEleccionCategoria(textView.getText().toString());
                 }
             });
             if (tr != null)
@@ -112,9 +106,7 @@ public class EleccionCategoria extends AppCompatDialogFragment {
 
         }
     }
-    public interface EleccionCategoriaListener {
-        void aplicarEleccioncategoria(String nombre_categoria);
-    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

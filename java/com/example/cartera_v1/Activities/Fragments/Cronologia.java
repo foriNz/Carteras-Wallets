@@ -49,8 +49,14 @@ public class Cronologia extends Fragment {
 
     private void refrescarRecyclerView() {
         BDMovimientos bdMovimientos = new BDMovimientos(getContext());
-        //adapter = new MovimientoAdapter_ExpandableList(bdMovimientos.getMovimientos(), getContext());
-        //elv_listaMovimientos.setAdapter(adapter);
+        adapter = new MovimientoAdapter_ExpandableList(bdMovimientos.getMovimientos(), getContext());
+        elv_listaMovimientos.setAdapter(adapter);
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refrescarRecyclerView();
     }
 }
