@@ -5,6 +5,17 @@ public class Movimiento {
     double transaccion;
     String nombre_cartera, categoria, nota;
 
+    @Override
+    public String toString() {
+        return "Movimiento{" +
+                "anio=" + anio +
+                ", mes=" + mes +
+                ", dia=" + dia +
+                ", transaccion=" + transaccion +
+                ", nombre_cartera='" + nombre_cartera + '\'' +
+                '}';
+    }
+
     public Movimiento() {
     }
 

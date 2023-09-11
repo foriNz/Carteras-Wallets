@@ -143,7 +143,7 @@ public class Transaccion extends AppCompatActivity {
                 // TODO: 09/09/2023 mirar primero si estan las variables requeridas
                 BDMovimientos bdMovimientos = new BDMovimientos(Transaccion.this);
                 Movimiento m = new Movimiento();
-                m.setNombre_cartera(tv_billeteraDer.toString());
+                m.setNombre_cartera(tv_billeteraDer.getText().toString());
                 m.setTransaccion(Double.parseDouble(et_transaccion.getText().toString()));
                 m.setCategoria(categoria);
                 m.setNota(et_nota.getText().toString());

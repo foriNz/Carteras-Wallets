@@ -2,14 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <LinearLayout
+        android:id="@+id/ll_item_clicked"
+        android:layout_width="match_parent"
+        android:layout_height="45sp">
     <TextView
         android:id="@+id/tv_item_fecha_cronologia"
-        android:layout_width="match_parent"
+        android:layout_width="150sp"
         android:layout_height="45dp"
-        android:gravity="end" />
+        android:gravity="start"
+        android:textSize="16dp"/>
+        <TextView
+            android:id="@+id/tv_item_balance_dia"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="end"
+            android:textSize="16dp"/>
+</LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_item_lista_fecha_movimiento"
         android:layout_width="match_parent"

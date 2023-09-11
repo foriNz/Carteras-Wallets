@@ -9,9 +9,11 @@ import android.widget.ExpandableListView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cartera_v1.Activities.Transaccion;
-import com.example.cartera_v1.Adaptadores.MovimientoAdapter_ExpandableList;
+import com.example.cartera_v1.Adaptadores.MovimientosAdapter_Cronologia;
 import com.example.cartera_v1.BBDD.BDMovimientos;
 import com.example.cartera_v1.R;
 import com.github.mikephil.charting.charts.CombinedChart;
@@ -20,9 +22,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class Cronologia extends Fragment {
     CombinedChart chart;
     TextView tv_balance;
-    ExpandableListView elv_listaMovimientos;
+    RecyclerView rv_listaMovimientos;
     FloatingActionButton fab;
-    MovimientoAdapter_ExpandableList adapter;
+    MovimientosAdapter_Cronologia adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,7 +33,7 @@ public class Cronologia extends Fragment {
         fab = view.findViewById(R.id.fab_frag_movimientos);
         chart = view.findViewById(R.id.chart_frag_movimientos);
         tv_balance = view.findViewById(R.id.tv_balance_frag_movimiento);
-        elv_listaMovimientos = view.findViewById(R.id.elv_frag_movimientos);
+        rv_listaMovimientos = view.findViewById(R.id.elv_frag_movimientos);
         agregarFuncionalidades();
         return view;
     }
@@ -49,8 +51,10 @@ public class Cronologia extends Fragment {
 
     private void refrescarRecyclerView() {
         BDMovimientos bdMovimientos = new BDMovimientos(getContext());
-        adapter = new MovimientoAdapter_ExpandableList(bdMovimientos.getMovimientos(), getContext());
-        elv_listaMovimientos.setAdapter(adapter);
+
+        adapter = new MovimientosAdapter_Cronologia(bdMovimientos.getMovimientosPorDias(), getContext());
+        rv_listaMovimientos.setLayoutManager(new LinearLayoutManager(getContext()));
+        rv_listaMovimientos.setAdapter(adapter);
 
     }
 
@@ -58,5 +62,6 @@ public class Cronologia extends Fragment {
     public void onResume() {
         super.onResume();
         refrescarRecyclerView();
+
     }
 }
