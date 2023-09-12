@@ -33,5 +33,8 @@
     <string name="balance_fragmento_movimientos">Flujo de fondos</string>
     <string name="ingreso">Ingreso</string>
     <string name="gasto">Gasto</string>
+    <string name="radiobutton_ingreso">Ingreso</string>
+    <string name="radiobutton_gasto">Gasto</string>
+    <string name="radiobutton_transferencia">Transferencia</string>
 
 </resources>

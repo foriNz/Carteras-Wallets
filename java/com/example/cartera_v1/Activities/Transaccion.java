@@ -28,7 +28,7 @@ import java.util.Calendar;
 
 public class Transaccion extends AppCompatActivity {
     EditText et_transaccion, et_nota;
-    TextView tv_billeteraDer, tv_fechaIzq, tv_fechaDer, tv_agregarFoto;
+    TextView tv_billeteraDer, tv_billeteraIzq, tv_fechaIzq, tv_fechaDer, tv_agregarFoto;
     ImageView iv_foto, iv_categoria;
     Button btn_aceptar;
     LinearLayout ll_panel_transacciones;
@@ -44,6 +44,7 @@ public class Transaccion extends AppCompatActivity {
         et_transaccion = findViewById(R.id.et_transaccion);
         et_nota = findViewById(R.id.et_nota);
         tv_billeteraDer = findViewById(R.id.tv_billeteraDer);
+        tv_billeteraIzq = findViewById(R.id.tv_billeteraIzq);
         tv_fechaIzq = findViewById(R.id.tv_fechaIzq);
         tv_fechaDer = findViewById(R.id.tv_fechaDer);
         btn_aceptar = findViewById(R.id.btn_aceptar);
@@ -200,7 +201,11 @@ public class Transaccion extends AppCompatActivity {
         iv_categoria.setImageResource(bdCategorias.getIcono(nombre_categoria));
         categoria = nombre_categoria;
         ll_panel_transacciones.setBackgroundColor(Color.parseColor(bdCategorias.getColor(nombre_categoria)));
+
+
+
         dialogoEleccionCategoria.dismiss();
+
 
     }
 

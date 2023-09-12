@@ -12,7 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -34,7 +36,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EleccionCategoria extends AppCompatDialogFragment {
     public Window window;
-
+    RadioButton rb_categoria_ingreso, rb_categoria_gasto, rb_categoria_transferencia;
+    RadioGroup rg_categorias;
     TableLayout tableLayout;
     FloatingActionButton floatingButton;
     Context context;
@@ -42,14 +45,34 @@ public class EleccionCategoria extends AppCompatDialogFragment {
     public EleccionCategoria(Context context) {
         this.context = context;
     }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.eleccion_categoria, null);
+        View view = inflater.inflate(R.layout.dialog_eleccion_categoria, null);
         tableLayout = view.findViewById(R.id.tl_dialogo_eleccion_categoria);
         floatingButton = view.findViewById(R.id.fb_eleccion_categoria);
+        rb_categoria_ingreso = view.findViewById(R.id.rb_categoria_ingreso);
+        rb_categoria_gasto = view.findViewById(R.id.rb_categoria_gasto);
+        rb_categoria_transferencia = view.findViewById(R.id.rb_categoria_transferencia);
+        rg_categorias = view.findViewById(R.id.rg_categorias);
+        rg_categorias.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.rb_categoria_gasto:
+                        refrescarCategorias(0);
+                        break;
+                    case R.id.rb_categoria_ingreso:
+                        refrescarCategorias(1);
+                        break;
+                    case R.id.rb_categoria_transferencia:
+                        break;
+                }
+            }
+        });
         floatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,10 +83,11 @@ public class EleccionCategoria extends AppCompatDialogFragment {
         refrescarCategorias(0);
         builder.setView(view);
         return builder.create();
+
     }
 
-    // TODO: 03/09/2023 radiobutton de gasto e ingreso
-    private void refrescarCategorias(int ingresoGasto) {
+    // 0 -> Gasto 1 -> Ingresos
+    public void refrescarCategorias(int ingresoGasto) {
         tableLayout.removeAllViews();
         BDCategorias bdCategorias = new BDCategorias(getContext());
         ArrayList<Categoria> categorias;
@@ -77,7 +101,7 @@ public class EleccionCategoria extends AppCompatDialogFragment {
         for (int i = 0; i < categorias.size(); i++) {
             if (i % 4 == 0) {
                 tr = new TableRow(getContext());
-                tr.setPadding(10,10,10,10);
+                tr.setPadding(10, 10, 10, 10);
                 tr.setGravity(Gravity.CENTER);
                 tableLayout.addView(tr);
             }
@@ -98,7 +122,7 @@ public class EleccionCategoria extends AppCompatDialogFragment {
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((Transaccion)context).aplicarEleccionCategoria(textView.getText().toString());
+                    ((Transaccion) context).aplicarEleccionCategoria(textView.getText().toString());
                 }
             });
             if (tr != null)
