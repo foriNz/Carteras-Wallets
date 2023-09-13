@@ -1,6 +1,7 @@
 package com.example.cartera_v1.Adaptadores;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,6 +86,7 @@ public class MovimientosAdapter_Cronologia extends RecyclerView.Adapter<Movimien
         public void onBindViewHolder(@NonNull ListaMovimientosAdapter.MovimientoViewHolder holder, int position) {
             BDCategorias bd = new BDCategorias(context);
             holder.civ_icono_item_cronologia.setImageResource(bd.getIcono(listaMovimientos.get(position).getCategoria()));
+            holder.civ_icono_item_cronologia.setColorFilter(Color.parseColor(bd.getColor(listaMovimientos.get(position).getCategoria())));
             holder.tv_categoria_item_cronologia.setText(listaMovimientos.get(position).getCategoria());
             holder.tv_cartera_item_cronologia.setText(listaMovimientos.get(position).getNombre_cartera());
             holder.tv_balance_item_cronologia.setText(listaMovimientos.get(position).getTransaccion()+"");

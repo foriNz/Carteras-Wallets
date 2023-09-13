@@ -2,13 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="70dp">
+    android:layout_height="55dp">
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/civ_icono_item_cronologia"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:layout_marginBottom="10dp"/>
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+       />
     <LinearLayout
         android:layout_width="300dp"
         android:layout_height="match_parent"
@@ -17,19 +18,20 @@
         <TextView
             android:id="@+id/tv_categoria_item_cronologia"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:gravity="bottom"
+            android:layout_height="20dp"
+            android:gravity="start"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tv_cartera_item_cronologia"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="35dp"
             android:gravity="top"
             android:textSize="14sp" />
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/tv_balance_item_cronologia"/>
+        android:id="@+id/tv_balance_item_cronologia"
+        android:gravity="center"/>
 </LinearLayout>

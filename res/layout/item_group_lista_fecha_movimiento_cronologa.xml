@@ -4,26 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
     <LinearLayout
         android:id="@+id/ll_item_clicked"
         android:layout_width="match_parent"
-        android:layout_height="45sp">
+        android:layout_height="45sp"
+        android:background="@color/gray">
     <TextView
         android:id="@+id/tv_item_fecha_cronologia"
-        android:layout_width="150sp"
+        android:layout_width="400sp"
         android:layout_height="45dp"
-        android:gravity="start"
-        android:textSize="16dp"/>
+        android:gravity="center"
+        android:textSize="17dp"
+        android:layout_marginLeft="0sp"
+        android:layout_weight="1"/>
         <TextView
             android:id="@+id/tv_item_balance_dia"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:gravity="end"
-            android:textSize="16dp"/>
+            android:textSize="16dp"
+            android:layout_weight="1"/>
 </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_item_lista_fecha_movimiento"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        />
 </LinearLayout>

@@ -69,6 +69,7 @@ public class EleccionCategoria extends AppCompatDialogFragment {
                         refrescarCategorias(1);
                         break;
                     case R.id.rb_categoria_transferencia:
+                        // TODO: 13/09/2023 hacer activity transferencia
                         break;
                 }
             }

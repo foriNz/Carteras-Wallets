@@ -2,10 +2,12 @@ package com.example.cartera_v1.Activities;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -201,9 +203,6 @@ public class Transaccion extends AppCompatActivity {
         iv_categoria.setImageResource(bdCategorias.getIcono(nombre_categoria));
         categoria = nombre_categoria;
         ll_panel_transacciones.setBackgroundColor(Color.parseColor(bdCategorias.getColor(nombre_categoria)));
-
-
-
         dialogoEleccionCategoria.dismiss();
 
 

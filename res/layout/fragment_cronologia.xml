@@ -33,7 +33,9 @@
             android:id="@+id/elv_frag_movimientos"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"/>
+            android:orientation="vertical"
+            android:scrollbars="vertical"
+            android:scrollbarSize="5dp"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_frag_movimientos"
