@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="55dp">
+    android:layout_height="55dp"
+    android:paddingTop="10sp">
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/civ_icono_item_cronologia"
         android:layout_width="45dp"
@@ -11,7 +12,7 @@
         android:layout_marginBottom="10dp"
        />
     <LinearLayout
-        android:layout_width="300dp"
+        android:layout_width="270dp"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
@@ -33,5 +34,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/tv_balance_item_cronologia"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:layout_weight="1"/>
 </LinearLayout>

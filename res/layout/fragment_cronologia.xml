@@ -20,7 +20,7 @@
         android:gravity="center"
         android:text="@string/balance_fragmento_movimientos"
         android:textSize="12sp" />
-    <com.github.mikephil.charting.charts.CombinedChart
+    <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/chart_frag_movimientos"
         android:layout_width="match_parent"
         android:layout_height="200dp"/>
