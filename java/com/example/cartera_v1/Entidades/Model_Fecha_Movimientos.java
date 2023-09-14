@@ -15,10 +15,10 @@ public class Model_Fecha_Movimientos {
     }
 
     public void setFecha() {
-        if (listaMovimientos.size() != 0)
+        if (listaMovimientos.size() != 0){
         fecha = String.valueOf(listaMovimientos.get(0).getDia())+" - "
                 +String.valueOf(listaMovimientos.get(0).getMes())+" - "
-                +String.valueOf(listaMovimientos.get(0).getAnio());
+                +String.valueOf(listaMovimientos.get(0).getAnio());}
     }
 
     private void setBalance_total() {

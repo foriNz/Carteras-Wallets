@@ -123,7 +123,14 @@ public class EleccionCategoria extends AppCompatDialogFragment {
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((Transaccion) context).aplicarEleccionCategoria(textView.getText().toString());
+                    if (ingresoGasto == 0) {
+                        ((Transaccion) context).aplicarEleccionCategoria(textView.getText().toString(), "gasto" );}
+                        else if (ingresoGasto == 1)
+                            ((Transaccion) context).aplicarEleccionCategoria(textView.getText().toString(), "ingreso" );
+                        else {
+
+                        }
+
                 }
             });
             if (tr != null)

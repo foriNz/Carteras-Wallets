@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Model_Data_MovimientoPorMes {
     double ingresos, gastos;
+    double balance_total;
     ArrayList<Movimiento> listaMovimientos;
 
     public Model_Data_MovimientoPorMes() {
@@ -14,6 +15,11 @@ public class Model_Data_MovimientoPorMes {
         listaMovimientos.add(m);
         setGastos();
         setIngresos();
+        setBalanceTotal();
+    }
+
+    private void setBalanceTotal() {
+        balance_total = ingresos + gastos;
     }
 
     public void setIngresos() {

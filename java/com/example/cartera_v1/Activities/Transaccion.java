@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -37,7 +38,7 @@ public class Transaccion extends AppCompatActivity {
     private int anio, mes, dia;
     EleccionBilletera dialogoEleccionBilletera;
     EleccionCategoria dialogoEleccionCategoria;
-    String categoria;
+    String categoria, tipo_categoria;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,7 +148,9 @@ public class Transaccion extends AppCompatActivity {
                 BDMovimientos bdMovimientos = new BDMovimientos(Transaccion.this);
                 Movimiento m = new Movimiento();
                 m.setNombre_cartera(tv_billeteraDer.getText().toString());
-                m.setTransaccion(Double.parseDouble(et_transaccion.getText().toString()));
+                double transac = Double.parseDouble(et_transaccion.getText().toString());
+                if (tipo_categoria.equals("gasto")) transac = -transac;
+                m.setTransaccion(transac);
                 m.setCategoria(categoria);
                 m.setNota(et_nota.getText().toString());
                 m.setAnio(anio);
@@ -196,14 +199,17 @@ public class Transaccion extends AppCompatActivity {
         tv_billeteraDer.setText(nombre);
         dialogoEleccionBilletera.dismiss();
     }
-    public void aplicarEleccionCategoria(String nombre_categoria) {
+    public void aplicarEleccionCategoria(String nombre_categoria, String tipo) {
         BDCategorias bdCategorias = new BDCategorias(this);
         iv_categoria.setBackgroundResource(0);
         iv_categoria.setImageResource(0);
         iv_categoria.setImageResource(bdCategorias.getIcono(nombre_categoria));
         categoria = nombre_categoria;
         ll_panel_transacciones.setBackgroundColor(Color.parseColor(bdCategorias.getColor(nombre_categoria)));
-        dialogoEleccionCategoria.dismiss();
+        if (tipo.equals("ingreso")) tipo_categoria = "ingreso";
+        else {
+            tipo_categoria = "gasto";
+        }dialogoEleccionCategoria.dismiss();
 
 
     }

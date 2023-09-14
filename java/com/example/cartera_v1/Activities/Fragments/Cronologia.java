@@ -73,7 +73,7 @@ public class Cronologia extends Fragment {
         barDataSet2.setColor(Color.RED);
         BarData data = new BarData(barDataSet1, barDataSet2);
         chart.setData(data);
-        String[] meses = new String[]{"Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"};
+        String[] meses = new String[]{"E", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"};
         XAxis xAxis = chart.getXAxis();
         xAxis.setValueFormatter(new IndexAxisValueFormatter(meses));
         xAxis.setCenterAxisLabels(true);
@@ -84,9 +84,11 @@ public class Cronologia extends Fragment {
         chart.setVisibleXRangeMinimum(12);
         float barSpace = 0.1f;
         float groupSpace = 0.5f;
-        data.setBarWidth(0.15f);
+        data.setBarWidth(0.16f);
         chart.getXAxis().setAxisMinimum(0);
         chart.groupBars(0, groupSpace, barSpace);
+        chart.setDescription(null);
+
         chart.invalidate();
     }
 

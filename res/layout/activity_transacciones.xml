@@ -2,168 +2,175 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".Activities.Transaccion"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     android:orientation="vertical"
-    android:background="@color/black">
+    tools:context=".Activities.Transaccion">
+
     <LinearLayout
         android:id="@+id/ll_panel_transacciones"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/purple_700">
+        android:background="@color/purple_700"
+        android:orientation="horizontal">
+
         <ImageView
             android:id="@+id/iv_circuloCategoria"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/outline_circle_24"
             android:layout_gravity="bottom"
-            android:backgroundTint="@color/black"
             android:layout_marginBottom="10dp"
-            />
+            android:background="@drawable/outline_circle_24"
+            android:backgroundTint="@color/black" />
+
         <EditText
             android:id="@+id/et_transaccion"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:ems="15"
-            android:text="0"
-            android:textColor="@color/white"
-            android:inputType="numberDecimal"
-            android:textAlignment="viewEnd"
             android:layout_marginTop="0dp"
             android:layout_marginBottom="10dp"
-            android:background="@color/transparent"/>
+            android:background="@color/transparent"
+            android:ems="15"
+            android:hint="0"
+            android:inputType="numberDecimal|numberSigned"
+            android:textAlignment="viewEnd"
+            android:textColor="@color/white" />
 
         <Spinner
             android:id="@+id/sp_moneda"
             android:layout_width="wrap_content"
             android:layout_height="10dp"
-            android:paddingRight="20dp"
             android:layout_gravity="center"
             android:layout_marginBottom="10dp"
-            android:text="€"
-            android:spinnerMode="dialog"/>
+            android:paddingRight="20dp"
+            android:spinnerMode="dialog"
+            android:text="€" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll_billeteras_transaccion"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:orientation="horizontal"
+        android:clickable="true"
         android:focusable="true"
-        android:clickable="true">
+        android:orientation="horizontal">
+
         <TextView
             android:id="@+id/tv_billeteraIzq"
             android:layout_width="250dp"
             android:layout_height="match_parent"
-            android:textSize="20sp"
-            android:textAlignment="viewStart"
-            android:gravity="center"
-            android:paddingLeft="15dp"
-
             android:drawableLeft="@drawable/outline_wallet_24"
-            android:drawableTint="@color/white"
             android:drawablePadding="5dp"
+            android:drawableTint="@color/white"
+            android:gravity="center"
+
+            android:paddingLeft="15dp"
             android:text="@string/tv_billeteraIZQ"
-            android:textColor="@color/white"/>
+            android:textAlignment="viewStart"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tv_billeteraDer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textAlignment="viewEnd"
-            android:textSize="16sp"
             android:paddingRight="15dp"
+            android:textAlignment="viewEnd"
+            android:textColor="@color/white"
 
-            android:textColor="@color/white"/>
+            android:textSize="16sp" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:orientation="horizontal"
-        android:focusable="true">
+        android:focusable="true"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/tv_fechaIzq"
             android:layout_width="250dp"
             android:layout_height="match_parent"
-            android:textSize="20sp"
-            android:textAlignment="viewStart"
+            android:drawableLeft="@drawable/outline_calendar_month_24"
+            android:drawablePadding="5dp"
+            android:drawableTint="@color/white"
             android:gravity="center"
             android:paddingLeft="15dp"
-            android:drawablePadding="5dp"
-            android:drawableLeft="@drawable/outline_calendar_month_24"
-            android:drawableTint="@color/white"
             android:text="@string/hoy"
-            android:textColor="@color/white"/>
+            android:textAlignment="viewStart"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tv_fechaDer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textAlignment="viewEnd"
-            android:textSize="16sp"
             android:paddingRight="15dp"
             android:text="@string/ayer"
-            android:textColor="@color/white"/>
+            android:textAlignment="viewEnd"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
     </LinearLayout>
 
 
     <EditText
-        android:drawableLeft="@drawable/outline_sticky_note_2_24"
         android:id="@+id/et_nota"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:background="@color/transparent"
-        android:paddingLeft="15dp"
+        android:drawableLeft="@drawable/outline_sticky_note_2_24"
         android:drawablePadding="5dp"
+        android:drawableTint="@color/white"
         android:hint="@string/et_nota"
+        android:paddingLeft="15dp"
         android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:drawableTint="@color/white"/>
+        android:textColorHint="@color/white" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-    <TextView
-        android:id="@+id/tv_agregarFoto"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:textSize="20sp"
-        android:textAlignment="viewStart"
-        android:gravity="center"
-        android:paddingLeft="15dp"
-        android:drawablePadding="5dp"
-        android:drawableLeft="@drawable/outline_photo_camera_24"
-        android:drawableTint="@color/white"
-        android:text="@string/tv_agregarFoto"
 
-        android:focusable="true"
-        android:textColor="@color/white"/>
+        <TextView
+            android:id="@+id/tv_agregarFoto"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:drawableLeft="@drawable/outline_photo_camera_24"
+            android:drawablePadding="5dp"
+            android:drawableTint="@color/white"
+            android:focusable="true"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:text="@string/tv_agregarFoto"
+            android:textAlignment="viewStart"
+
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
         <ImageView
             android:id="@+id/iv_foto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="fitCenter"
             android:adjustViewBounds="true"
             android:maxWidth="192dp"
             android:maxHeight="108dp"
-            android:paddingLeft="30dp"/>
+            android:paddingLeft="30dp"
+            android:scaleType="fitCenter" />
     </LinearLayout>
+
     <Button
         android:id="@+id/btn_aceptar"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center|bottom"
-        android:gravity="center"
-        android:text="OK"
-        android:background="@color/purple_700"
         android:layout_marginTop="100dp"
-        android:focusable="true"/>
+        android:background="@color/purple_700"
+        android:focusable="true"
+        android:gravity="center"
+        android:text="OK" />
 
     >
 </LinearLayout>
