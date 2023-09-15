@@ -21,6 +21,7 @@ import com.example.cartera_v1.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -64,7 +65,7 @@ public class Cronologia extends Fragment {
                 entriesGastos.add(new BarEntry(i, 0));
             } else {
                 entriesIngresos.add(new BarEntry(i, Math.round(md[i].getIngresos())));
-                entriesGastos.add(new BarEntry(i, Math.round(md[i].getGastos())));
+                entriesGastos.add(new BarEntry(i, -(Math.round(md[i].getGastos()))));
             }
         }
         BarDataSet barDataSet1 = new BarDataSet(entriesIngresos, "ingresos");
@@ -73,16 +74,21 @@ public class Cronologia extends Fragment {
         barDataSet2.setColor(Color.RED);
         BarData data = new BarData(barDataSet1, barDataSet2);
         chart.setData(data);
-        String[] meses = new String[]{"E", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"};
+        String[] meses = new String[]{"Ene", "Fe", "Mar", "Ab", "May", "Jn", "Jul", "Ag", "Sep", "Oct", "Nov", "Dic"};
         XAxis xAxis = chart.getXAxis();
+        YAxis yAxis = chart.getAxisRight();
+        yAxis.setSpaceTop(2f);
+        yAxis.setCenterAxisLabels(true);
         xAxis.setValueFormatter(new IndexAxisValueFormatter(meses));
-        xAxis.setCenterAxisLabels(true);
+        xAxis.setTextSize(12f);
+
+
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGranularity(1);
         xAxis.setGranularityEnabled(true);
         chart.setDragEnabled(true);
         chart.setVisibleXRangeMinimum(12);
-        float barSpace = 0.1f;
+        float barSpace = 0.05f;
         float groupSpace = 0.5f;
         data.setBarWidth(0.16f);
         chart.getXAxis().setAxisMinimum(0);
@@ -117,6 +123,7 @@ public class Cronologia extends Fragment {
     public void onResume() {
         super.onResume();
         refrescarRecyclerView();
+        rellenarChart();
 
     }
 }

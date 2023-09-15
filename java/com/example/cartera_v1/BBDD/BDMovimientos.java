@@ -131,6 +131,7 @@ public class BDMovimientos extends BBDDHelper {
         if (listaMovimientos.size() != 0) {
             mfm.addMovimiento(listaMovimientos.get(0));
             mfm.setFecha();
+            if (listaMovimientos.size() == 1) resultado.add(mfm);
         }
         for (int i = 1; i < listaMovimientos.size(); i++) {
             Movimiento mov = listaMovimientos.get(i);

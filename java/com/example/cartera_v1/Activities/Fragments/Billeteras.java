@@ -26,8 +26,10 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -75,39 +77,47 @@ public class Billeteras extends Fragment {
 
 
     private void setLineChart() {
-        /*chart.setDescription(null);
-        chart.setNoDataText("No data");
-        chart.setPinchZoom(true);
-        //chart.setBackgroundColor(Color.BLACK);
-        LineData data = new LineData();
-        data.setValueTextColor(Color.GREEN);
-        chart.setData(data);
-        //editar leyenda
-        Legend l = chart.getLegend();
-        l.setForm(Legend.LegendForm.CIRCLE);
-        l.setTextColor(Color.BLUE);
+        BDMovimientos bd = new BDMovimientos(getContext());
+        ArrayList<Model_Fecha_Movimientos> lista = (bd.getMovimientosPorDias());
+        ArrayList<Entry> dataValues = new ArrayList<>();
+        Collections.reverse(lista);
+        float balance = 0;
+        float ejeX = 5;
+        for (int i = 0; i < lista.size(); i++) {
+            balance += lista.get(i).getBalance_total();
+
+            dataValues.add(new Entry(++ejeX, balance));
+
+        }
+
+        //dataValues.add(new Entry(0,0));
+        LineDataSet lineDataSet = new LineDataSet(dataValues, "A");
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+        lineDataSet.setDrawFilled(true);
+        //lineDataSet.setFillColor(Color.BLACK);
+        lineDataSet.setDrawCircles(false);
+        lineDataSet.setFillAlpha(80);
+        lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+        lineDataSet.setLineWidth(2f);
+        lineDataSet.setCircleColor(Color.GREEN);
+        lineDataSet.setFormSize(4f);
+        lineDataSet.setColor(Color.GREEN);
+
+        dataSets.add(lineDataSet);
+        LineData data = new LineData(dataSets);
+
 
         XAxis x1 = chart.getXAxis();
         x1.setTextColor(Color.BLACK);
         x1.setDrawGridLines(false);
         x1.setAvoidFirstLastClipping(true);
+        x1.setSpaceMax(15f);
+        x1.setSpaceMin(15f);
 
         YAxis y1 = chart.getAxisLeft();
         y1.setTextColor(Color.BLACK);
         y1.setDrawGridLines(true);
-        //y1.setAxisMaximum(120f);
-        */
-        BDMovimientos bd = new BDMovimientos(getContext());
-        ArrayList<Model_Fecha_Movimientos> lista = (bd.getMovimientosPorDias());
-        Collections.reverse(lista);
-        ArrayList<Entry> dataValues = new ArrayList<>();
-        for (int i = 0; i < lista.size(); i++) {
-            dataValues.add(new Entry(lista.get(i).getBalance_total(), lista.get(i).getBalance_total()));
-        }
-        LineDataSet lineDataSet = new LineDataSet(dataValues, "DATA SET");
-        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-        dataSets.add(lineDataSet);
-        LineData data = new LineData(dataSets);
+        chart.setPinchZoom(false);
 
         chart.setData(data);
         chart.invalidate();
