@@ -109,7 +109,8 @@ public class BDMovimientos extends BBDDHelper {
             values.put("transaccion", m.getTransaccion());
             values.put("categoria", m.getCategoria());
             values.put("nota", m.getNota());
-
+            BDCarteras bdC = new BDCarteras(contexto);
+            bdC.modificarBalance(m.getNombre_cartera(),m.getTransaccion());
             id = bd.insert(TABLA_MOVIMIENTOS, null, values);
         } catch (Exception e) {
             e.toString();

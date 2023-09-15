@@ -2,6 +2,7 @@ package com.example.cartera_v1.Activities.Fragments;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.DashPathEffect;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -91,9 +92,9 @@ public class Billeteras extends Fragment {
         }
 
         //dataValues.add(new Entry(0,0));
-        LineDataSet lineDataSet = new LineDataSet(dataValues, "A");
+        LineDataSet lineDataSet = new LineDataSet(dataValues, "");
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-        lineDataSet.setDrawFilled(true);
+        //lineDataSet.setDrawFilled(true);
         //lineDataSet.setFillColor(Color.BLACK);
         lineDataSet.setDrawCircles(false);
         lineDataSet.setFillAlpha(80);
@@ -101,10 +102,15 @@ public class Billeteras extends Fragment {
         lineDataSet.setLineWidth(2f);
         lineDataSet.setCircleColor(Color.GREEN);
         lineDataSet.setFormSize(4f);
-        lineDataSet.setColor(Color.GREEN);
+        lineDataSet.setColor(Color.CYAN);
 
+        /*lineDataSet.setFormLineWidth(1f);
+        lineDataSet.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
+        lineDataSet.setFormSize(15.f);
+*/
         dataSets.add(lineDataSet);
         LineData data = new LineData(dataSets);
+
 
 
         XAxis x1 = chart.getXAxis();
