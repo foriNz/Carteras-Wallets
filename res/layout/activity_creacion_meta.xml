@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activities.CreacionMeta">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".8"
+        android:orientation="vertical"
+        android:padding="15sp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:layout_gravity="bottom"
+            android:text="@string/tv_creacion_meta"
+            android:textSize="12sp" />
+
+        <RadioGroup
+            android:id="@+id/rg_categoria_meta"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_categoria_ingreso_meta"
+                android:layout_width="90dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="30sp"
+                android:background="@drawable/custom_radio_selector"
+                android:button="@color/transparent"
+                android:text="@string/radiobutton_ingreso"
+                android:textAlignment="center"
+                android:textSize="10sp" />
+
+            <RadioButton
+                android:id="@+id/rb_categoria_gasto_meta"
+
+                android:layout_width="90dp"
+                android:layout_height="35dp"
+                android:background="@drawable/custom_radio_selector"
+                android:button="@color/transparent"
+                android:text="@string/radiobutton_gasto"
+                android:textAlignment="center"
+                android:textSize="10sp" />
+
+            <RadioButton
+                android:id="@+id/rb_categoria_ahorro_meta"
+                android:layout_width="90dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/custom_radio_selector"
+                android:button="@color/transparent"
+                android:text="@string/radiobutton_ahorro_meta"
+                android:textAlignment="center"
+                android:textSize="10sp" />
+
+        </RadioGroup>
+        <EditText
+            android:id="@+id/et_objetivo_meta"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="@string/et_nueva_meta"
+            android:inputType="number"/>
+        <Spinner
+            
+            android:id="@+id/sp_categorias"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
+        <Button
+            android:id="@+id/btn_aceptar_meta"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom"
+            android:layout_marginTop="100dp"
+            android:background="@color/purple_700"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="OK" />
+    </LinearLayout>
+</LinearLayout>

@@ -64,7 +64,7 @@
             android:id="@+id/rb_categoria_transferencia"
             android:layout_width="90dp"
             android:textSize="10sp"
-            android:layout_height="match_parent"
+            android:layout_height="35dp"
             android:button="@color/transparent"
             android:background="@drawable/custom_radio_selector"
             android:text="@string/radiobutton_transferencia"

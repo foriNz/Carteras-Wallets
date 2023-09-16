@@ -43,5 +43,8 @@
     <string name="toast_falta_cartera">Elige una cartera o crea una nueva en la pestaña de billeteras</string>
     <string name="toast_falta_valor_transaccion">La transaccion no puede ser 0</string>
     <string name="toast_falta_seleccionar_categoria">Elige una categoria en el circulo de la parte superior izquierda</string>
+    <string name="tv_creacion_meta">Elige el tipo de meta deseado</string>
+    <string name="radiobutton_ahorro_meta">Balance ahorro</string>
+    <string name="et_nueva_meta">Objetivo</string>
 
 </resources>
