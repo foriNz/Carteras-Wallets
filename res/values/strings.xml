@@ -36,5 +36,12 @@
     <string name="radiobutton_ingreso">Ingreso</string>
     <string name="radiobutton_gasto">Gasto</string>
     <string name="radiobutton_transferencia">Transferencia</string>
+    <string name="toast_falta_nombre_categoria">Introduzca un nombre a la categoria</string>
+    <string name="toast_falta_color_categoria">Elige un color para la categoria</string>
+    <string name="toast_falta_icono_categoria">Elige un icono para la categoria</string>
+    <string name="toast_falta_tipo_categoria">Elige el tipo (gasto o ingreso) de la categoria</string>
+    <string name="toast_falta_cartera">Elige una cartera o crea una nueva en la pestaña de billeteras</string>
+    <string name="toast_falta_valor_transaccion">La transaccion no puede ser 0</string>
+    <string name="toast_falta_seleccionar_categoria">Elige una categoria en el circulo de la parte superior izquierda</string>
 
 </resources>

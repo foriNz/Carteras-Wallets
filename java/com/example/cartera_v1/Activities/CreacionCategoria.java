@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.Toast;
 
 import com.example.cartera_v1.BBDD.BDCategorias;
 import com.example.cartera_v1.R;
@@ -27,7 +28,7 @@ public class CreacionCategoria extends AppCompatActivity {
     CircleImageView icono_seleccion;
     TableLayout tl_iconos_categorias, tl_colores_categorias;
     int idRecursoIconoSeleccionado;
-    String  color_seleccion;
+    String color_seleccion;
     CheckBox cb_gasto, cb_ingreso;
 
     @Override
@@ -52,20 +53,41 @@ public class CreacionCategoria extends AppCompatActivity {
                 finish();
             }
         });
+        // TODO: 16/09/2023 verificar si ya hay una categoria del mismo tipo y con el mismo nombre
         btn_guardar_borrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                BDCategorias bdCategorias = new BDCategorias(CreacionCategoria.this);
-                if (cb_gasto.isChecked())
-                bdCategorias.addCategoria(nombre_categoria.getText().toString(),
-                        color_seleccion,
-                        String.valueOf(idRecursoIconoSeleccionado), "gasto");
-                if (cb_ingreso.isChecked())
-                    bdCategorias.addCategoria(nombre_categoria.getText().toString(),
-                            color_seleccion,
-                            String.valueOf(idRecursoIconoSeleccionado), "ingreso");
-                finish();
+                // Verifica si el nombre no esta vacio, hay un color y un icono seleccionado
+                if (!nombre_categoria.getText().toString().trim().isEmpty()) {
+                    if (color_seleccion != null) {
+                        if (idRecursoIconoSeleccionado == 0) {
+                            if (!cb_ingreso.isChecked() && !cb_gasto.isChecked()) {
+                                BDCategorias bdCategorias = new BDCategorias(CreacionCategoria.this);
+                                if (cb_gasto.isChecked())
+                                    bdCategorias.addCategoria(nombre_categoria.getText().toString(),
+                                            color_seleccion,
+                                            String.valueOf(idRecursoIconoSeleccionado), "gasto");
+                                if (cb_ingreso.isChecked())
+                                    bdCategorias.addCategoria(nombre_categoria.getText().toString(),
+                                            color_seleccion,
+                                            String.valueOf(idRecursoIconoSeleccionado), "ingreso");
+                                finish();
+                            } else {
+                                String s = getResources().getString(R.string.toast_falta_tipo_categoria);
+                                Toast.makeText(CreacionCategoria.this, s, Toast.LENGTH_LONG).show();
+                            }
+                        } else {
+                            String s = getResources().getString(R.string.toast_falta_icono_categoria);
+                            Toast.makeText(CreacionCategoria.this, s, Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        String s = getResources().getString(R.string.toast_falta_color_categoria);
+                        Toast.makeText(CreacionCategoria.this, s, Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    String s = getResources().getString(R.string.toast_falta_nombre_categoria);
+                    Toast.makeText(CreacionCategoria.this, s, Toast.LENGTH_LONG).show();
+                }
             }
         });
         rellenarColores();

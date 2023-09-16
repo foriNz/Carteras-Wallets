@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -12,12 +13,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cartera_v1.Activities.Dialogos.EleccionBilletera;
 import com.example.cartera_v1.Activities.Dialogos.EleccionCategoria;
@@ -34,7 +37,7 @@ public class Transaccion extends AppCompatActivity {
     TextView tv_billeteraDer, tv_billeteraIzq, tv_fechaIzq, tv_fechaDer, tv_agregarFoto;
     ImageView iv_foto, iv_categoria;
     Button btn_aceptar;
-    LinearLayout ll_panel_transacciones;
+    LinearLayout ll_panel_transacciones, ll_billeteras_transaccion;
     private int anio, mes, dia;
     EleccionBilletera dialogoEleccionBilletera;
     EleccionCategoria dialogoEleccionCategoria;
@@ -55,6 +58,8 @@ public class Transaccion extends AppCompatActivity {
         iv_foto = findViewById(R.id.iv_foto);
         iv_categoria = findViewById(R.id.iv_circuloCategoria);
         ll_panel_transacciones = findViewById(R.id.ll_panel_transacciones);
+        ll_billeteras_transaccion = findViewById(R.id.ll_billeteras_transaccion);
+
         agregarfuncionalidades();
     }
 
@@ -122,45 +127,71 @@ public class Transaccion extends AppCompatActivity {
 
             }
         });*/
-        LinearLayout ll_billeteras_transaccion = findViewById(R.id.ll_billeteras_transaccion);
         ll_billeteras_transaccion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            EleccionBilletera dialogo = new EleccionBilletera();
-            dialogoEleccionBilletera = dialogo;
-            dialogo.setCancelable(false);
-            dialogo.show(getSupportFragmentManager(), "dialogo");
+                abrirSeleccionCartera();
             }
         });
         iv_categoria.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EleccionCategoria dialogo = new EleccionCategoria(Transaccion.this);
-                dialogoEleccionCategoria = dialogo;
-                dialogo.setCancelable(false);
-                dialogo.show(getSupportFragmentManager(), "dialogo");
+                abrirSeleccionCategoria();
             }
         });
         btn_aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: 09/09/2023 mirar primero si estan las variables requeridas
-                BDMovimientos bdMovimientos = new BDMovimientos(Transaccion.this);
-                Movimiento m = new Movimiento();
-                m.setNombre_cartera(tv_billeteraDer.getText().toString());
-                double transac = Double.parseDouble(et_transaccion.getText().toString());
-                if (tipo_categoria.equals("gasto")) transac = -transac;
-                m.setTransaccion(transac);
-                m.setCategoria(categoria);
-                m.setNota(et_nota.getText().toString());
-                m.setAnio(anio);
-                m.setDia(dia);
-                m.setMes(mes);
-                m.setId(bdMovimientos.getId());
-                bdMovimientos.addMovimiento(m);
-                finish();
+                if (categoria == null) {
+                    if (!et_transaccion.getText().toString().isEmpty() || et_transaccion.getText().toString().equals("0")) {
+                        if (!tv_billeteraDer.getText().toString().isEmpty()) {
+                        BDMovimientos bdMovimientos = new BDMovimientos(Transaccion.this);
+                        Movimiento m = new Movimiento();
+                        m.setNombre_cartera(tv_billeteraDer.getText().toString());
+                        double transac = Double.parseDouble(et_transaccion.getText().toString());
+                        if (tipo_categoria.equals("gasto")) transac = -transac;
+                        m.setTransaccion(transac);
+                        m.setCategoria(categoria);
+                        m.setNota(et_nota.getText().toString());
+                        m.setAnio(anio);
+                        m.setDia(dia);
+                        m.setMes(mes);
+                        m.setId(bdMovimientos.getId());
+                        bdMovimientos.addMovimiento(m);
+                        finish();
+                        } else {
+                            String s = getResources().getString(R.string.toast_falta_cartera);
+                            Toast.makeText(Transaccion.this, s, Toast.LENGTH_SHORT).show();
+                            abrirSeleccionCartera();
+                        }
+                    } else {
+                        String s = getResources().getString(R.string.toast_falta_valor_transaccion);
+                        Toast.makeText(Transaccion.this, s, Toast.LENGTH_SHORT).show();
+                        et_transaccion.requestFocus();
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.showSoftInput(et_transaccion, InputMethodManager.SHOW_IMPLICIT);
+                    }
+                } else {
+                    String s = getResources().getString(R.string.toast_falta_seleccionar_categoria);
+                    Toast.makeText(Transaccion.this, s, Toast.LENGTH_SHORT).show();
+                    abrirSeleccionCategoria();
+                }
             }
         });
+    }
+
+    private void abrirSeleccionCartera() {
+        EleccionBilletera dialogo = new EleccionBilletera();
+        dialogoEleccionBilletera = dialogo;
+        dialogo.setCancelable(false);
+        dialogo.show(getSupportFragmentManager(), "dialogo");
+    }
+
+    private void abrirSeleccionCategoria() {
+        EleccionCategoria dialogo = new EleccionCategoria(Transaccion.this);
+        dialogoEleccionCategoria = dialogo;
+        dialogo.setCancelable(false);
+        dialogo.show(getSupportFragmentManager(), "dialogo");
     }
 
     private void abrirDialogoFecha() {
@@ -199,6 +230,7 @@ public class Transaccion extends AppCompatActivity {
         tv_billeteraDer.setText(nombre);
         dialogoEleccionBilletera.dismiss();
     }
+
     public void aplicarEleccionCategoria(String nombre_categoria, String tipo) {
         BDCategorias bdCategorias = new BDCategorias(this);
         iv_categoria.setBackgroundResource(0);
@@ -209,7 +241,8 @@ public class Transaccion extends AppCompatActivity {
         if (tipo.equals("ingreso")) tipo_categoria = "ingreso";
         else {
             tipo_categoria = "gasto";
-        }dialogoEleccionCategoria.dismiss();
+        }
+        dialogoEleccionCategoria.dismiss();
 
 
     }
