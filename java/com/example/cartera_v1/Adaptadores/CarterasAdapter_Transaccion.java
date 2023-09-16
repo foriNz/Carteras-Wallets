@@ -15,19 +15,19 @@ import com.example.cartera_v1.R;
 
 import java.util.ArrayList;
 
-public class CarteraAdapter_Transaccion extends RecyclerView.Adapter<CarteraAdapter_Transaccion.CarteraViewHolder> {
+public class CarterasAdapter_Transaccion extends RecyclerView.Adapter<CarterasAdapter_Transaccion.CarteraViewHolder> {
 
     Context context;
     ArrayList<Cartera> listaCartera;
 
-    public CarteraAdapter_Transaccion(ArrayList<Cartera> listaCartera, Context context) {
+    public CarterasAdapter_Transaccion(ArrayList<Cartera> listaCartera, Context context) {
         this.listaCartera = listaCartera;
         this.context = context;
     }
 
     @NonNull
     @Override
-    public CarteraAdapter_Transaccion.CarteraViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CarterasAdapter_Transaccion.CarteraViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_lista_cartera_transaccion,null,false);
         view.setFocusable(true);
 
@@ -35,7 +35,7 @@ public class CarteraAdapter_Transaccion extends RecyclerView.Adapter<CarteraAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CarteraAdapter_Transaccion.CarteraViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CarterasAdapter_Transaccion.CarteraViewHolder holder, int position) {
         holder.tv_nombrebilletera.setText(listaCartera.get(position).getNombre());
         holder.tv_dinerobilletera.setText(String.valueOf(listaCartera.get(position).getBalance()));
     }

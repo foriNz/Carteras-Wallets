@@ -139,4 +139,24 @@ public class BDCategorias extends BBDDHelper {
             return cursorCategoria.getString(2);
         else return "";
     }
+
+    public ArrayList<String> getNombresCategoriasIngreso() {
+        ArrayList<String> resultado = new ArrayList<>();
+        resultado.add(0,"General");
+        ArrayList<Categoria> categorias = getCategoriasIngreso();
+        for (int i = 0; i < categorias.size(); i++) {
+            resultado.add(categorias.get(i).getNombre());
+        }
+        return resultado;
+    }
+
+    public ArrayList<String> getNombresCategoriasGasto() {
+        ArrayList<String> resultado = new ArrayList<>();
+        resultado.add(0,"General");
+        ArrayList<Categoria> categorias = getCategoriasGasto();
+        for (int i = 0; i < categorias.size(); i++) {
+            resultado.add(categorias.get(i).getNombre());
+        }
+        return resultado;
+    }
 }

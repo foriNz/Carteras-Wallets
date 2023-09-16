@@ -2,7 +2,6 @@ package com.example.cartera_v1.Activities.Fragments;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.DashPathEffect;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -15,22 +14,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.cartera_v1.Activities.CreacionCartera;
-import com.example.cartera_v1.Adaptadores.CarteraAdapter_Transaccion;
+import com.example.cartera_v1.Adaptadores.CarterasAdapter_Transaccion;
 import com.example.cartera_v1.BBDD.BDCarteras;
 import com.example.cartera_v1.BBDD.BDMovimientos;
 import com.example.cartera_v1.Entidades.Model_Fecha_Movimientos;
 import com.example.cartera_v1.R;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -72,7 +68,7 @@ public class Billeteras extends Fragment {
 
     private void refrescarRecylclerView() {
         BDCarteras bdCarteras = new BDCarteras(getContext());
-        rv_billeteras.setAdapter(new CarteraAdapter_Transaccion(bdCarteras.getCarteras(), getContext()));
+        rv_billeteras.setAdapter(new CarterasAdapter_Transaccion(bdCarteras.getCarteras(), getContext()));
 
     }
 

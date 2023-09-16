@@ -16,14 +16,14 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cartera_v1.Adaptadores.CarteraAdapter_Transaccion;
+import com.example.cartera_v1.Adaptadores.CarterasAdapter_Transaccion;
 import com.example.cartera_v1.BBDD.BDCarteras;
 import com.example.cartera_v1.R;
 
 public class EleccionBilletera extends AppCompatDialogFragment {
     public Window window;
     RecyclerView rv_dialogo;
-    CarteraAdapter_Transaccion carterasAdapter;
+    CarterasAdapter_Transaccion carterasAdapter;
 
     @Override
     public void onResume() {
@@ -48,7 +48,7 @@ public class EleccionBilletera extends AppCompatDialogFragment {
 
     private void refrescarRecyclerView() {
         BDCarteras bdCarteras = new BDCarteras(getContext());
-        carterasAdapter = new CarteraAdapter_Transaccion(bdCarteras.getCarteras(), getContext());
+        carterasAdapter = new CarterasAdapter_Transaccion(bdCarteras.getCarteras(), getContext());
         rv_dialogo.setAdapter(carterasAdapter);
     }
 
