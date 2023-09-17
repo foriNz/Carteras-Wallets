@@ -20,6 +20,7 @@ public class Meta {
     public void setTipo_categoria(String tipo_categoria) {
         this.tipo_categoria = tipo_categoria;
     }
+
     public String getTipo_categoria() {
         return tipo_categoria;
     }
@@ -46,11 +47,11 @@ public class Meta {
     }
 
     public void setPorcentaje_objetivo() {
-        porcentaje_objetivo = valor_objetivo / valor_actual;
+        porcentaje_objetivo = (valor_actual * 100) / valor_objetivo;
     }
 
     public void setValor_actual(double valor_actual) {
-        this.valor_actual = Math.abs(valor_actual);
+        this.valor_actual = valor_actual;
 
         setPorcentaje_objetivo();
     }
@@ -60,7 +61,10 @@ public class Meta {
     }
 
     public void setValor_objetivo(double valor_objetivo) {
-        this.valor_objetivo = valor_objetivo;
+       /* if (valor_objetivo > 0)
+            this.valor_objetivo = valor_objetivo;
+        else this.valor_objetivo = -valor_objetivo;*/
+        this.valor_objetivo =valor_objetivo;
     }
 
 

@@ -50,6 +50,10 @@ public class CreacionMeta extends AppCompatActivity {
                 if (rb_ahorro.isChecked()) {
                     m.setCaracter(getResources().getString(R.string.ahorro));
                 } else if (rb_gasto.isChecked()) {
+                    int a = Integer.parseInt(objetivo.getText().toString());
+                    a = -a;
+                    m.setValor_objetivo(a);
+
                     if (sp_categorias.getSelectedItem().toString().equals("General"))
                         m.setCaracter("General");
                     else {

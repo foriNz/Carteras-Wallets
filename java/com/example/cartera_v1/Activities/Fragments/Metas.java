@@ -44,12 +44,8 @@ public class Metas extends Fragment {
     }
 
     private void agregarFuncionalidades() {
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        BDMetas bdMetas = new BDMetas(getContext());
-        rv_metas.setLayoutManager(new LinearLayoutManager(getContext()));
-        rv_metas.setAdapter(new MetasAdapter(getContext(), bdMetas.getMetas(year,month)));
+
+        refrescarRecyclerView();
         fabNuevaMeta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,5 +54,20 @@ public class Metas extends Fragment {
             }
         });
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refrescarRecyclerView();
+    }
+
+    private void refrescarRecyclerView() {
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        BDMetas bdMetas = new BDMetas(getContext());
+        rv_metas.setLayoutManager(new LinearLayoutManager(getContext()));
+        rv_metas.setAdapter(new MetasAdapter(getContext(), bdMetas.getMetas(year,month)));
     }
 }

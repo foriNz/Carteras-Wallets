@@ -38,9 +38,10 @@ public class MetasAdapter extends RecyclerView.Adapter<MetasAdapter.MetaViewHold
         holder.valor_objetivo.setText(String.valueOf(listaMetas.get(position).getValor_objetivo()));
         holder.valor_actual.setText(String.valueOf(listaMetas.get(position).getValor_actual()));
         holder.meta.setProgress((int) Math.round(listaMetas.get(position).getPorcentaje_objetivo()));
-        if (listaMetas.get(position).getTipo_categoria().equals(context.getResources().getString(R.string.gasto)))
-            holder.meta.getProgressDrawable().setColorFilter(Color.RED, android.graphics.PorterDuff.Mode.SRC_IN);
-        ;
+        if (listaMetas.get(position).getTipo_categoria() != null)
+            if (listaMetas.get(position).getTipo_categoria().equals(context.getResources().getString(R.string.gasto)))
+                holder.meta.getProgressDrawable().setColorFilter(Color.RED, android.graphics.PorterDuff.Mode.SRC_IN);
+
     }
 
     @Override
