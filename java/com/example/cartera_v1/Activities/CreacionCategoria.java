@@ -53,15 +53,14 @@ public class CreacionCategoria extends AppCompatActivity {
                 finish();
             }
         });
-        // TODO: 16/09/2023 verificar si ya hay una categoria del mismo tipo y con el mismo nombre
         btn_guardar_borrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Verifica si el nombre no esta vacio, hay un color y un icono seleccionado
                 if (!nombre_categoria.getText().toString().trim().isEmpty()) {
                     if (color_seleccion != null) {
-                        if (idRecursoIconoSeleccionado == 0) {
-                            if (!cb_ingreso.isChecked() && !cb_gasto.isChecked()) {
+                        if (idRecursoIconoSeleccionado != 0) {
+                            if (cb_ingreso.isChecked() || cb_gasto.isChecked()) {
                                 BDCategorias bdCategorias = new BDCategorias(CreacionCategoria.this);
                                 if (cb_gasto.isChecked())
                                     bdCategorias.addCategoria(nombre_categoria.getText().toString(),

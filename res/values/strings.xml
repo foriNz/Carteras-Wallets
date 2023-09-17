@@ -45,6 +45,9 @@
     <string name="toast_falta_seleccionar_categoria">Elige una categoria en el circulo de la parte superior izquierda</string>
     <string name="tv_creacion_meta">Elige el tipo de meta deseado</string>
     <string name="radiobutton_ahorro_meta">Balance ahorro</string>
+    <string name="ahorro">Ahorro</string>
     <string name="et_nueva_meta">Objetivo</string>
+    <string name="et_caracter_meta_especifico">Específico</string>
+    <string name="tv_creacion_meta_spinner">Elige la categoria o en su defecto general</string>
 
 </resources>

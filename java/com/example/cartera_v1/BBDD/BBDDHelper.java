@@ -7,11 +7,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class BBDDHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 14;
+    private static final int DATABASE_VERSION = 15;
     private static final String DATABASE_NAME = "usuario.db";
     public static final String TABLA_CARTERAS = "t_carteras";
     public static final String TABLA_MOVIMIENTOS = "t_movimientos";
     public static final String TABLA_CATEGORIAS = "t_categorias";
+    public static final String TABLA_METAS = "t_metas";
 
 
     public BBDDHelper(@Nullable Context context) {
@@ -24,7 +25,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
                 "nombre TEXT PRIMARY KEY, " +
                 "balance NUMERIC NOT NULL)");
         sqLiteDatabase.execSQL("CREATE TABLE "+ TABLA_CATEGORIAS +" (" +
-                "id NUMERIC NOT NULL," +
+                "id NUMERIC NOT NULL, " +
                 "nombre TEXT NOT NULL, " +
                 "color TEXT NOT NULL, " +
                 "icono TEXT NOT NULL, " +
@@ -40,7 +41,11 @@ public class BBDDHelper extends SQLiteOpenHelper {
                 "categoria TEXT NOT NULL, " +
                 "nota TEXT, " +
                 "PRIMARY KEY(id, anio, mes ,dia))");
-
+        sqLiteDatabase.execSQL("CREATE TABLE " + TABLA_METAS + "(" +
+                "caracter TEXT NOT NULL, " +
+                "categoria TEXT, " +
+                "tipo_categoria TEXT, " +
+                "objetivo NUMERIC NOT NULL)");
     }
 
     @Override
@@ -48,6 +53,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE if exists " + TABLA_CARTERAS);
         sqLiteDatabase.execSQL("DROP TABLE if exists " + TABLA_MOVIMIENTOS);
         sqLiteDatabase.execSQL("DROP TABLE if exists " + TABLA_CATEGORIAS);
+        sqLiteDatabase.execSQL("DROP TABLE if exists " + TABLA_METAS);
 
         onCreate(sqLiteDatabase);
     }

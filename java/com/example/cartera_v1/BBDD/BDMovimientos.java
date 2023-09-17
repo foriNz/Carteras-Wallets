@@ -58,6 +58,96 @@ public class BDMovimientos extends BBDDHelper {
         return listaMovimientos;
     }
 
+    public Model_Data_MovimientoPorMes getMovimientosMes(int anio, int mes) {
+        BBDDHelper bbddHelper = new BBDDHelper(contexto);
+        SQLiteDatabase bd = bbddHelper.getWritableDatabase();
+        Model_Data_MovimientoPorMes[] listaAnio = new Model_Data_MovimientoPorMes[12];
+        Model_Data_MovimientoPorMes m = new Model_Data_MovimientoPorMes();
+        Cursor cursor;
+        cursor = bd.rawQuery("SELECT * FROM " + TABLA_MOVIMIENTOS + " WHERE anio = \'" + anio + "\' AND mes = \'" + mes + "\'  ORDER BY mes DESC, dia DESC", null);
+        if (cursor.moveToFirst()) {
+            do {
+                Movimiento mov = new Movimiento();
+                mov.setId(cursor.getInt(0));
+                mov.setNombre_cartera(cursor.getString(1));
+                mov.setAnio(cursor.getInt(2));
+                mov.setMes(cursor.getInt(3));
+                mov.setDia(cursor.getInt(4));
+                mov.setTransaccion(cursor.getDouble(5));
+                mov.setCategoria(cursor.getString(6));
+                mov.setNota(cursor.getString(7));
+                m.addMovimiento(mov);
+
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return m;
+    }
+
+    public Model_Data_MovimientoPorMes getMovimientosMes(int anio, int mes, String tipo) {
+        BBDDHelper bbddHelper = new BBDDHelper(contexto);
+        SQLiteDatabase bd = bbddHelper.getWritableDatabase();
+        Model_Data_MovimientoPorMes m = new Model_Data_MovimientoPorMes();
+        String d = "";
+        if (tipo.equals("Gasto"))
+            d = "<";
+        else if (tipo.equals("Ingreso"))
+            d = ">";
+
+        Cursor cursor;
+        cursor = bd.rawQuery("SELECT * FROM " + TABLA_MOVIMIENTOS + " WHERE anio = \'" + anio + "\' AND mes = \'" + mes + "\' AND transaccion " + d + " 0  ORDER BY mes DESC, dia DESC", null);
+        if (cursor.moveToFirst()) {
+            do {
+                Movimiento mov = new Movimiento();
+                mov.setId(cursor.getInt(0));
+                mov.setNombre_cartera(cursor.getString(1));
+                mov.setAnio(cursor.getInt(2));
+                mov.setMes(cursor.getInt(3));
+                mov.setDia(cursor.getInt(4));
+                mov.setTransaccion(cursor.getDouble(5));
+                mov.setCategoria(cursor.getString(6));
+                mov.setNota(cursor.getString(7));
+                m.addMovimiento(mov);
+
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return m;
+    }
+
+    public Model_Data_MovimientoPorMes getMovimientosMes(int anio, int mes, String categoria, String tipo) {
+        BBDDHelper bbddHelper = new BBDDHelper(contexto);
+        SQLiteDatabase bd = bbddHelper.getWritableDatabase();
+        Model_Data_MovimientoPorMes m = new Model_Data_MovimientoPorMes();
+        String d = "";
+        if (tipo.equals("Gasto"))
+            d = "<";
+        else if (tipo.equals("Ingreso"))
+            d = ">";
+
+        Cursor cursor;
+        cursor = bd.rawQuery("SELECT * FROM " + TABLA_MOVIMIENTOS + " WHERE anio = \'" + anio +
+                "\' AND mes = \'" + mes + "\' AND transaccion " + d + " 0" +
+                " AND categoria = \'" + categoria + "\'  ORDER BY mes DESC, dia DESC", null);
+        if (cursor.moveToFirst()) {
+            do {
+                Movimiento mov = new Movimiento();
+                mov.setId(cursor.getInt(0));
+                mov.setNombre_cartera(cursor.getString(1));
+                mov.setAnio(cursor.getInt(2));
+                mov.setMes(cursor.getInt(3));
+                mov.setDia(cursor.getInt(4));
+                mov.setTransaccion(cursor.getDouble(5));
+                mov.setCategoria(cursor.getString(6));
+                mov.setNota(cursor.getString(7));
+                m.addMovimiento(mov);
+
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return m;
+    }
+
     public Model_Data_MovimientoPorMes[] getMovimientosAnio(int anio) {
         BBDDHelper bbddHelper = new BBDDHelper(contexto);
         SQLiteDatabase bd = bbddHelper.getWritableDatabase();
@@ -80,7 +170,7 @@ public class BDMovimientos extends BBDDHelper {
                     m = new Model_Data_MovimientoPorMes();
                     listaAnio[mov.getMes()] = m;
                     listaAnio[mov.getMes()].addMovimiento(mov);
-                } else{
+                } else {
                     listaAnio[mov.getMes()].addMovimiento(mov);
                 }
             } while (cursor.moveToNext());
@@ -110,7 +200,7 @@ public class BDMovimientos extends BBDDHelper {
             values.put("categoria", m.getCategoria());
             values.put("nota", m.getNota());
             BDCarteras bdC = new BDCarteras(contexto);
-            bdC.modificarBalance(m.getNombre_cartera(),m.getTransaccion());
+            bdC.modificarBalance(m.getNombre_cartera(), m.getTransaccion());
             id = bd.insert(TABLA_MOVIMIENTOS, null, values);
         } catch (Exception e) {
             e.toString();

@@ -11,7 +11,11 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 
 import com.example.cartera_v1.BBDD.BDCategorias;
+import com.example.cartera_v1.BBDD.BDMetas;
+import com.example.cartera_v1.Entidades.Meta;
 import com.example.cartera_v1.R;
+
+import java.util.ArrayList;
 
 public class CreacionMeta extends AppCompatActivity {
     RadioButton rb_ingreso, rb_gasto, rb_ahorro;
@@ -39,7 +43,31 @@ public class CreacionMeta extends AppCompatActivity {
         btn_aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // TODO: 17/09/2023 verificar si estan los datos
+                BDMetas bdm = new BDMetas(CreacionMeta.this);
+                Meta m = new Meta();
+                m.setValor_objetivo(Integer.parseInt(objetivo.getText().toString()));
+                if (rb_ahorro.isChecked()) {
+                    m.setCaracter(getResources().getString(R.string.ahorro));
+                } else if (rb_gasto.isChecked()) {
+                    if (sp_categorias.getSelectedItem().toString().equals("General"))
+                        m.setCaracter("General");
+                    else {
+                        m.setCaracter(getResources().getString(R.string.et_caracter_meta_especifico));
+                        m.setCategoria(sp_categorias.getSelectedItem().toString());
+                    }
+                    m.setTipo_categoria(getResources().getString(R.string.gasto));
+                } else if (rb_ingreso.isChecked()) {
+                    if (sp_categorias.getSelectedItem().toString().equals("General"))
+                        m.setCaracter("General");
+                    else {
+                        m.setCaracter(getResources().getString(R.string.et_caracter_meta_especifico));
+                        m.setCategoria(sp_categorias.getSelectedItem().toString());
+                    }
+                    m.setTipo_categoria(getResources().getString(R.string.ingreso));
+                }
+                bdm.addMeta(m);
+                finish();
             }
         });
         rb_ingreso.setOnClickListener(new View.OnClickListener() {
@@ -59,7 +87,10 @@ public class CreacionMeta extends AppCompatActivity {
         rb_ahorro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sp_categorias.setAdapter(null);
+                ArrayList<String> a = new ArrayList<>();
+                a.add("General");
+                sp_categorias.setAdapter(new ArrayAdapter<String>(CreacionMeta.this,
+                        android.R.layout.simple_spinner_item, a));
             }
         });
     }

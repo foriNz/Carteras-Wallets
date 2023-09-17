@@ -31,6 +31,10 @@ public class Model_Data_MovimientoPorMes {
         ingresos = contador;
     }
 
+    public double getBalance_total() {
+        return balance_total;
+    }
+
     public void setGastos() {
         double contador = 0;
         for (int i = 0; i < listaMovimientos.size(); i++) {

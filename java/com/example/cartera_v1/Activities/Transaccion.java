@@ -142,7 +142,7 @@ public class Transaccion extends AppCompatActivity {
         btn_aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (categoria == null) {
+                if (categoria != null) {
                     if (!et_transaccion.getText().toString().isEmpty() || et_transaccion.getText().toString().equals("0")) {
                         if (!tv_billeteraDer.getText().toString().isEmpty()) {
                         BDMovimientos bdMovimientos = new BDMovimientos(Transaccion.this);
