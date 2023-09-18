@@ -61,9 +61,6 @@ public class Meta {
     }
 
     public void setValor_objetivo(double valor_objetivo) {
-       /* if (valor_objetivo > 0)
-            this.valor_objetivo = valor_objetivo;
-        else this.valor_objetivo = -valor_objetivo;*/
         this.valor_objetivo =valor_objetivo;
     }
 

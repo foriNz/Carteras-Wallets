@@ -49,5 +49,7 @@
     <string name="et_nueva_meta">Objetivo</string>
     <string name="et_caracter_meta_especifico">Específico</string>
     <string name="tv_creacion_meta_spinner">Elige la categoria o en su defecto general</string>
+    <string name="et_titulo_recordatorio">Introduce un título para el recodatorio</string>
+    <string name="et_mensaje_recodatorio">Introduce un mensaje para el recordatorio</string>
 
 </resources>
