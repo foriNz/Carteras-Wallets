@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="86dp"
+    android:id="@+id/ll_item_recordatorio">
+<ImageView
+    android:src="@drawable/outline_timer_24"
+    android:layout_marginLeft="10dp"
+    android:layout_width="40dp"
+    android:layout_height="40dp"
+    android:layout_gravity="center"/>
+    <LinearLayout
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:orientation="vertical"
+        android:layout_weight="1">
+        <TextView
+            android:id="@+id/tv_titulo_recordatorio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            />
+        <TextView
+            android:id="@+id/tv_fecha_recordatorio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            />
+        <TextView
+            android:id="@+id/tv_repeticion_info_recordatorio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            />
+    </LinearLayout>
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/outline_notifications_active_24"/>
+</LinearLayout>
