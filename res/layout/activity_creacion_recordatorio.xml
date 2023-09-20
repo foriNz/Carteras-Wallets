@@ -6,7 +6,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Activities.CreacionRecordatorio">
-
+<TextView
+    android:id="@+id/tv_titulo_activity_recordatorio"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textSize="25sp"/>
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,6 +41,7 @@
         android:orientation="horizontal">
 
         <DatePicker
+            android:id="@+id/dp_recordatorio"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
 
@@ -48,6 +53,7 @@
             android:scaleY=".7" />
 
         <TimePicker
+            android:id="@+id/tp_recordatorio"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -64,6 +70,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/tv_repeticion_info"
             android:drawableLeft="@drawable/outline_repeat_24"
             android:drawablePadding="10dp"
             android:layout_width="match_parent"
@@ -84,7 +91,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="20dp"
-        android:text="@string/repeticion_recordatorio"
+        android:text="@string/repeticion_intervalo_recordatorio"
         />
     <Button
         android:id="@+id/btn_aceptar_recordatorio"

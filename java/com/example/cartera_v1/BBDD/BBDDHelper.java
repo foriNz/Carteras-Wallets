@@ -7,12 +7,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class BBDDHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 15;
+    private static final int DATABASE_VERSION = 16;
     private static final String DATABASE_NAME = "usuario.db";
     public static final String TABLA_CARTERAS = "t_carteras";
     public static final String TABLA_MOVIMIENTOS = "t_movimientos";
     public static final String TABLA_CATEGORIAS = "t_categorias";
     public static final String TABLA_METAS = "t_metas";
+    public static final String TABLA_RECORDATORIOS = "t_recordatorios";
 
 
     public BBDDHelper(@Nullable Context context) {
@@ -24,6 +25,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLA_CARTERAS + "(" +
                 "nombre TEXT PRIMARY KEY, " +
                 "balance NUMERIC NOT NULL)");
+
         sqLiteDatabase.execSQL("CREATE TABLE "+ TABLA_CATEGORIAS +" (" +
                 "id NUMERIC NOT NULL, " +
                 "nombre TEXT NOT NULL, " +
@@ -31,6 +33,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
                 "icono TEXT NOT NULL, " +
                 "tipo TEXT NOT NULL, " +
                 "PRIMARY KEY (id,nombre,tipo))");
+
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLA_MOVIMIENTOS + "(" +
                 "id NUMERIC, " +
                 "nombre_cartera TEXT NOT NULL, " +
@@ -41,11 +44,20 @@ public class BBDDHelper extends SQLiteOpenHelper {
                 "categoria TEXT NOT NULL, " +
                 "nota TEXT, " +
                 "PRIMARY KEY(id, anio, mes ,dia))");
+
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLA_METAS + "(" +
                 "caracter TEXT NOT NULL, " +
                 "categoria TEXT, " +
                 "tipo_categoria TEXT, " +
                 "objetivo NUMERIC NOT NULL)");
+
+        sqLiteDatabase.execSQL("CREATE TABLE " + TABLA_RECORDATORIOS + "(" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                "titulo TEXT NOT NULL, "+
+                "descripcion TEXT NOT NULL,"+
+                "fecha  TEXT NOT NULL, "+
+                "repeticion NUMERIC NOT NULL, "+
+                "intervalo NUMERIC NOT NULL)");
     }
 
     @Override
@@ -54,7 +66,7 @@ public class BBDDHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE if exists " + TABLA_MOVIMIENTOS);
         sqLiteDatabase.execSQL("DROP TABLE if exists " + TABLA_CATEGORIAS);
         sqLiteDatabase.execSQL("DROP TABLE if exists " + TABLA_METAS);
-
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLA_RECORDATORIOS);
         onCreate(sqLiteDatabase);
     }
 }

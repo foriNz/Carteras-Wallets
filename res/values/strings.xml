@@ -52,5 +52,8 @@
     <string name="et_titulo_recordatorio">Introduce un título para el recodatorio</string>
     <string name="et_mensaje_recodatorio">Introduce un mensaje para el recordatorio</string>
     <string name="repeticion_recordatorio">Repetir</string>
+    <string name="creacion_recordatorio">Agrega los detalles del recordatorio</string>
+    <string name="repeticion_intervalo_recordatorio">Introduce un intervalo de repeticion</string>
+    <string name="editar_recordatorio" >Editar recordatorio</string>
 
 </resources>

@@ -7,10 +7,10 @@
     android:orientation="vertical"
     tools:context=".Activities.Fragments.Recordatorios">
 
-    <ListView
-        android:id="@+id/lv_frag_recordatorios"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_frag_recordatorios"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
