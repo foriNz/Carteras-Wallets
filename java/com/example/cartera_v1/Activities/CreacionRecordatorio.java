@@ -16,6 +16,8 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -44,7 +46,7 @@ public class CreacionRecordatorio extends AppCompatActivity {
     public static final String channelId = "recordatorio_channel";
 
 
-    private static final long valor_minuto = 60000L;
+    private static final int valor_minuto = 60000;
     private static final long valor_hora = 33600000L;
     private static final long valor_dia = 86400000L;
     private static final long valor_semana = 604800000L;
@@ -67,6 +69,7 @@ public class CreacionRecordatorio extends AppCompatActivity {
     }
 
     private void agregarFuncionalidades() {
+        tp_tiempo.setIs24HourView(true);
         btn_aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,12 +81,15 @@ public class CreacionRecordatorio extends AppCompatActivity {
                 r.setRepeticion(switch_repeticion.isSelected());
                 //r.setIntervalo();
                 crearCanalDeNotificaciones();
+
                 BDRecordatorio bd = new BDRecordatorio(CreacionRecordatorio.this);
                 bd.agregarRecordatorio(r);
-                int id = bd.getRecordatoriosId(r);
-                long fechaEnMilis = obtenerTiempoDelRecordatorio();
-                programarNotificacion(CreacionRecordatorio.this,fechaEnMilis,id);
 
+                int id = bd.getRecordatoriosId(r);
+                //long fechaEnMilis = obtenerTiempoDelRecordatorio();
+                long fechaEnMilis = obtenerTiempoDelRecordatorio();
+
+                programarNotificacion(CreacionRecordatorio.this,fechaEnMilis,id);
                 finish();
             }
         });
@@ -98,9 +104,15 @@ public class CreacionRecordatorio extends AppCompatActivity {
         calendar.set(Calendar.DAY_OF_MONTH, dp_fecha.getDayOfMonth());
         calendar.set(Calendar.HOUR_OF_DAY, tp_tiempo.getHour());
         calendar.set(Calendar.MINUTE, tp_tiempo.getMinute());
+        //  calendar.set(Calendar.HOUR_OF_DAY, 8);
+        //  calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        fechaActual.set(Calendar.SECOND, 0);
 
         // Devolver la marca de tiempo en milisegundos
-        long resultado = calendar.getTimeInMillis()- fechaActual.getTimeInMillis();
+        //long resultado = System.currentTimeMillis()- fechaActual.getTimeInMillis();
+        long resultado = calendar.getTimeInMillis() - fechaActual.getTimeInMillis();
+        //long resultado = fechaActual.getTimeInMillis()- calendar.getTimeInMillis();
         return resultado;
     }
 
@@ -117,14 +129,18 @@ public class CreacionRecordatorio extends AppCompatActivity {
         }
     }
     private void programarNotificacion(Context context, long triggerTimeMillis, int id) {
+        System.out.println("TRIGERTIMEINTMILLIS : "+ triggerTimeMillis+"\n");
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, RecordatorioReceiver.class);
         intent.putExtra("titulo", txt_titulo.getText().toString());
         intent.putExtra("descripcion", descripcion.getText().toString());
         intent.putExtra("id", id);
+        intent.setAction("com.example.cartera_v1.ALARMA");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_ONE_SHOT);
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            alarmManager.canScheduleExactAlarms();
+        } else
         // Programar la notificación en el momento especificado
-        alarmManager.set(AlarmManager.RTC_WAKEUP, triggerTimeMillis, pendingIntent);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerTimeMillis, pendingIntent);
     }
 }

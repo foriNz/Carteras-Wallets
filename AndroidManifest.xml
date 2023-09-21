@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <application
 
@@ -19,7 +20,7 @@
             android:enabled="true"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.example.cartera_v1.programarNotificacion" />
+                <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </receiver>
         <activity

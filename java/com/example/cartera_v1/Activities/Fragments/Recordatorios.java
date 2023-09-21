@@ -18,7 +18,7 @@ import com.example.cartera_v1.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
-public class Recordatorios extends Fragment {
+public class Recordatorios extends Fragment implements RecordatorioAlarmaAdapter.EventListener {
 
     FloatingActionButton fab_nuevo_recordatorio;
     RecyclerView lista_recordatorios;
@@ -44,6 +44,7 @@ public class Recordatorios extends Fragment {
                 startActivity(i);
             }
         });
+
     }
 
     @Override
@@ -55,8 +56,18 @@ public class Recordatorios extends Fragment {
     private void refrescarListView() {
         BDRecordatorio bdRecordatorio = new BDRecordatorio(getContext());
         lista_recordatorios.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new RecordatorioAlarmaAdapter(bdRecordatorio.getRecordatorios(),getContext());
+        adapter = new RecordatorioAlarmaAdapter(bdRecordatorio.getRecordatorios(), getContext(), new RecordatorioAlarmaAdapter.EventListener() {
+            @Override
+            public void aplicarEliminacion() {
+                refrescarListView();
+            }
+        });
         lista_recordatorios.setAdapter(adapter);
     }
 
-   }
+
+    @Override
+    public void aplicarEliminacion() {
+        refrescarListView();
+    }
+}
