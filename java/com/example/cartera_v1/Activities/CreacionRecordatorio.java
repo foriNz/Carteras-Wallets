@@ -120,7 +120,7 @@ public class CreacionRecordatorio extends AppCompatActivity implements Intervalo
                 int id = bd.getRecordatoriosId(r);
                 long fechaEnMilis = obtenerTiempoDelRecordatorio() + System.currentTimeMillis();
 
-                programarNotificacion(CreacionRecordatorio.this, fechaEnMilis, id);
+                programarNotificacion(CreacionRecordatorio.this, fechaEnMilis, r);
                 finish();
             }
         });
@@ -160,19 +160,22 @@ public class CreacionRecordatorio extends AppCompatActivity implements Intervalo
         }
     }
 
-    private void programarNotificacion(Context context, long triggerTimeMillis, int id) {
+    private void programarNotificacion(Context context, long triggerTimeMillis, Recordatorio r) {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, RecordatorioReceiver.class);
         intent.putExtra("titulo", txt_titulo.getText().toString());
         intent.putExtra("descripcion", descripcion.getText().toString());
-        intent.putExtra("id", id);
+        intent.putExtra("id", r.getId());
         intent.setAction("com.example.cartera_v1.ALARMA");
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, r.getId(), intent, 0);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             alarmManager.canScheduleExactAlarms();
-        } else
-            // Programar la notificación en el momento especificado
-            alarmManager.set(AlarmManager.RTC_WAKEUP, triggerTimeMillis, pendingIntent);
+        } else {
+            if (r.getRepeticion() == 1)
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, triggerTimeMillis, r.getIntervalo(), pendingIntent);
+            else // Programar la notificación en el momento especificado
+                alarmManager.set(AlarmManager.RTC_WAKEUP, triggerTimeMillis, pendingIntent);
+        }
     }
 
     @Override

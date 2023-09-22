@@ -23,10 +23,10 @@ public class RecordatorioReceiver extends BroadcastReceiver {
         // Aquí puedes mostrar la notificación periódica al usuario
         this.context = context;
         Bundle d = intent.getExtras();
-        showNotification(context, d.getString("titulo"), d.getString("descripcion"), d.getInt("id"));
+        showNotification(context, d.getString("titulo"), d.getString("descripcion"), d.getInt("id"), d.getInt("repeticion"));
     }
 
-    private void showNotification(Context context, String title, String message, int id) {
+    private void showNotification(Context context, String title, String message, int id, int repeticion) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CreacionRecordatorio.channelId)
                 .setSmallIcon(R.drawable.outline_notifications_active_24)
                 .setContentTitle(title)
@@ -46,5 +46,9 @@ public class RecordatorioReceiver extends BroadcastReceiver {
             return;
         }
         notificationManager.notify(id, builder.build());
+        if (repeticion == 0){
+            BDRecordatorio bdr = new BDRecordatorio(context);
+            bdr.eliminarRecordatorio(id);
+        }
     }
 }
