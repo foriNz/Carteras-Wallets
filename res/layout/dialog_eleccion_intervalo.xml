@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray">
+    android:orientation="vertical"
+    tools:context=".Activities.Dialogos.EleccionIntervalo">
 
     <TextView
         android:padding="15sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:text="@string/tv_dialogo_billetera" />
+        android:text="@string/tv_dialogo_intervalo" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_dialogo_eleccion_billetera"
+        android:id="@+id/rv_dialogo_eleccion_intervalo"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 </LinearLayout>

@@ -12,6 +12,8 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.example.cartera_v1.Activities.CreacionRecordatorio;
+import com.example.cartera_v1.BBDD.BDRecordatorio;
+import com.example.cartera_v1.Entidades.Recordatorio;
 import com.example.cartera_v1.R;
 
 public class RecordatorioReceiver extends BroadcastReceiver {
@@ -44,6 +46,5 @@ public class RecordatorioReceiver extends BroadcastReceiver {
             return;
         }
         notificationManager.notify(id, builder.build());
-
     }
 }

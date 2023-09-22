@@ -86,6 +86,7 @@
 
     </LinearLayout>
     <TextView
+        android:id="@+id/tv_intervalo_recordatorio"
         android:drawableLeft="@drawable/outline_timer_24"
         android:drawablePadding="10dp"
         android:layout_width="match_parent"

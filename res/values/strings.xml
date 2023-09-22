@@ -54,6 +54,11 @@
     <string name="repeticion_recordatorio">Repetir</string>
     <string name="creacion_recordatorio">Agrega los detalles del recordatorio</string>
     <string name="repeticion_intervalo_recordatorio">Introduce un intervalo de repeticion</string>
-    <string name="editar_recordatorio" >Editar recordatorio</string>
+    <string name="editar_recordatorio">Editar recordatorio</string>
+    <string name="tv_dialogo_intervalo">Selecciona un intervalo para tu repeticion</string>
+    <string name="todos_los_dias">Cada día</string>
+    <string name="todos_las_semanas">Cada semana</string>
+    <string name="cada_cuatro_semanas">Cada cuatro semanas</string>
+    <string name="cada_año">Cada año</string>
 
 </resources>
