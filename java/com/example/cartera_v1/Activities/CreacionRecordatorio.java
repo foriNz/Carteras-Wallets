@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.cartera_v1.Activities.Dialogos.EleccionBilletera;
 import com.example.cartera_v1.Activities.Dialogos.EleccionIntervalo;
@@ -95,33 +96,40 @@ public class CreacionRecordatorio extends AppCompatActivity implements Intervalo
         btn_aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!txt_titulo.getText().toString().trim().isEmpty()) {
+                    if ((switch_repeticion.isChecked() && !intervalo.equals(R.string.repeticion_intervalo_recordatorio)) || !switch_repeticion.isChecked()) {
+                        Recordatorio r = new Recordatorio();
+                        r.setTitulo(txt_titulo.getText().toString());
+                        r.setDescripcion(descripcion.getText().toString());
+                        r.setFecha(dp_fecha.getDayOfMonth() + "/" + (dp_fecha.getMonth() + 1) + "/" + dp_fecha.getYear() + " " + tp_tiempo.getHour() + ":" + tp_tiempo.getMinute());
+                        r.setRepeticion(switch_repeticion.isChecked());
+                        if (r.getRepeticion() == 1)
+                            if (intervalo.getText().toString().equals(getResources().getString(R.string.todos_los_dias))) {
+                                r.setIntervalo(valor_dia);
+                            } else if (intervalo.getText().toString().equals(getResources().getString(R.string.todos_las_semanas))) {
+                                r.setIntervalo(valor_semana);
+                            } else if (intervalo.getText().toString().equals(getResources().getString(R.string.cada_cuatro_semanas))) {
+                                r.setIntervalo(valor_semana * 4);
+                            } else if (intervalo.getText().toString().equals(getResources().getString(R.string.cada_año))) {
+                                r.setIntervalo(valor_anio);
+                            }
 
-                Recordatorio r = new Recordatorio();
-                r.setTitulo(txt_titulo.getText().toString());
-                r.setDescripcion(descripcion.getText().toString());
-                r.setFecha(dp_fecha.getDayOfMonth() + "/" + (dp_fecha.getMonth() + 1) + "/" + dp_fecha.getYear() + " " + tp_tiempo.getHour() + ":" + tp_tiempo.getMinute());
-                r.setRepeticion(switch_repeticion.isChecked());
-                if (r.getRepeticion() == 1)
-                    if (intervalo.getText().toString().equals(getResources().getString(R.string.todos_los_dias))) {
-                        r.setIntervalo(valor_dia);
-                    } else if (intervalo.getText().toString().equals(getResources().getString(R.string.todos_las_semanas))) {
-                        r.setIntervalo(valor_semana);
-                    } else if (intervalo.getText().toString().equals(getResources().getString(R.string.cada_cuatro_semanas))) {
-                        r.setIntervalo(valor_semana * 4);
-                    } else if (intervalo.getText().toString().equals(getResources().getString(R.string.cada_año))) {
-                        r.setIntervalo(valor_anio);
+                        crearCanalDeNotificaciones();
+
+                        BDRecordatorio bd = new BDRecordatorio(CreacionRecordatorio.this);
+                        bd.agregarRecordatorio(r);
+
+                        int id = bd.getRecordatoriosId(r);
+                        long fechaEnMilis = obtenerTiempoDelRecordatorio() + System.currentTimeMillis();
+
+                        programarNotificacion(CreacionRecordatorio.this, fechaEnMilis, r);
+                        finish();
+                    } else {
+                        Toast.makeText(CreacionRecordatorio.this, getResources().getString(R.string.toast_falta_intervalo), Toast.LENGTH_SHORT).show();
                     }
-
-                crearCanalDeNotificaciones();
-
-                BDRecordatorio bd = new BDRecordatorio(CreacionRecordatorio.this);
-                bd.agregarRecordatorio(r);
-
-                int id = bd.getRecordatoriosId(r);
-                long fechaEnMilis = obtenerTiempoDelRecordatorio() + System.currentTimeMillis();
-
-                programarNotificacion(CreacionRecordatorio.this, fechaEnMilis, r);
-                finish();
+                } else {
+                    Toast.makeText(CreacionRecordatorio.this, getResources().getString(R.string.toast_falta_titulo_recordatorio), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

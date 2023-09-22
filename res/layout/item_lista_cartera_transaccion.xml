@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/ll_item_cartera_eleccion"
         android:layout_width="match_parent"
         android:layout_height="70sp"
         android:orientation="horizontal">
@@ -20,11 +21,12 @@
             android:layout_gravity="center"/>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center"
-            android:layout_weight=".9">
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp">
 
             <TextView
                 android:id="@+id/tv_dial_nombre_billetera"

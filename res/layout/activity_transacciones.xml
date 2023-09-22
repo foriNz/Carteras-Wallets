@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+
     android:orientation="vertical"
     tools:context=".Activities.Transaccion">
 
@@ -62,14 +62,13 @@
             android:layout_height="match_parent"
             android:drawableLeft="@drawable/outline_wallet_24"
             android:drawablePadding="5dp"
-            android:drawableTint="@color/white"
             android:gravity="center"
 
             android:paddingLeft="15dp"
             android:text="@string/tv_billeteraIZQ"
             android:textAlignment="viewStart"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tv_billeteraDer"
@@ -78,9 +77,8 @@
             android:gravity="center"
             android:paddingRight="15dp"
             android:textAlignment="viewEnd"
-            android:textColor="@color/white"
 
-            android:textSize="16sp" />
+            android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -95,13 +93,13 @@
             android:layout_height="match_parent"
             android:drawableLeft="@drawable/outline_calendar_month_24"
             android:drawablePadding="5dp"
-            android:drawableTint="@color/white"
+
             android:gravity="center"
             android:paddingLeft="15dp"
             android:text="@string/hoy"
             android:textAlignment="viewStart"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tv_fechaDer"
@@ -111,8 +109,8 @@
             android:paddingRight="15dp"
             android:text="@string/ayer"
             android:textAlignment="viewEnd"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
+
+            android:textSize="14sp" />
     </LinearLayout>
 
 
@@ -123,11 +121,10 @@
         android:background="@color/transparent"
         android:drawableLeft="@drawable/outline_sticky_note_2_24"
         android:drawablePadding="5dp"
-        android:drawableTint="@color/white"
+
         android:hint="@string/et_nota"
         android:paddingLeft="15dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white" />
+        android:textSize="16sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -140,15 +137,15 @@
             android:layout_height="70dp"
             android:drawableLeft="@drawable/outline_photo_camera_24"
             android:drawablePadding="5dp"
-            android:drawableTint="@color/white"
+
             android:focusable="true"
             android:gravity="center"
             android:paddingLeft="15dp"
             android:text="@string/tv_agregarFoto"
             android:textAlignment="viewStart"
 
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+
+            android:textSize="16sp" />
 
         <ImageView
             android:id="@+id/iv_foto"

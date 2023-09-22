@@ -82,6 +82,7 @@ public class EleccionCategoria extends AppCompatDialogFragment {
             }
         });
         refrescarCategorias(0);
+
         builder.setView(view);
         return builder.create();
 

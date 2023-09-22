@@ -60,5 +60,7 @@
     <string name="todos_las_semanas">Cada semana</string>
     <string name="cada_cuatro_semanas">Cada cuatro semanas</string>
     <string name="cada_año">Cada año</string>
+    <string name="toast_falta_intervalo">Introduce un intervalo para la repeticion de la notificacion</string>
+    <string name="toast_falta_titulo_recordatorio">Es obligatorio que el recordatorio tenga un titulo al menos</string>
 
 </resources>

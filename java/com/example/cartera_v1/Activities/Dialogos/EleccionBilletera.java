@@ -2,6 +2,7 @@ package com.example.cartera_v1.Activities.Dialogos;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,9 +19,13 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cartera_v1.Activities.CreacionCartera;
 import com.example.cartera_v1.Adaptadores.CarterasAdapter_Transaccion;
 import com.example.cartera_v1.BBDD.BDCarteras;
 import com.example.cartera_v1.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EleccionBilletera extends AppCompatDialogFragment {
     public Window window;
@@ -36,7 +43,7 @@ public class EleccionBilletera extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_eleccion_billetera,null);
+        View view = inflater.inflate(R.layout.dialog_eleccion_billetera, null);
 
         rv_dialogo = view.findViewById(R.id.rv_dialogo_eleccion_billetera);
         rv_dialogo.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -48,8 +55,10 @@ public class EleccionBilletera extends AppCompatDialogFragment {
 
     private void refrescarRecyclerView() {
         BDCarteras bdCarteras = new BDCarteras(getContext());
+
         carterasAdapter = new CarterasAdapter_Transaccion(bdCarteras.getCarteras(), getContext());
         rv_dialogo.setAdapter(carterasAdapter);
+
     }
 
     @Nullable
