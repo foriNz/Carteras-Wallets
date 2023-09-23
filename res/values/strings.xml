@@ -64,8 +64,22 @@
     <string name="toast_falta_titulo_recordatorio">Es obligatorio que el recordatorio tenga un titulo al menos</string>
     <string name="por_meses">Por meses</string>
     <string name="todas_las_billeteras">Todas las billeteras</string>
-    <string name="este_año">Este año</string>
+    <string name="por_año">Por años</string>
     <string name="usanzas_singular">transacción</string>
     <string name="usanzas_plural">transacciones</string>
+    <string name="todo_el_historial">Historial completo</string>
+    <string name="enero">Enero</string>
+    <string name="febrero">Febrero</string>
+    <string name="marzo">Marzo</string>
+    <string name="abril">Abril</string>
+    <string name="mayo">Mayo</string>
+    <string name="junio">Junio</string>
+    <string name="julio">Julio</string>
+    <string name="agosto">Agosto</string>
+    <string name="septiembre">Septiembre</string>
+    <string name="octubre">Octubre</string>
+    <string name="noviembre">Noviembre</string>
+    <string name="diciembre">Diciembre</string>
+
 
 </resources>

@@ -11,6 +11,7 @@ import com.example.cartera_v1.Entidades.Model_Data_Categoria;
 import com.example.cartera_v1.Entidades.Model_Data_MovimientoPorMes;
 import com.example.cartera_v1.Entidades.Model_Fecha_Movimientos;
 import com.example.cartera_v1.Entidades.Movimiento;
+import com.example.cartera_v1.R;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -297,7 +298,7 @@ public class BDMovimientos extends BBDDHelper {
         return resultado;
     }
 
-    public ArrayList<Model_Data_Categoria> getIngresosGastosPorCategorias(int anio, String gastoOIngreso) {
+    public ArrayList<Model_Data_Categoria> getTodoIngresosGastosPorCategorias(String gastoOIngreso) {
         BBDDHelper bbddHelper = new BBDDHelper(contexto);
         SQLiteDatabase bd = bbddHelper.getReadableDatabase();
         String ingresoOGasto = ">";
@@ -308,7 +309,7 @@ public class BDMovimientos extends BBDDHelper {
                 "select categoria, icono, color, sum(transaccion), count(categoria) " +
                 "from t_movimientos " +
                 "inner join t_categorias on t_movimientos.categoria = t_categorias.nombre " +
-                "where anio = "+anio+" AND transaccion "+ingresoOGasto+" 0 " +
+                "where transaccion " + ingresoOGasto + " 0 " +
                 "group by categoria", null);
         if (cursor.moveToFirst())
             do {
@@ -322,6 +323,219 @@ public class BDMovimientos extends BBDDHelper {
             } while (cursor.moveToNext());
 
         cursor.close();
+        return resultado;
+    }
+
+    public ArrayList<Model_Data_Categoria> getTodoIngresosGastosPorCategorias(String gastoOIngreso, String cartera) {
+        BBDDHelper bbddHelper = new BBDDHelper(contexto);
+        SQLiteDatabase bd = bbddHelper.getReadableDatabase();
+        String ingresoOGasto = ">";
+        if (gastoOIngreso.equals("Gasto"))
+            ingresoOGasto = "<";
+        ArrayList<Model_Data_Categoria> resultado = new ArrayList<>();
+        Cursor cursor = bd.rawQuery("" +
+                "select categoria, icono, color, sum(transaccion), count(categoria) " +
+                "from t_movimientos " +
+                "inner join t_categorias on t_movimientos.categoria = t_categorias.nombre " +
+                "where transaccion " + ingresoOGasto + " 0 AND nombre_cartera = \'" + cartera + "\'" +
+                "group by categoria", null);
+        if (cursor.moveToFirst())
+            do {
+                Model_Data_Categoria m = new Model_Data_Categoria();
+                m.setNombre(cursor.getString(0));
+                m.setIcono(cursor.getInt(1));
+                m.setColor(cursor.getString(2));
+                m.setBalance(cursor.getDouble(3));
+                m.setUsanzas(cursor.getInt(4));
+                resultado.add(m);
+            } while (cursor.moveToNext());
+
+        cursor.close();
+        return resultado;
+    }
+
+    public ArrayList<Model_Data_Categoria> getIngresosGastosPorCategorias(int anio, String gastoOIngreso) {
+        BBDDHelper bbddHelper = new BBDDHelper(contexto);
+        SQLiteDatabase bd = bbddHelper.getReadableDatabase();
+        String ingresoOGasto = ">";
+        if (gastoOIngreso.equals("Gasto"))
+            ingresoOGasto = "<";
+        ArrayList<Model_Data_Categoria> resultado = new ArrayList<>();
+        Cursor cursor = bd.rawQuery("" +
+                "select categoria, icono, color, sum(transaccion), count(categoria) " +
+                "from t_movimientos " +
+                "inner join t_categorias on t_movimientos.categoria = t_categorias.nombre " +
+                "where anio = " + anio + " AND transaccion " + ingresoOGasto + " 0 " +
+                "group by categoria", null);
+        if (cursor.moveToFirst())
+            do {
+                Model_Data_Categoria m = new Model_Data_Categoria();
+                m.setNombre(cursor.getString(0));
+                m.setIcono(cursor.getInt(1));
+                m.setColor(cursor.getString(2));
+                m.setBalance(cursor.getDouble(3));
+                m.setUsanzas(cursor.getInt(4));
+                resultado.add(m);
+            } while (cursor.moveToNext());
+
+        cursor.close();
+        return resultado;
+    }
+
+    public ArrayList<Model_Data_Categoria> getIngresosGastosPorCategorias(int anio, int mes, String gastoOIngreso) {
+        BBDDHelper bbddHelper = new BBDDHelper(contexto);
+        SQLiteDatabase bd = bbddHelper.getReadableDatabase();
+        String ingresoOGasto = ">";
+        if (gastoOIngreso.equals("Gasto"))
+            ingresoOGasto = "<";
+        ArrayList<Model_Data_Categoria> resultado = new ArrayList<>();
+        Cursor cursor = bd.rawQuery("" +
+                "select categoria, icono, color, sum(transaccion), count(categoria) " +
+                "from t_movimientos " +
+                "inner join t_categorias on t_movimientos.categoria = t_categorias.nombre " +
+                "where anio = " + anio + " AND mes = " + mes + " AND transaccion " + ingresoOGasto + " 0 " +
+                "group by categoria", null);
+        if (cursor.moveToFirst())
+            do {
+                Model_Data_Categoria m = new Model_Data_Categoria();
+                m.setNombre(cursor.getString(0));
+                m.setIcono(cursor.getInt(1));
+                m.setColor(cursor.getString(2));
+                m.setBalance(cursor.getDouble(3));
+                m.setUsanzas(cursor.getInt(4));
+                resultado.add(m);
+            } while (cursor.moveToNext());
+
+        cursor.close();
+        return resultado;
+    }
+
+    public ArrayList<Model_Data_Categoria> getIngresosGastosPorCategorias(int anio, String ingresoGasto, String cartera) {
+        BBDDHelper bbddHelper = new BBDDHelper(contexto);
+        SQLiteDatabase bd = bbddHelper.getReadableDatabase();
+        String ingresoOGasto = ">";
+        if (ingresoGasto.equals("Gasto"))
+            ingresoOGasto = "<";
+        ArrayList<Model_Data_Categoria> resultado = new ArrayList<>();
+        Cursor cursor = bd.rawQuery("" +
+                "select categoria, icono, color, sum(transaccion), count(categoria) " +
+                "from t_movimientos " +
+                "inner join t_categorias on t_movimientos.categoria = t_categorias.nombre " +
+                "where anio = " + anio + " AND transaccion " + ingresoOGasto + " 0 " + "AND nombre_cartera = \'" + cartera + "\' " +
+                "group by categoria", null);
+        if (cursor.moveToFirst())
+            do {
+                Model_Data_Categoria m = new Model_Data_Categoria();
+                m.setNombre(cursor.getString(0));
+                m.setIcono(cursor.getInt(1));
+                m.setColor(cursor.getString(2));
+                m.setBalance(cursor.getDouble(3));
+                m.setUsanzas(cursor.getInt(4));
+                resultado.add(m);
+            } while (cursor.moveToNext());
+
+        cursor.close();
+        return resultado;
+    }
+
+    public ArrayList<Model_Data_Categoria> getIngresosGastosPorCategorias(int anio, int mes, String ingresoGasto, String cartera) {
+        BBDDHelper bbddHelper = new BBDDHelper(contexto);
+        SQLiteDatabase bd = bbddHelper.getReadableDatabase();
+        String ingresoOGasto = ">";
+        if (ingresoGasto.equals("Gasto"))
+            ingresoOGasto = "<";
+        ArrayList<Model_Data_Categoria> resultado = new ArrayList<>();
+        Cursor cursor = bd.rawQuery("" +
+                "select categoria, icono, color, sum(transaccion), count(categoria) " +
+                "from t_movimientos " +
+                "inner join t_categorias on t_movimientos.categoria = t_categorias.nombre " +
+                "where anio = " + anio + " mes = " + mes + " AND transaccion " + ingresoOGasto + " 0 " + "AND nombre_cartera = \'" + cartera + "\' " +
+                "group by categoria", null);
+        if (cursor.moveToFirst())
+            do {
+                Model_Data_Categoria m = new Model_Data_Categoria();
+                m.setNombre(cursor.getString(0));
+                m.setIcono(cursor.getInt(1));
+                m.setColor(cursor.getString(2));
+                m.setBalance(cursor.getDouble(3));
+                m.setUsanzas(cursor.getInt(4));
+                resultado.add(m);
+            } while (cursor.moveToNext());
+
+        cursor.close();
+        return resultado;
+    }
+
+    public int getIntDelMes(String mes) {
+        int resultado = 12;
+        if (mes.equals(contexto.getResources().getString(R.string.enero)))
+            resultado = 0;
+        else if (mes.equals(contexto.getResources().getString(R.string.febrero)))
+            resultado = 1;
+        else if (mes.equals(contexto.getResources().getString(R.string.marzo)))
+            resultado = 2;
+        else if (mes.equals(contexto.getResources().getString(R.string.abril)))
+            resultado = 3;
+        else if (mes.equals(contexto.getResources().getString(R.string.mayo)))
+            resultado = 4;
+        else if (mes.equals(contexto.getResources().getString(R.string.junio)))
+            resultado = 5;
+        else if (mes.equals(contexto.getResources().getString(R.string.julio)))
+            resultado = 6;
+        else if (mes.equals(contexto.getResources().getString(R.string.agosto)))
+            resultado = 7;
+        else if (mes.equals(contexto.getResources().getString(R.string.septiembre)))
+            resultado = 8;
+        else if (mes.equals(contexto.getResources().getString(R.string.octubre)))
+            resultado = 9;
+        else if (mes.equals(contexto.getResources().getString(R.string.noviembre)))
+            resultado = 10;
+        else if (mes.equals(contexto.getResources().getString(R.string.diciembre)))
+            resultado = 11;
+        return resultado;
+    }
+
+
+    public String getMesDelInt(int mes) {
+        String resultado = "";
+        switch (mes) {
+            case 0:
+                resultado = contexto.getResources().getString(R.string.enero);
+                break;
+            case 1:
+                resultado = contexto.getResources().getString(R.string.febrero);
+                break;
+            case 2:
+                resultado = contexto.getResources().getString(R.string.marzo);
+                break;
+            case 3:
+                resultado = contexto.getResources().getString(R.string.abril);
+                break;
+            case 4:
+                resultado = contexto.getResources().getString(R.string.mayo);
+                break;
+            case 5:
+                resultado = contexto.getResources().getString(R.string.junio);
+                break;
+            case 6:
+                resultado = contexto.getResources().getString(R.string.julio);
+                break;
+            case 7:
+                resultado = contexto.getResources().getString(R.string.agosto);
+                break;
+            case 8:
+                resultado = contexto.getResources().getString(R.string.septiembre);
+                break;
+            case 9:
+                resultado = contexto.getResources().getString(R.string.octubre);
+                break;
+            case 10:
+                resultado = contexto.getResources().getString(R.string.noviembre);
+                break;
+            case 11:
+                resultado = contexto.getResources().getString(R.string.diciembre);
+                break;
+        }
         return resultado;
     }
 }

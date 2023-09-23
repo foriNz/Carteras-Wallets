@@ -67,6 +67,18 @@ public class BDCarteras extends BBDDHelper{
                 break;
             }
         }
+        bd.close();
         return id;
+    }
+
+    public double getBalanceTotal() {
+        BBDDHelper bbddHelper = new BBDDHelper(contexto);
+        SQLiteDatabase bd = bbddHelper.getReadableDatabase();
+        Cursor c;
+        int resultado = 0;
+        c = bd.rawQuery("SELECT sum(balance) from " + TABLA_CARTERAS,null);
+        if (c.moveToFirst())
+            resultado = c.getInt(0);
+        return resultado;
     }
 }

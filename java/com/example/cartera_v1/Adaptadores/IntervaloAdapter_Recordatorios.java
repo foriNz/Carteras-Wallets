@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cartera_v1.Activities.CreacionRecordatorio;
+import com.example.cartera_v1.Activities.EstadisticasCartera;
 import com.example.cartera_v1.Activities.Fragments.Cronologia;
 import com.example.cartera_v1.Activities.Transaccion;
 import com.example.cartera_v1.Entidades.Cartera;
@@ -36,6 +37,7 @@ public class IntervaloAdapter_Recordatorios extends RecyclerView.Adapter<Interva
         this.lista = lista;
         this.periodosListener = periodosListener;
     }
+
 
     @NonNull
     @Override
@@ -70,6 +72,8 @@ public class IntervaloAdapter_Recordatorios extends RecyclerView.Adapter<Interva
                         eventListener.aplicarEleccion(nombre.getText().toString());
                     else if (context instanceof MainActivity)
                         periodosListener.aplicarPeriodo(nombre.getText().toString());
+                    else if (context instanceof EstadisticasCartera)
+                        ((EstadisticasCartera) context).aplicarEleccionIntervalo(nombre.getText().toString());
                 }
             });
         }
@@ -82,4 +86,5 @@ public class IntervaloAdapter_Recordatorios extends RecyclerView.Adapter<Interva
     public interface PeriodosListener {
         void aplicarPeriodo(String periodo);
     }
+
 }

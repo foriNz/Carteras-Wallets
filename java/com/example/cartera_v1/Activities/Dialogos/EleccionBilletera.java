@@ -20,10 +20,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cartera_v1.Activities.CreacionCartera;
+import com.example.cartera_v1.Activities.EstadisticasCartera;
 import com.example.cartera_v1.Adaptadores.CarterasAdapter_Transaccion;
 import com.example.cartera_v1.BBDD.BDCarteras;
+import com.example.cartera_v1.Entidades.Cartera;
 import com.example.cartera_v1.R;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,8 +58,10 @@ public class EleccionBilletera extends AppCompatDialogFragment {
 
     private void refrescarRecyclerView() {
         BDCarteras bdCarteras = new BDCarteras(getContext());
-
-        carterasAdapter = new CarterasAdapter_Transaccion(bdCarteras.getCarteras(), getContext());
+        ArrayList<Cartera> lista = bdCarteras.getCarteras();
+        if (getContext() instanceof EstadisticasCartera)
+            lista.add(0,new Cartera(getResources().getString(R.string.todas_las_billeteras), bdCarteras.getBalanceTotal()));
+        carterasAdapter = new CarterasAdapter_Transaccion(lista, getContext());
         rv_dialogo.setAdapter(carterasAdapter);
 
     }

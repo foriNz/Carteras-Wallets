@@ -23,11 +23,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginRight="15sp"
         android:backgroundTint="@color/transparent"
         android:drawableEnd="@drawable/outline_keyboard_arrow_down_24"
         android:text="@string/todas_las_billeteras"
         android:textColor="@color/black"
-        android:textSize="10sp" />
+        android:textSize="8sp" />
     <Button
         android:id="@+id/btn_org_periodos_estadisticas"
         android:layout_width="wrap_content"
@@ -35,17 +36,35 @@
         android:backgroundTint="@color/transparent"
         android:drawableEnd="@drawable/outline_keyboard_arrow_down_24"
         android:textColor="@color/black"
-        android:textSize="10sp"
-        android:text="@string/este_año"/>
+        android:textSize="8sp"
+        android:text="@string/todo_el_historial"/>
+
+
 </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:layout_gravity="center|top"
-        android:layout_margin="15sp"
-        android:gravity="center"
-        android:text="@string/tv_administrador_categorias"
-        android:textSize="14sp" />
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+    <Button
+        android:id="@+id/btn_org_periodos_anios_estadisticas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/transparent"
+        android:drawableEnd="@drawable/outline_keyboard_arrow_down_24"
+        android:textColor="@color/black"
+        android:textSize="8sp"
+        android:layout_marginRight="15sp"
+        />
+    <Button
+        android:id="@+id/btn_org_periodos_meses_estadisticas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/transparent"
+        android:drawableEnd="@drawable/outline_keyboard_arrow_down_24"
+        android:textColor="@color/black"
+        android:textSize="8sp"
+        />
+</LinearLayout>
 
     <RadioGroup
         android:id="@+id/rg_categorias_estadisticas"

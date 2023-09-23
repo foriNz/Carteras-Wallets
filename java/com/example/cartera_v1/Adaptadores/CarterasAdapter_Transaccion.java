@@ -79,6 +79,8 @@ public class CarterasAdapter_Transaccion extends RecyclerView.Adapter<CarterasAd
                 public void onClick(View view) {
                     if (context instanceof Transaccion)
                         ((Transaccion) context).aplicarEleccionCartera(tv_nombrebilletera.getText().toString());
+                    if (context instanceof EstadisticasCartera)
+                        ((EstadisticasCartera) context).aplicarEleccionCartera(tv_nombrebilletera.getText().toString());
                     else if (context instanceof MainActivity)
                         context.startActivity(new Intent(context, EstadisticasCartera.class));
                 }
