@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import androidx.annotation.Nullable;
 
+import com.example.cartera_v1.Entidades.Model_Data_Categoria;
 import com.example.cartera_v1.Entidades.Model_Data_MovimientoPorMes;
 import com.example.cartera_v1.Entidades.Model_Fecha_Movimientos;
 import com.example.cartera_v1.Entidades.Movimiento;
@@ -55,6 +56,33 @@ public class BDMovimientos extends BBDDHelper {
             } while (cursor.moveToNext());
         }
         cursor.close();
+        bd.close();
+        return listaMovimientos;
+    }
+
+    private ArrayList<Movimiento> getMovimientosDelMes(int mes, int anio) {
+        BBDDHelper bbddHelper = new BBDDHelper(contexto);
+        SQLiteDatabase bd = bbddHelper.getWritableDatabase();
+        ArrayList<Movimiento> listaMovimientos = new ArrayList<>();
+        Movimiento m = new Movimiento();
+        Cursor cursor;
+        cursor = bd.rawQuery("SELECT * FROM " + TABLA_MOVIMIENTOS + " WHERE mes = " + mes + " AND anio = " + anio + " ORDER BY anio DESC, mes DESC, dia DESC", null);
+        if (cursor.moveToFirst()) {
+            do {
+                m = new Movimiento();
+                m.setId(cursor.getInt(0));
+                m.setNombre_cartera(cursor.getString(1));
+                m.setAnio(cursor.getInt(2));
+                m.setMes(cursor.getInt(3));
+                m.setDia(cursor.getInt(4));
+                m.setTransaccion(cursor.getDouble(5));
+                m.setCategoria(cursor.getString(6));
+                m.setNota(cursor.getString(7));
+                listaMovimientos.add(m);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        bd.close();
         return listaMovimientos;
     }
 
@@ -81,6 +109,7 @@ public class BDMovimientos extends BBDDHelper {
             } while (cursor.moveToNext());
         }
         cursor.close();
+        bd.close();
         return m;
     }
 
@@ -238,6 +267,60 @@ public class BDMovimientos extends BBDDHelper {
             if ((listaMovimientos.size() - i == 1))
                 resultado.add(mfm);
         }
+        return resultado;
+    }
+
+
+    public ArrayList<Model_Fecha_Movimientos> getMovimientosPorDias(int mes, int anio) {
+        ArrayList<Movimiento> listaMovimientos = getMovimientosDelMes(mes, anio);
+        Model_Fecha_Movimientos mfm = new Model_Fecha_Movimientos(new ArrayList<>(), true);
+        ArrayList<Model_Fecha_Movimientos> resultado = new ArrayList<>();
+        if (listaMovimientos.size() != 0) {
+            mfm.addMovimiento(listaMovimientos.get(0));
+            mfm.setFecha();
+            if (listaMovimientos.size() == 1) resultado.add(mfm);
+        }
+        for (int i = 1; i < listaMovimientos.size(); i++) {
+            Movimiento mov = listaMovimientos.get(i);
+            if (sonFechasIguales(mov, mfm.getFirstMovimiento())) {
+                mfm.addMovimiento(mov);
+
+            } else {
+                resultado.add(mfm);
+                mfm = new Model_Fecha_Movimientos(new ArrayList<>(), true);
+                mfm.addMovimiento(listaMovimientos.get(i));
+                mfm.setFecha();
+            }
+            if ((listaMovimientos.size() - i == 1))
+                resultado.add(mfm);
+        }
+        return resultado;
+    }
+
+    public ArrayList<Model_Data_Categoria> getIngresosGastosPorCategorias(int anio, String gastoOIngreso) {
+        BBDDHelper bbddHelper = new BBDDHelper(contexto);
+        SQLiteDatabase bd = bbddHelper.getReadableDatabase();
+        String ingresoOGasto = ">";
+        if (gastoOIngreso.equals("Gasto"))
+            ingresoOGasto = "<";
+        ArrayList<Model_Data_Categoria> resultado = new ArrayList<>();
+        Cursor cursor = bd.rawQuery("" +
+                "select categoria, icono, color, sum(transaccion) " +
+                "from t_movimientos " +
+                "inner join t_categorias on t_movimientos.categoria = t_categorias.nombre " +
+                "where anio = "+anio+" AND transaccion "+ingresoOGasto+" 0 " +
+                "group by categoria", null);
+        if (cursor.moveToFirst())
+            do {
+                Model_Data_Categoria m = new Model_Data_Categoria();
+                m.setNombre(cursor.getString(0));
+                m.setIcono(cursor.getInt(1));
+                m.setColor(cursor.getString(2));
+                m.setBalance(cursor.getDouble(3));
+                resultado.add(m);
+            } while (cursor.moveToNext());
+
+        cursor.close();
         return resultado;
     }
 }

@@ -12,8 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cartera_v1.Activities.CreacionCartera;
+import com.example.cartera_v1.Activities.EstadisticasCartera;
 import com.example.cartera_v1.Activities.Transaccion;
 import com.example.cartera_v1.Entidades.Cartera;
+import com.example.cartera_v1.MainActivity;
 import com.example.cartera_v1.R;
 
 import java.util.ArrayList;
@@ -77,6 +79,8 @@ public class CarterasAdapter_Transaccion extends RecyclerView.Adapter<CarterasAd
                 public void onClick(View view) {
                     if (context instanceof Transaccion)
                         ((Transaccion) context).aplicarEleccionCartera(tv_nombrebilletera.getText().toString());
+                    else if (context instanceof MainActivity)
+                        context.startActivity(new Intent(context, EstadisticasCartera.class));
                 }
             });
         }

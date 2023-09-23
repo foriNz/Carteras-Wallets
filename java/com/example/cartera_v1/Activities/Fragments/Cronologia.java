@@ -6,37 +6,41 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ExpandableListView;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cartera_v1.Activities.CreacionRecordatorio;
+import com.example.cartera_v1.Activities.Dialogos.EleccionIntervalo;
 import com.example.cartera_v1.Activities.Transaccion;
+import com.example.cartera_v1.Adaptadores.IntervaloAdapter_Recordatorios;
 import com.example.cartera_v1.Adaptadores.MovimientosAdapter_Cronologia;
 import com.example.cartera_v1.BBDD.BDMovimientos;
 import com.example.cartera_v1.Entidades.Model_Data_MovimientoPorMes;
 import com.example.cartera_v1.R;
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.function.DoubleToIntFunction;
 
 public class Cronologia extends Fragment {
     BarChart chart;
     TextView tv_balance;
     RecyclerView rv_listaMovimientos;
+    Button btn_organizacion_cronologia;
     FloatingActionButton fab;
     MovimientosAdapter_Cronologia adapter;
 
@@ -48,6 +52,7 @@ public class Cronologia extends Fragment {
         chart = view.findViewById(R.id.chart_frag_movimientos);
         tv_balance = view.findViewById(R.id.tv_balance_frag_movimiento);
         rv_listaMovimientos = view.findViewById(R.id.elv_frag_movimientos);
+        btn_organizacion_cronologia = view.findViewById(R.id.btn_organizacion_cronologia);
         agregarFuncionalidades();
         rellenarChart();
         return view;
@@ -68,9 +73,9 @@ public class Cronologia extends Fragment {
                 entriesGastos.add(new BarEntry(i, -(Math.round(md[i].getGastos()))));
             }
         }
-        BarDataSet barDataSet1 = new BarDataSet(entriesIngresos, "ingresos");
+        BarDataSet barDataSet1 = new BarDataSet(entriesIngresos, "Ingresos");
         barDataSet1.setColor(Color.GREEN);
-        BarDataSet barDataSet2 = new BarDataSet(entriesGastos, "gastos");
+        BarDataSet barDataSet2 = new BarDataSet(entriesGastos, "Gastos");
         barDataSet2.setColor(Color.RED);
         BarData data = new BarData(barDataSet1, barDataSet2);
         chart.setData(data);
@@ -95,10 +100,24 @@ public class Cronologia extends Fragment {
         chart.groupBars(0, groupSpace, barSpace);
         chart.setDescription(null);
 
+        chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                int i = entriesGastos.indexOf(e);
+                refrescarRecyclerView(i);
+            }
+
+            @Override
+            public void onNothingSelected() {
+                refrescarRecyclerView();
+            }
+        });
+
         chart.invalidate();
     }
 
     private void agregarFuncionalidades() {
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,6 +138,16 @@ public class Cronologia extends Fragment {
 
     }
 
+    private void refrescarRecyclerView(int mes) {
+        BDMovimientos bdMovimientos = new BDMovimientos(getContext());
+
+        adapter = new MovimientosAdapter_Cronologia(bdMovimientos.getMovimientosPorDias(mes, Calendar.getInstance().get(Calendar.YEAR)), getContext());
+        rv_listaMovimientos.setLayoutManager(new LinearLayoutManager(getContext()));
+        rv_listaMovimientos.setAdapter(adapter);
+
+    }
+
+
     @Override
     public void onResume() {
         super.onResume();
@@ -126,4 +155,5 @@ public class Cronologia extends Fragment {
         rellenarChart();
 
     }
+
 }

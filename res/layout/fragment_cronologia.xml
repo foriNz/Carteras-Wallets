@@ -20,6 +20,17 @@
         android:gravity="center"
         android:text="@string/balance_fragmento_movimientos"
         android:textSize="12sp" />
+    <Button
+        android:id="@+id/btn_organizacion_cronologia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/transparent"
+        android:drawableEnd="@drawable/outline_keyboard_arrow_down_24"
+        android:layout_gravity="center"
+        android:text="@string/por_meses"
+        android:textColor="@color/black"
+        android:textSize="10sp"/>
+
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/chart_frag_movimientos"
         android:layout_width="match_parent"
