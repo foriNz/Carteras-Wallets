@@ -3,7 +3,7 @@ package com.example.cartera_v1.Entidades;
 public class Model_Data_Categoria {
     double balance;
     String nombre;
-    int icono;
+    int icono, usanzas;
     String color;
 
     public double getBalance() {
@@ -39,5 +39,13 @@ public class Model_Data_Categoria {
     }
 
     public Model_Data_Categoria() {
+    }
+
+    public void setUsanzas(int usanzas) {
+        this.usanzas = usanzas;
+    }
+
+    public int getUsanzas() {
+        return usanzas;
     }
 }

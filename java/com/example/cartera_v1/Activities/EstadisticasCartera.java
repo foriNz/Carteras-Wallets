@@ -3,6 +3,8 @@ package com.example.cartera_v1.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -12,6 +14,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 
+import com.example.cartera_v1.Adaptadores.CategoriasAdapter_Administrador;
+import com.example.cartera_v1.Adaptadores.CategoriasAdapter_Estadisticas;
 import com.example.cartera_v1.BBDD.BDMovimientos;
 import com.example.cartera_v1.Entidades.Model_Data_Categoria;
 import com.example.cartera_v1.R;
@@ -30,6 +34,8 @@ public class EstadisticasCartera extends AppCompatActivity {
     Button org_periodos, org_billeteras;
     RadioButton ingreso, gasto;
     PieChart chart;
+    RecyclerView rv_categorias_estadisticas;
+    CategoriasAdapter_Estadisticas adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +46,7 @@ public class EstadisticasCartera extends AppCompatActivity {
         ingreso = findViewById(R.id.rb_categoria_ingreso_estadisticas);
         gasto = findViewById(R.id.rb_categoria_gasto_estadisticas);
         chart = findViewById(R.id.pc_ingreso_gasto_estadisticas);
+        rv_categorias_estadisticas = findViewById(R.id.rv_categorias_estadisticas);
         agregarFuncionalidades();
     }
 
@@ -59,20 +66,40 @@ public class EstadisticasCartera extends AppCompatActivity {
         ingreso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rellenarChart("Ingreso");
+                BDMovimientos bdm = new BDMovimientos(EstadisticasCartera.this);
+                if (org_periodos.getText().toString().equals(getResources().getString(R.string.este_año))) {
+                    int anioActual = Calendar.getInstance().get(Calendar.YEAR);
+                    ArrayList<Model_Data_Categoria> arrayList = bdm.getIngresosGastosPorCategorias(anioActual, "Ingreso");
+                    rellenarChart(arrayList);
+                    refrescarRecyclerView(arrayList);
+                }
             }
         });
         gasto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rellenarChart("Gasto");
-
+                BDMovimientos bdm = new BDMovimientos(EstadisticasCartera.this);
+                if (org_periodos.getText().toString().equals(getResources().getString(R.string.este_año))) {
+                    int anioActual = Calendar.getInstance().get(Calendar.YEAR);
+                    ArrayList<Model_Data_Categoria> arrayList = bdm.getIngresosGastosPorCategorias(anioActual, "Gasto");
+                    rellenarChart(arrayList);
+                    refrescarRecyclerView(arrayList);
+                }
             }
         });
-        rellenarChart("Ingreso");
+        BDMovimientos bdm = new BDMovimientos(EstadisticasCartera.this);
+        ArrayList<Model_Data_Categoria> arrayList = bdm.getIngresosGastosPorCategorias(Calendar.getInstance().get(Calendar.YEAR), "Ingreso");
+        rellenarChart(arrayList);
+        refrescarRecyclerView(arrayList);
     }
 
-    private void rellenarChart(String ingresoGasto) {
+    private void refrescarRecyclerView(ArrayList<Model_Data_Categoria> arrayList) {
+        adapter = new CategoriasAdapter_Estadisticas(this, arrayList);
+        rv_categorias_estadisticas.setLayoutManager(new LinearLayoutManager(this));
+        rv_categorias_estadisticas.setAdapter(adapter);
+    }
+
+    private void rellenarChart(ArrayList<Model_Data_Categoria> arrayList) {
         chart.setUsePercentValues(true);
         chart.setHighlightPerTapEnabled(true);
         chart.setHoleRadius(58f);
@@ -80,14 +107,7 @@ public class EstadisticasCartera extends AppCompatActivity {
         ArrayList<PieEntry> listaCategorias = new ArrayList<>();
         ArrayList<Integer> listaColores = new ArrayList<>();
 
-        BDMovimientos bdm = new BDMovimientos(this);
-        int anioActual = Calendar.getInstance().get(Calendar.YEAR);
-        ArrayList<Model_Data_Categoria> cats;
-        if (ingresoGasto.equals("Ingreso"))
-            cats = bdm.getIngresosGastosPorCategorias(anioActual, "Ingreso");
-        else
-            cats = bdm.getIngresosGastosPorCategorias(anioActual, "Gasto");
-
+        ArrayList<Model_Data_Categoria> cats = arrayList;
         for (int i = 0; i < cats.size(); i++) {
             Model_Data_Categoria m = cats.get(i);
             Drawable icon = ContextCompat.getDrawable(this, m.getIcono());
@@ -101,7 +121,6 @@ public class EstadisticasCartera extends AppCompatActivity {
         }
 
         chart.setEntryLabelColor(0);
-
         PieDataSet dataSet = new PieDataSet(listaCategorias, " ");
         dataSet.setColors(listaColores);
         dataSet.setDrawIcons(true);

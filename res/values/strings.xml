@@ -65,5 +65,7 @@
     <string name="por_meses">Por meses</string>
     <string name="todas_las_billeteras">Todas las billeteras</string>
     <string name="este_año">Este año</string>
+    <string name="usanzas_singular">transacción</string>
+    <string name="usanzas_plural">transacciones</string>
 
 </resources>

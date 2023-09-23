@@ -81,10 +81,12 @@
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pc_ingreso_gasto_estadisticas"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight="0.5"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_categorias_estadisticas"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="10sp"/>
 </LinearLayout>

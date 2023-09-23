@@ -305,7 +305,7 @@ public class BDMovimientos extends BBDDHelper {
             ingresoOGasto = "<";
         ArrayList<Model_Data_Categoria> resultado = new ArrayList<>();
         Cursor cursor = bd.rawQuery("" +
-                "select categoria, icono, color, sum(transaccion) " +
+                "select categoria, icono, color, sum(transaccion), count(categoria) " +
                 "from t_movimientos " +
                 "inner join t_categorias on t_movimientos.categoria = t_categorias.nombre " +
                 "where anio = "+anio+" AND transaccion "+ingresoOGasto+" 0 " +
@@ -317,6 +317,7 @@ public class BDMovimientos extends BBDDHelper {
                 m.setIcono(cursor.getInt(1));
                 m.setColor(cursor.getString(2));
                 m.setBalance(cursor.getDouble(3));
+                m.setUsanzas(cursor.getInt(4));
                 resultado.add(m);
             } while (cursor.moveToNext());
 
