@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cartera_v1.Adaptadores.MesesAdapter_Estadisticas;
 import com.example.cartera_v1.BBDD.BDMovimientos;
+import com.example.cartera_v1.MainActivity;
 import com.example.cartera_v1.R;
 
 public class EleccionMes extends AppCompatDialogFragment {
@@ -22,6 +23,7 @@ public class EleccionMes extends AppCompatDialogFragment {
     Integer[] listaUsanzasPorMes;
     int anio = 0;
     String nombre_cartera = "";
+    MesesAdapter_Estadisticas.AplicarEleccionMes listener;
 
     public EleccionMes() {
     }
@@ -37,6 +39,11 @@ public class EleccionMes extends AppCompatDialogFragment {
     public EleccionMes(int anio, String nombre_cartera) {
         this.anio = anio;
         this.nombre_cartera = nombre_cartera;
+    }
+
+    public EleccionMes(int anio, MesesAdapter_Estadisticas.AplicarEleccionMes listener) {
+        this.anio = anio;
+        this.listener = listener;
     }
 
     @NonNull
@@ -56,11 +63,14 @@ public class EleccionMes extends AppCompatDialogFragment {
             listaUsanzasPorMes = bdm.getUsosEnCadaMes(anio, nombre_cartera);
         meses = view.findViewById(R.id.rv_dialog_meses);
         meses.setLayoutManager(new LinearLayoutManager(getContext()));
-        meses.setAdapter(new MesesAdapter_Estadisticas(getContext(),listaUsanzasPorMes));
+        if (getContext() instanceof MainActivity) {
+
+            meses.setAdapter(new MesesAdapter_Estadisticas(getContext(), listaUsanzasPorMes, listener));
+        } else
+            meses.setAdapter(new MesesAdapter_Estadisticas(getContext(), listaUsanzasPorMes));
         builder.setView(view);
         return builder.create();
     }
-
 
 
     @Nullable

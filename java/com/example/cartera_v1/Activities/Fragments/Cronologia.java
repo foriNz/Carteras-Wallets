@@ -20,10 +20,12 @@ import com.example.cartera_v1.Activities.Dialogos.EleccionMes;
 import com.example.cartera_v1.Activities.Transaccion;
 import com.example.cartera_v1.Adaptadores.CarterasAdapter_Transaccion;
 import com.example.cartera_v1.Adaptadores.IntervaloAdapter_Recordatorios;
+import com.example.cartera_v1.Adaptadores.MesesAdapter_Estadisticas;
 import com.example.cartera_v1.Adaptadores.MovimientosAdapter_Cronologia;
 import com.example.cartera_v1.BBDD.BDMovimientos;
 import com.example.cartera_v1.Entidades.Model_Data_MovimientoPorAnio;
 import com.example.cartera_v1.Entidades.Model_Data_MovimientoPorMes;
+import com.example.cartera_v1.Entidades.Model_Data_MovimientoPorSemana;
 import com.example.cartera_v1.Entidades.Model_Fecha_Movimientos;
 import com.example.cartera_v1.R;
 import com.github.mikephil.charting.charts.BarChart;
@@ -110,8 +112,7 @@ public class Cronologia extends Fragment {
                             anios.setText(String.valueOf(Calendar.getInstance().get(Calendar.YEAR)));
                             meses.setVisibility(View.VISIBLE);
                             meses.setText(bdm.getMesDelInt(Calendar.getInstance().get(Calendar.MONTH)));
-                        }
-                        else {
+                        } else {
                             anios.setVisibility(View.INVISIBLE);
                             meses.setVisibility(View.INVISIBLE);
                         }
@@ -139,13 +140,151 @@ public class Cronologia extends Fragment {
         meses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EleccionMes dialogo = new EleccionMes(Integer.parseInt(anios.getText().toString()));
+                EleccionMes dialogo = new EleccionMes(Integer.parseInt(anios.getText().toString()), new MesesAdapter_Estadisticas.AplicarEleccionMes() {
+                    @Override
+                    public void aplicarEleccionMes(String mes) {
+                        meses.setText(mes);
+                        dialogoEleccionMes.dismiss();
+                        refrescarDatos();
+                    }
+                });
                 dialogoEleccionMes = dialogo;
                 dialogo.setCancelable(false);
                 dialogo.show(getParentFragmentManager(), "dialogo");
             }
         });
         refrescarDatos();
+    }
+
+    private void refrescarDatos() {
+        BDMovimientos bdm = new BDMovimientos(getContext());
+        ArrayList<Model_Fecha_Movimientos> lista_rv;
+
+        String billeteras, periodo;
+        int mes, anio;
+        billeteras = org_billeteras.getText().toString();
+        periodo = org_periodos.getText().toString();
+        // TODAS LAS BILLETERAS
+        if (billeteras.equals(getResources().getString(R.string.todas_las_billeteras))) {
+            if (periodo.equals(getResources().getString(R.string.por_año))) {
+                anio = Integer.parseInt(anios.getText().toString());
+                lista_rv = bdm.getMovimientosPorDias(anio);
+                rellenarChartPorMes(anio);
+            } else if (periodo.equals(getResources().getString(R.string.todo_el_historial))) {
+                lista_rv = bdm.getMovimientosPorDias();
+                rellenarChart();
+            } else {
+                // POR MES Y POR AÑO
+                mes = bdm.getIntDelMes(meses.getText().toString());
+                anio = Integer.parseInt(anios.getText().toString());
+                lista_rv = bdm.getMovimientosPorDias(mes, anio);
+                rellenarChartPorSemana(anio, mes);
+            }
+        }
+        // UNA BILLETERA EN CONCRETO
+        else {
+            if (periodo.equals(getResources().getString(R.string.por_año))) {
+                anio = Integer.parseInt(anios.getText().toString());
+                lista_rv = bdm.getMovimientosPorDias(anio, billeteras);
+                rellenarChartPorMes(anio, billeteras);
+            } else if (periodo.equals(getResources().getString(R.string.todo_el_historial))) {
+                lista_rv = bdm.getMovimientosPorDias(billeteras);
+                rellenarChart(billeteras);
+            } else {
+                // POR MES Y POR AÑO
+                mes = bdm.getIntDelMes(meses.getText().toString());
+                anio = Integer.parseInt(anios.getText().toString());
+                lista_rv = bdm.getMovimientosPorDias(mes, anio, billeteras);
+                rellenarChartPorSemana(anio, mes, billeteras);
+            }
+        }
+        refrescarRecyclerView(lista_rv);
+    }
+
+    private void rellenarChartPorSemana(int year, int mes) {
+        BDMovimientos bd = new BDMovimientos(getContext());
+        ArrayList<Model_Data_MovimientoPorSemana> md = bd.getMovimientosSemana(year, mes);
+        ArrayList<BarEntry> entriesIngresos = new ArrayList<>();
+        ArrayList<BarEntry> entriesGastos = new ArrayList<>();
+        ArrayList<String> semanas = new ArrayList<>();
+
+        for (int i = 0; i < md.size(); i++) {
+            entriesIngresos.add(new BarEntry(i, Math.round(md.get(i).getIngresos())));
+            entriesGastos.add(new BarEntry(i, -(Math.round(md.get(i).getGastos()))));
+            semanas.add(String.valueOf(md.get(i).getListaMovimientos().get(0).getDia()));
+        }
+        BarDataSet barDataSet1 = new BarDataSet(entriesIngresos, getResources().getString(R.string.ingreso));
+        barDataSet1.setColor(Color.GREEN);
+        BarDataSet barDataSet2 = new BarDataSet(entriesGastos, getResources().getString(R.string.gasto));
+        barDataSet2.setColor(Color.RED);
+        BarData data = new BarData(barDataSet1, barDataSet2);
+        chart.setData(data);
+        XAxis xAxis = chart.getXAxis();
+        YAxis yAxis = chart.getAxisRight();
+        yAxis.setSpaceTop(2f);
+        yAxis.setCenterAxisLabels(true);
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(semanas));
+        xAxis.setTextSize(12f);
+
+        yAxis.setAxisMinimum(0f);
+
+        xAxis.setCenterAxisLabels(true);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setGranularity(1);
+        xAxis.setGranularityEnabled(true);
+        chart.setDragEnabled(true);
+        chart.setVisibleXRangeMinimum(12);
+        float barSpace = 0.05f;
+        float groupSpace = 0.5f;
+        data.setBarWidth(0.16f);
+        chart.getXAxis().setAxisMinimum(0);
+        chart.groupBars(0, groupSpace, barSpace);
+        chart.setDescription(null);
+
+        chart.invalidate();
+    }
+
+    private void rellenarChartPorSemana(int year, int mes, String cartera) {
+        BDMovimientos bd = new BDMovimientos(getContext());
+        ArrayList<Model_Data_MovimientoPorSemana> md = bd.getMovimientosSemana(year, mes, cartera);
+        ArrayList<BarEntry> entriesIngresos = new ArrayList<>();
+        ArrayList<BarEntry> entriesGastos = new ArrayList<>();
+        ArrayList<String> semanas = new ArrayList<>();
+
+        for (int i = 0; i < md.size(); i++) {
+            entriesIngresos.add(new BarEntry(i, Math.round(md.get(i).getIngresos())));
+            entriesGastos.add(new BarEntry(i, -(Math.round(md.get(i).getGastos()))));
+            semanas.add(String.valueOf(md.get(i).getListaMovimientos().get(0).getDia()));
+        }
+        BarDataSet barDataSet1 = new BarDataSet(entriesIngresos, getResources().getString(R.string.ingreso));
+        barDataSet1.setColor(Color.GREEN);
+        BarDataSet barDataSet2 = new BarDataSet(entriesGastos, getResources().getString(R.string.gasto));
+        barDataSet2.setColor(Color.RED);
+        BarData data = new BarData(barDataSet1, barDataSet2);
+        chart.setData(data);
+        XAxis xAxis = chart.getXAxis();
+        YAxis yAxis = chart.getAxisRight();
+        yAxis.setSpaceTop(2f);
+        yAxis.setCenterAxisLabels(true);
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(semanas));
+        xAxis.setTextSize(12f);
+
+        yAxis.setAxisMinimum(0f);
+
+        xAxis.setCenterAxisLabels(true);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setGranularity(1);
+        xAxis.setGranularityEnabled(true);
+        chart.setDragEnabled(true);
+        chart.setVisibleXRangeMinimum(12);
+        float barSpace = 0.05f;
+        float groupSpace = 0.5f;
+        data.setBarWidth(0.16f);
+        chart.getXAxis().setAxisMinimum(0);
+        chart.groupBars(0, groupSpace, barSpace);
+        chart.setDescription(null);
+
+        chart.invalidate();
     }
 
     private void rellenarChartPorMes(int year) {
@@ -176,7 +315,7 @@ public class Cronologia extends Fragment {
         yAxis.setCenterAxisLabels(true);
         xAxis.setValueFormatter(new IndexAxisValueFormatter(meses));
         xAxis.setTextSize(12f);
-
+        yAxis.setAxisMinimum(0f);
 
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGranularity(1);
@@ -235,7 +374,7 @@ public class Cronologia extends Fragment {
         xAxis.setValueFormatter(new IndexAxisValueFormatter(meses));
         xAxis.setTextSize(12f);
 
-
+        yAxis.setAxisMinimum(0f);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGranularity(1);
         xAxis.setGranularityEnabled(true);
@@ -289,7 +428,7 @@ public class Cronologia extends Fragment {
         xAxis.setValueFormatter(new IndexAxisValueFormatter(meses));
         xAxis.setTextSize(12f);
 
-
+        yAxis.setAxisMinimum(0f);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGranularity(1);
         xAxis.setGranularityEnabled(true);
@@ -342,7 +481,7 @@ public class Cronologia extends Fragment {
         yAxis.setCenterAxisLabels(true);
         xAxis.setValueFormatter(new IndexAxisValueFormatter(meses));
         xAxis.setTextSize(12f);
-
+        yAxis.setAxisMinimum(0f);
 
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGranularity(1);
@@ -387,51 +526,6 @@ public class Cronologia extends Fragment {
         rv_listaMovimientos.setLayoutManager(new LinearLayoutManager(getContext()));
         rv_listaMovimientos.setAdapter(adapter);
 
-    }
-
-    private void refrescarDatos() {
-        BDMovimientos bdm = new BDMovimientos(getContext());
-        ArrayList<Model_Fecha_Movimientos> lista_rv;
-
-        String billeteras, periodo;
-        int mes, anio;
-        billeteras = org_billeteras.getText().toString();
-        periodo = org_periodos.getText().toString();
-        // TODAS LAS BILLETERAS
-        if (billeteras.equals(getResources().getString(R.string.todas_las_billeteras))) {
-            if (periodo.equals(getResources().getString(R.string.por_año))) {
-                anio = Integer.parseInt(anios.getText().toString());
-                lista_rv = bdm.getMovimientosPorDias(anio);
-                rellenarChartPorMes(anio);
-            } else if (periodo.equals(getResources().getString(R.string.todo_el_historial))) {
-                lista_rv = bdm.getMovimientosPorDias();
-                rellenarChart();
-            } else {
-                // POR MES Y POR AÑO
-                mes = bdm.getIntDelMes(meses.getText().toString());
-                anio = Integer.parseInt(anios.getText().toString());
-                lista_rv = bdm.getMovimientosPorDias(mes, anio);
-                rellenarChartPorMes(anio);
-            }
-        }
-        // UNA BILLETERA EN CONCRETO
-        else {
-            if (periodo.equals(getResources().getString(R.string.por_año))) {
-                anio = Integer.parseInt(anios.getText().toString());
-                lista_rv = bdm.getMovimientosPorDias(anio, billeteras);
-                rellenarChartPorMes(anio, billeteras);
-            } else if (periodo.equals(getResources().getString(R.string.todo_el_historial))) {
-                lista_rv = bdm.getMovimientosPorDias(billeteras);
-                rellenarChart(billeteras);
-            } else {
-                // POR MES Y POR AÑO
-                mes = bdm.getIntDelMes(meses.getText().toString());
-                anio = Integer.parseInt(anios.getText().toString());
-                lista_rv = bdm.getMovimientosPorDias(mes, anio, billeteras);
-                rellenarChart(billeteras);
-            }
-        }
-        refrescarRecyclerView(lista_rv);
     }
 
 
