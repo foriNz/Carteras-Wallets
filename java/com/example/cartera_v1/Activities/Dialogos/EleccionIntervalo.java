@@ -20,6 +20,7 @@ import android.view.WindowManager;
 import com.example.cartera_v1.Activities.CreacionRecordatorio;
 import com.example.cartera_v1.Activities.EstadisticasCartera;
 import com.example.cartera_v1.Adaptadores.IntervaloAdapter_Recordatorios;
+import com.example.cartera_v1.MainActivity;
 import com.example.cartera_v1.R;
 
 import java.util.ArrayList;
@@ -28,6 +29,11 @@ public class EleccionIntervalo extends AppCompatDialogFragment {
     RecyclerView rv_dialogo_eleccion_intervalo;
     public Window window;
     IntervaloAdapter_Recordatorios.IntervaloListener listener;
+    IntervaloAdapter_Recordatorios.PeriodosListener periodosListener;
+
+    public EleccionIntervalo(IntervaloAdapter_Recordatorios.PeriodosListener periodosListener) {
+        this.periodosListener = periodosListener;
+    }
 
     public EleccionIntervalo() {
     }
@@ -35,6 +41,7 @@ public class EleccionIntervalo extends AppCompatDialogFragment {
     public EleccionIntervalo(IntervaloAdapter_Recordatorios.IntervaloListener listener) {
         this.listener = listener;
     }
+
 
     @NonNull
     @Override
@@ -51,12 +58,15 @@ public class EleccionIntervalo extends AppCompatDialogFragment {
             listaParametros.add(getResources().getString(R.string.todos_las_semanas));
             listaParametros.add(getResources().getString(R.string.cada_cuatro_semanas));
             listaParametros.add(getResources().getString(R.string.cada_año));
-        } else if (getContext() instanceof EstadisticasCartera) {
+        } else if (getContext() instanceof EstadisticasCartera || getContext() instanceof MainActivity) {
             listaParametros.add(getResources().getString(R.string.por_año));
             listaParametros.add(getResources().getString(R.string.por_meses));
             listaParametros.add(getResources().getString(R.string.todo_el_historial));
         }
-        rv_dialogo_eleccion_intervalo.setAdapter(new IntervaloAdapter_Recordatorios(getContext(), listaParametros, listener));
+        if (getContext() instanceof MainActivity)
+            rv_dialogo_eleccion_intervalo.setAdapter(new IntervaloAdapter_Recordatorios(getContext(), listaParametros, periodosListener));
+        else
+            rv_dialogo_eleccion_intervalo.setAdapter(new IntervaloAdapter_Recordatorios(getContext(), listaParametros, listener));
 
         builder.setView(view);
         return builder.create();

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cartera_v1.Activities.CreacionCartera;
 import com.example.cartera_v1.Activities.EstadisticasCartera;
+import com.example.cartera_v1.Activities.Fragments.Cronologia;
 import com.example.cartera_v1.Activities.Transaccion;
 import com.example.cartera_v1.Entidades.Cartera;
 import com.example.cartera_v1.MainActivity;
@@ -24,6 +25,13 @@ public class CarterasAdapter_Transaccion extends RecyclerView.Adapter<CarterasAd
 
     Context context;
     ArrayList<Cartera> listaCartera;
+    IntervaloListener eventListener;
+
+    public CarterasAdapter_Transaccion(Context context, ArrayList<Cartera> listaCartera, IntervaloListener eventListener) {
+        this.context = context;
+        this.listaCartera = listaCartera;
+        this.eventListener = eventListener;
+    }
 
     public CarterasAdapter_Transaccion(ArrayList<Cartera> listaCartera, Context context) {
         this.listaCartera = listaCartera;
@@ -82,9 +90,13 @@ public class CarterasAdapter_Transaccion extends RecyclerView.Adapter<CarterasAd
                     if (context instanceof EstadisticasCartera)
                         ((EstadisticasCartera) context).aplicarEleccionCartera(tv_nombrebilletera.getText().toString());
                     else if (context instanceof MainActivity)
-                        context.startActivity(new Intent(context, EstadisticasCartera.class));
+                    // context.startActivity(new Intent(context, EstadisticasCartera.class));
+                    eventListener.aplicarEleccionCartera(tv_nombrebilletera.getText().toString());
                 }
             });
         }
+    }
+    public interface IntervaloListener {
+        void aplicarEleccionCartera(String cartera);
     }
 }

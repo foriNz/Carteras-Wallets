@@ -8,12 +8,12 @@ import android.database.sqlite.SQLiteDatabase;
 import androidx.annotation.Nullable;
 
 import com.example.cartera_v1.Entidades.Model_Data_Categoria;
+import com.example.cartera_v1.Entidades.Model_Data_MovimientoPorAnio;
 import com.example.cartera_v1.Entidades.Model_Data_MovimientoPorMes;
 import com.example.cartera_v1.Entidades.Model_Fecha_Movimientos;
 import com.example.cartera_v1.Entidades.Movimiento;
 import com.example.cartera_v1.R;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class BDMovimientos extends BBDDHelper {
@@ -60,6 +60,137 @@ public class BDMovimientos extends BBDDHelper {
         bd.close();
         return listaMovimientos;
     }
+
+    public ArrayList<Movimiento> getMovimientos(String cartera) {
+        BBDDHelper bbddHelper = new BBDDHelper(contexto);
+        SQLiteDatabase bd = bbddHelper.getWritableDatabase();
+        ArrayList<Movimiento> listaMovimientos = new ArrayList<>();
+        Movimiento m = new Movimiento();
+        Cursor cursor;
+        cursor = bd.rawQuery("SELECT * FROM " + TABLA_MOVIMIENTOS + " WHERE nombre_cartera = \'" + cartera + "\' ORDER BY anio DESC, mes DESC, dia DESC", null);
+        if (cursor.moveToFirst()) {
+            do {
+                m = new Movimiento();
+                m.setId(cursor.getInt(0));
+                m.setNombre_cartera(cursor.getString(1));
+                m.setAnio(cursor.getInt(2));
+                m.setMes(cursor.getInt(3));
+                m.setDia(cursor.getInt(4));
+                m.setTransaccion(cursor.getDouble(5));
+                m.setCategoria(cursor.getString(6));
+                m.setNota(cursor.getString(7));
+                listaMovimientos.add(m);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        bd.close();
+        return listaMovimientos;
+    }
+
+    public ArrayList<Movimiento> getMovimientos(int anio) {
+        BBDDHelper bbddHelper = new BBDDHelper(contexto);
+        SQLiteDatabase bd = bbddHelper.getWritableDatabase();
+        ArrayList<Movimiento> listaMovimientos = new ArrayList<>();
+        Movimiento m = new Movimiento();
+        Cursor cursor;
+        cursor = bd.rawQuery("SELECT * FROM " + TABLA_MOVIMIENTOS + " WHERE anio = " + anio + " ORDER BY anio DESC, mes DESC, dia DESC", null);
+        if (cursor.moveToFirst()) {
+            do {
+                m = new Movimiento();
+                m.setId(cursor.getInt(0));
+                m.setNombre_cartera(cursor.getString(1));
+                m.setAnio(cursor.getInt(2));
+                m.setMes(cursor.getInt(3));
+                m.setDia(cursor.getInt(4));
+                m.setTransaccion(cursor.getDouble(5));
+                m.setCategoria(cursor.getString(6));
+                m.setNota(cursor.getString(7));
+                listaMovimientos.add(m);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        bd.close();
+        return listaMovimientos;
+    }
+
+    public ArrayList<Movimiento> getMovimientos(int anio, int mes) {
+        BBDDHelper bbddHelper = new BBDDHelper(contexto);
+        SQLiteDatabase bd = bbddHelper.getWritableDatabase();
+        ArrayList<Movimiento> listaMovimientos = new ArrayList<>();
+        Movimiento m = new Movimiento();
+        Cursor cursor;
+        cursor = bd.rawQuery("SELECT * FROM " + TABLA_MOVIMIENTOS + " WHERE anio = " + anio + " AND mes = " + mes + " ORDER BY anio DESC, mes DESC, dia DESC", null);
+        if (cursor.moveToFirst()) {
+            do {
+                m = new Movimiento();
+                m.setId(cursor.getInt(0));
+                m.setNombre_cartera(cursor.getString(1));
+                m.setAnio(cursor.getInt(2));
+                m.setMes(cursor.getInt(3));
+                m.setDia(cursor.getInt(4));
+                m.setTransaccion(cursor.getDouble(5));
+                m.setCategoria(cursor.getString(6));
+                m.setNota(cursor.getString(7));
+                listaMovimientos.add(m);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        bd.close();
+        return listaMovimientos;
+    }
+
+    public ArrayList<Movimiento> getMovimientos(int anio, String cartera) {
+        BBDDHelper bbddHelper = new BBDDHelper(contexto);
+        SQLiteDatabase bd = bbddHelper.getWritableDatabase();
+        ArrayList<Movimiento> listaMovimientos = new ArrayList<>();
+        Movimiento m = new Movimiento();
+        Cursor cursor;
+        cursor = bd.rawQuery("SELECT * FROM " + TABLA_MOVIMIENTOS + " WHERE anio = " + anio + " AND nombre_cartera = \'" + cartera + "\' ORDER BY anio DESC, mes DESC, dia DESC", null);
+        if (cursor.moveToFirst()) {
+            do {
+                m = new Movimiento();
+                m.setId(cursor.getInt(0));
+                m.setNombre_cartera(cursor.getString(1));
+                m.setAnio(cursor.getInt(2));
+                m.setMes(cursor.getInt(3));
+                m.setDia(cursor.getInt(4));
+                m.setTransaccion(cursor.getDouble(5));
+                m.setCategoria(cursor.getString(6));
+                m.setNota(cursor.getString(7));
+                listaMovimientos.add(m);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        bd.close();
+        return listaMovimientos;
+    }
+
+    public ArrayList<Movimiento> getMovimientos(int anio, int mes, String cartera) {
+        BBDDHelper bbddHelper = new BBDDHelper(contexto);
+        SQLiteDatabase bd = bbddHelper.getWritableDatabase();
+        ArrayList<Movimiento> listaMovimientos = new ArrayList<>();
+        Movimiento m = new Movimiento();
+        Cursor cursor;
+        cursor = bd.rawQuery("SELECT * FROM " + TABLA_MOVIMIENTOS + " WHERE anio = " + anio + " AND mes = " + mes + " AND nombre_cartera = \'" + cartera + "\' ORDER BY anio DESC, mes DESC, dia DESC", null);
+        if (cursor.moveToFirst()) {
+            do {
+                m = new Movimiento();
+                m.setId(cursor.getInt(0));
+                m.setNombre_cartera(cursor.getString(1));
+                m.setAnio(cursor.getInt(2));
+                m.setMes(cursor.getInt(3));
+                m.setDia(cursor.getInt(4));
+                m.setTransaccion(cursor.getDouble(5));
+                m.setCategoria(cursor.getString(6));
+                m.setNota(cursor.getString(7));
+                listaMovimientos.add(m);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        bd.close();
+        return listaMovimientos;
+    }
+
 
     private ArrayList<Movimiento> getMovimientosDelMes(int mes, int anio) {
         BBDDHelper bbddHelper = new BBDDHelper(contexto);
@@ -178,6 +309,81 @@ public class BDMovimientos extends BBDDHelper {
         return m;
     }
 
+    public ArrayList<Model_Data_MovimientoPorAnio> getMovimientosAnio() {
+        BBDDHelper bbddHelper = new BBDDHelper(contexto);
+        SQLiteDatabase bd = bbddHelper.getWritableDatabase();
+        ArrayList<Model_Data_MovimientoPorAnio> listaAnio = new ArrayList<>();
+        Model_Data_MovimientoPorAnio m;
+        Cursor cursor;
+        cursor = bd.rawQuery("SELECT * FROM " + TABLA_MOVIMIENTOS + " ORDER BY anio DESC, mes DESC, dia DESC", null);
+        if (cursor.moveToFirst()) {
+            int i = 0;
+            do {
+                Movimiento mov = new Movimiento();
+                mov.setId(cursor.getInt(0));
+                mov.setNombre_cartera(cursor.getString(1));
+                mov.setAnio(cursor.getInt(2));
+                mov.setMes(cursor.getInt(3));
+                mov.setDia(cursor.getInt(4));
+                mov.setTransaccion(cursor.getDouble(5));
+                mov.setCategoria(cursor.getString(6));
+                mov.setNota(cursor.getString(7));
+                if (listaAnio.size() == 0) {
+                    m = new Model_Data_MovimientoPorAnio();
+                    m.setAnio(cursor.getInt(2));
+                    listaAnio.add(m);
+                    listaAnio.get(0).addMovimiento(mov);
+                } else if (mov.getAnio() == listaAnio.get(i).getAnio()){
+                    listaAnio.get(i).addMovimiento(mov);
+                } else {
+                    m = new Model_Data_MovimientoPorAnio();
+                    m.setAnio(cursor.getInt(2));
+                    listaAnio.add(m);
+                    listaAnio.get(++i).addMovimiento(mov);
+                }
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return listaAnio;
+    }
+    public ArrayList<Model_Data_MovimientoPorAnio> getMovimientosAnio(String cartera) {
+        BBDDHelper bbddHelper = new BBDDHelper(contexto);
+        SQLiteDatabase bd = bbddHelper.getWritableDatabase();
+        ArrayList<Model_Data_MovimientoPorAnio> listaAnio = new ArrayList<>();
+        Model_Data_MovimientoPorAnio m;
+        Cursor cursor;
+        cursor = bd.rawQuery("SELECT * FROM " + TABLA_MOVIMIENTOS + " where nombre_cartera = \'"+cartera+"\' ORDER BY anio DESC, mes DESC, dia DESC", null);
+        if (cursor.moveToFirst()) {
+            int i = 0;
+            do {
+                Movimiento mov = new Movimiento();
+                mov.setId(cursor.getInt(0));
+                mov.setNombre_cartera(cursor.getString(1));
+                mov.setAnio(cursor.getInt(2));
+                mov.setMes(cursor.getInt(3));
+                mov.setDia(cursor.getInt(4));
+                mov.setTransaccion(cursor.getDouble(5));
+                mov.setCategoria(cursor.getString(6));
+                mov.setNota(cursor.getString(7));
+                if (listaAnio.size() == 0) {
+                    m = new Model_Data_MovimientoPorAnio();
+                    m.setAnio(cursor.getInt(2));
+                    listaAnio.add(m);
+                    listaAnio.get(0).addMovimiento(mov);
+                } else if (mov.getAnio() == listaAnio.get(i).getAnio()){
+                    listaAnio.get(i).addMovimiento(mov);
+                } else {
+                    m = new Model_Data_MovimientoPorAnio();
+                    m.setAnio(cursor.getInt(2));
+                    listaAnio.add(m);
+                    listaAnio.get(++i).addMovimiento(mov);
+                }
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return listaAnio;
+    }
+
     public Model_Data_MovimientoPorMes[] getMovimientosAnio(int anio) {
         BBDDHelper bbddHelper = new BBDDHelper(contexto);
         SQLiteDatabase bd = bbddHelper.getWritableDatabase();
@@ -208,6 +414,38 @@ public class BDMovimientos extends BBDDHelper {
         cursor.close();
         return listaAnio;
     }
+
+    public Model_Data_MovimientoPorMes[] getMovimientosAnio(int anio, String cartera) {
+        BBDDHelper bbddHelper = new BBDDHelper(contexto);
+        SQLiteDatabase bd = bbddHelper.getWritableDatabase();
+        Model_Data_MovimientoPorMes[] listaAnio = new Model_Data_MovimientoPorMes[12];
+        Model_Data_MovimientoPorMes m;
+        Cursor cursor;
+        cursor = bd.rawQuery("SELECT * FROM " + TABLA_MOVIMIENTOS + " WHERE nombre_cartera = \'"+cartera+"\' and anio = \'" + anio + "\' ORDER BY mes DESC, dia DESC", null);
+        if (cursor.moveToFirst()) {
+            do {
+                Movimiento mov = new Movimiento();
+                mov.setId(cursor.getInt(0));
+                mov.setNombre_cartera(cursor.getString(1));
+                mov.setAnio(cursor.getInt(2));
+                mov.setMes(cursor.getInt(3));
+                mov.setDia(cursor.getInt(4));
+                mov.setTransaccion(cursor.getDouble(5));
+                mov.setCategoria(cursor.getString(6));
+                mov.setNota(cursor.getString(7));
+                if (listaAnio[mov.getMes()] == null) {
+                    m = new Model_Data_MovimientoPorMes();
+                    listaAnio[mov.getMes()] = m;
+                    listaAnio[mov.getMes()].addMovimiento(mov);
+                } else {
+                    listaAnio[mov.getMes()].addMovimiento(mov);
+                }
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return listaAnio;
+    }
+
 
     public int getId() {
         return getMovimientos().size();
@@ -244,7 +482,7 @@ public class BDMovimientos extends BBDDHelper {
             if (m1.getMes() == m2.getMes()) if (m1.getAnio() == m2.getAnio()) r = true;
         return r;
     }
-
+// nuevo = 2,4,5
     public ArrayList<Model_Fecha_Movimientos> getMovimientosPorDias() {
         ArrayList<Movimiento> listaMovimientos = getMovimientos();
         Model_Fecha_Movimientos mfm = new Model_Fecha_Movimientos(new ArrayList<>(), true);
@@ -270,10 +508,109 @@ public class BDMovimientos extends BBDDHelper {
         }
         return resultado;
     }
+    public ArrayList<Model_Fecha_Movimientos> getMovimientosPorDias(int anio) {
+        ArrayList<Movimiento> listaMovimientos = getMovimientos(anio);
+        Model_Fecha_Movimientos mfm = new Model_Fecha_Movimientos(new ArrayList<>(), true);
+        ArrayList<Model_Fecha_Movimientos> resultado = new ArrayList<>();
+        if (listaMovimientos.size() != 0) {
+            mfm.addMovimiento(listaMovimientos.get(0));
+            mfm.setFecha();
+            if (listaMovimientos.size() == 1) resultado.add(mfm);
+        }
+        for (int i = 1; i < listaMovimientos.size(); i++) {
+            Movimiento mov = listaMovimientos.get(i);
+            if (sonFechasIguales(mov, mfm.getFirstMovimiento())) {
+                mfm.addMovimiento(mov);
 
+            } else {
+                resultado.add(mfm);
+                mfm = new Model_Fecha_Movimientos(new ArrayList<>(), true);
+                mfm.addMovimiento(listaMovimientos.get(i));
+                mfm.setFecha();
+            }
+            if ((listaMovimientos.size() - i == 1))
+                resultado.add(mfm);
+        }
+        return resultado;
+    }
+    public ArrayList<Model_Fecha_Movimientos> getMovimientosPorDias(String cartera) {
+        ArrayList<Movimiento> listaMovimientos = getMovimientos(cartera);
+        Model_Fecha_Movimientos mfm = new Model_Fecha_Movimientos(new ArrayList<>(), true);
+        ArrayList<Model_Fecha_Movimientos> resultado = new ArrayList<>();
+        if (listaMovimientos.size() != 0) {
+            mfm.addMovimiento(listaMovimientos.get(0));
+            mfm.setFecha();
+            if (listaMovimientos.size() == 1) resultado.add(mfm);
+        }
+        for (int i = 1; i < listaMovimientos.size(); i++) {
+            Movimiento mov = listaMovimientos.get(i);
+            if (sonFechasIguales(mov, mfm.getFirstMovimiento())) {
+                mfm.addMovimiento(mov);
+
+            } else {
+                resultado.add(mfm);
+                mfm = new Model_Fecha_Movimientos(new ArrayList<>(), true);
+                mfm.addMovimiento(listaMovimientos.get(i));
+                mfm.setFecha();
+            }
+            if ((listaMovimientos.size() - i == 1))
+                resultado.add(mfm);
+        }
+        return resultado;
+    }
 
     public ArrayList<Model_Fecha_Movimientos> getMovimientosPorDias(int mes, int anio) {
         ArrayList<Movimiento> listaMovimientos = getMovimientosDelMes(mes, anio);
+        Model_Fecha_Movimientos mfm = new Model_Fecha_Movimientos(new ArrayList<>(), true);
+        ArrayList<Model_Fecha_Movimientos> resultado = new ArrayList<>();
+        if (listaMovimientos.size() != 0) {
+            mfm.addMovimiento(listaMovimientos.get(0));
+            mfm.setFecha();
+            if (listaMovimientos.size() == 1) resultado.add(mfm);
+        }
+        for (int i = 1; i < listaMovimientos.size(); i++) {
+            Movimiento mov = listaMovimientos.get(i);
+            if (sonFechasIguales(mov, mfm.getFirstMovimiento())) {
+                mfm.addMovimiento(mov);
+
+            } else {
+                resultado.add(mfm);
+                mfm = new Model_Fecha_Movimientos(new ArrayList<>(), true);
+                mfm.addMovimiento(listaMovimientos.get(i));
+                mfm.setFecha();
+            }
+            if ((listaMovimientos.size() - i == 1))
+                resultado.add(mfm);
+        }
+        return resultado;
+    }
+    public ArrayList<Model_Fecha_Movimientos> getMovimientosPorDias(int anio, String cartera) {
+        ArrayList<Movimiento> listaMovimientos = getMovimientos(anio, cartera);
+        Model_Fecha_Movimientos mfm = new Model_Fecha_Movimientos(new ArrayList<>(), true);
+        ArrayList<Model_Fecha_Movimientos> resultado = new ArrayList<>();
+        if (listaMovimientos.size() != 0) {
+            mfm.addMovimiento(listaMovimientos.get(0));
+            mfm.setFecha();
+            if (listaMovimientos.size() == 1) resultado.add(mfm);
+        }
+        for (int i = 1; i < listaMovimientos.size(); i++) {
+            Movimiento mov = listaMovimientos.get(i);
+            if (sonFechasIguales(mov, mfm.getFirstMovimiento())) {
+                mfm.addMovimiento(mov);
+
+            } else {
+                resultado.add(mfm);
+                mfm = new Model_Fecha_Movimientos(new ArrayList<>(), true);
+                mfm.addMovimiento(listaMovimientos.get(i));
+                mfm.setFecha();
+            }
+            if ((listaMovimientos.size() - i == 1))
+                resultado.add(mfm);
+        }
+        return resultado;
+    }
+    public ArrayList<Model_Fecha_Movimientos> getMovimientosPorDias(int mes, int anio, String cartera) {
+        ArrayList<Movimiento> listaMovimientos = getMovimientos(mes, anio, cartera);
         Model_Fecha_Movimientos mfm = new Model_Fecha_Movimientos(new ArrayList<>(), true);
         ArrayList<Model_Fecha_Movimientos> resultado = new ArrayList<>();
         if (listaMovimientos.size() != 0) {
@@ -537,5 +874,76 @@ public class BDMovimientos extends BBDDHelper {
                 break;
         }
         return resultado;
+    }
+
+    public ArrayList<String> getAniosConTransacciones() {
+        BBDDHelper bbddHelper = new BBDDHelper(contexto);
+        SQLiteDatabase bd = bbddHelper.getReadableDatabase();
+        ArrayList<String> listaAnios = new ArrayList<>();
+        Cursor cursor = bd.rawQuery("select DISTINCT anio from t_movimientos order by anio ASC", null);
+        if (cursor.moveToFirst())
+            do {
+                String s = cursor.getString(0);
+                listaAnios.add(s);
+            } while (cursor.moveToNext());
+
+        cursor.close();
+        return listaAnios;
+    }
+
+    public Integer[] getTodosUsosEnCadaMes() {
+        BBDDHelper bbddHelper = new BBDDHelper(contexto);
+        SQLiteDatabase bd = bbddHelper.getReadableDatabase();
+        Integer[] lista = new Integer[12];
+        Cursor cursor = bd.rawQuery("select mes, count(mes) from t_movimientos order by mes ASC", null);
+        if (cursor.moveToFirst())
+            do {
+                lista[cursor.getInt(0)] = cursor.getInt(1);
+            } while (cursor.moveToNext());
+
+        cursor.close();
+        return lista;
+    }
+
+    public Integer[] getTodosUsosEnCadaMes(String nombre_cartera) {
+        BBDDHelper bbddHelper = new BBDDHelper(contexto);
+        SQLiteDatabase bd = bbddHelper.getReadableDatabase();
+        Integer[] lista = new Integer[12];
+        Cursor cursor = bd.rawQuery("select mes, count(mes) from t_movimientos where nombre_cartera = \'" + nombre_cartera + "\' order by mes ASC", null);
+        if (cursor.moveToFirst())
+            do {
+                lista[cursor.getInt(0)] = cursor.getInt(1);
+            } while (cursor.moveToNext());
+
+        cursor.close();
+        return lista;
+    }
+
+    public Integer[] getUsosEnCadaMes(int anio) {
+        BBDDHelper bbddHelper = new BBDDHelper(contexto);
+        SQLiteDatabase bd = bbddHelper.getReadableDatabase();
+        Integer[] lista = new Integer[12];
+        Cursor cursor = bd.rawQuery("select mes, count(mes) from t_movimientos where anio = " + anio + " order by mes ASC", null);
+        if (cursor.moveToFirst())
+            do {
+                lista[cursor.getInt(0)] = cursor.getInt(1);
+            } while (cursor.moveToNext());
+
+        cursor.close();
+        return lista;
+    }
+
+    public Integer[] getUsosEnCadaMes(int anio, String nombre_cartera) {
+        BBDDHelper bbddHelper = new BBDDHelper(contexto);
+        SQLiteDatabase bd = bbddHelper.getReadableDatabase();
+        Integer[] lista = new Integer[12];
+        Cursor cursor = bd.rawQuery("select mes, count(mes) from t_movimientos where nombre_cartera = \'" + nombre_cartera + "\' and anio = " + anio + " order by mes ASC", null);
+        if (cursor.moveToFirst())
+            do {
+                lista[cursor.getInt(0)] = cursor.getInt(1);
+            } while (cursor.moveToNext());
+
+        cursor.close();
+        return lista;
     }
 }

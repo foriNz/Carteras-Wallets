@@ -12,8 +12,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 
+import com.example.cartera_v1.Activities.Dialogos.EleccionAnio;
 import com.example.cartera_v1.Activities.Dialogos.EleccionBilletera;
 import com.example.cartera_v1.Activities.Dialogos.EleccionIntervalo;
+import com.example.cartera_v1.Activities.Dialogos.EleccionMes;
 import com.example.cartera_v1.Adaptadores.CategoriasAdapter_Estadisticas;
 import com.example.cartera_v1.BBDD.BDMovimientos;
 import com.example.cartera_v1.Entidades.Model_Data_Categoria;
@@ -35,6 +37,8 @@ public class EstadisticasCartera extends AppCompatActivity {
     CategoriasAdapter_Estadisticas adapter;
     EleccionBilletera dialogoEleccionBilletera;
     EleccionIntervalo dialogoPeriodo;
+    EleccionAnio dialogoAnio;
+    EleccionMes dialogoMeses;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +73,24 @@ public class EstadisticasCartera extends AppCompatActivity {
             public void onClick(View v) {
                 EleccionBilletera dialogo = new EleccionBilletera();
                 dialogoEleccionBilletera = dialogo;
+                dialogo.setCancelable(false);
+                dialogo.show(getSupportFragmentManager(), "dialogo");
+            }
+        });
+        anios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EleccionAnio dialogo = new EleccionAnio();
+                dialogoAnio = dialogo;
+                dialogo.setCancelable(false);
+                dialogo.show(getSupportFragmentManager(), "dialogo");
+            }
+        });
+        meses.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EleccionMes dialogo = new EleccionMes(Integer.parseInt(anios.getText().toString()));
+                dialogoMeses = dialogo;
                 dialogo.setCancelable(false);
                 dialogo.show(getSupportFragmentManager(), "dialogo");
             }
@@ -190,6 +212,7 @@ public class EstadisticasCartera extends AppCompatActivity {
         if (nombre.equals(getResources().getString(R.string.por_año))) {
             anios.setVisibility(View.VISIBLE);
             anios.setText(String.valueOf(Calendar.getInstance().get(Calendar.YEAR)));
+            meses.setVisibility(View.INVISIBLE);
         } else if (nombre.equals(getResources().getString(R.string.por_meses))) {
             anios.setVisibility(View.VISIBLE);
             anios.setText(String.valueOf(Calendar.getInstance().get(Calendar.YEAR)));
@@ -201,5 +224,16 @@ public class EstadisticasCartera extends AppCompatActivity {
             meses.setVisibility(View.INVISIBLE);
         }
         dialogoPeriodo.dismiss();
+    }
+
+    public void aplicarEleccionAnio(String s) {
+        anios.setText(s);
+        refrescarDatos();
+        dialogoAnio.dismiss();
+    }
+    public void aplicarEleccionMes(String s) {
+        meses.setText(s);
+        refrescarDatos();
+        dialogoMeses.dismiss();
     }
 }

@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activities.Fragments.Cronologia"
-    >
+    tools:context=".Activities.Fragments.Cronologia">
+
     <TextView
         android:id="@+id/tv_balance_frag_movimiento"
         android:layout_width="match_parent"
         android:layout_height="25dp"
-        android:gravity="center"/>
+        android:gravity="center" />
 
     <TextView
         android:layout_width="match_parent"
@@ -20,21 +20,64 @@
         android:gravity="center"
         android:text="@string/balance_fragmento_movimientos"
         android:textSize="12sp" />
-    <Button
-        android:id="@+id/btn_organizacion_cronologia"
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_organizacion_cronologia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/transparent"
+            android:drawableEnd="@drawable/outline_keyboard_arrow_down_24"
+            android:text="@string/todas_las_billeteras"
+            android:textColor="@color/black"
+            android:textSize="8sp" />
+
+        <Button
+            android:id="@+id/btn_periodos_cronologia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/transparent"
+            android:drawableEnd="@drawable/outline_keyboard_arrow_down_24"
+            android:text="@string/todo_el_historial"
+            android:textColor="@color/black"
+            android:textSize="8sp" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/transparent"
-        android:drawableEnd="@drawable/outline_keyboard_arrow_down_24"
-        android:layout_gravity="center"
-        android:text="@string/por_meses"
-        android:textColor="@color/black"
-        android:textSize="10sp"/>
+        android:layout_gravity="center">
+
+        <Button
+            android:id="@+id/btn_org_periodos_anios_cronologia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15sp"
+            android:backgroundTint="@color/transparent"
+            android:drawableEnd="@drawable/outline_keyboard_arrow_down_24"
+            android:textColor="@color/black"
+            android:textSize="8sp" />
+
+        <Button
+            android:id="@+id/btn_org_periodos_meses_cronologia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/transparent"
+            android:drawableEnd="@drawable/outline_keyboard_arrow_down_24"
+            android:textColor="@color/black"
+            android:textSize="8sp" />
+    </LinearLayout>
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/chart_frag_movimientos"
         android:layout_width="match_parent"
-        android:layout_height="200dp"/>
+        android:layout_height="200dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -45,8 +88,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:scrollbars="vertical"
-            android:scrollbarSize="5dp"/>
+            android:scrollbarSize="5dp"
+            android:scrollbars="vertical" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_frag_movimientos"
@@ -54,14 +97,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
             android:layout_margin="16dp"
+            android:backgroundTint="@color/design_default_color_primary"
             android:src="@drawable/outline_add_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.929"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.877"
-            android:backgroundTint="@color/design_default_color_primary"/>
+            app:layout_constraintVertical_bias="0.877" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

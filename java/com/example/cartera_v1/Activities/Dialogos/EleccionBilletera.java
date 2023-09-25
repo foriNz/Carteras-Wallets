@@ -22,8 +22,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cartera_v1.Activities.CreacionCartera;
 import com.example.cartera_v1.Activities.EstadisticasCartera;
 import com.example.cartera_v1.Adaptadores.CarterasAdapter_Transaccion;
+import com.example.cartera_v1.Adaptadores.IntervaloAdapter_Recordatorios;
 import com.example.cartera_v1.BBDD.BDCarteras;
 import com.example.cartera_v1.Entidades.Cartera;
+import com.example.cartera_v1.MainActivity;
 import com.example.cartera_v1.R;
 
 import java.lang.reflect.Array;
@@ -34,6 +36,14 @@ public class EleccionBilletera extends AppCompatDialogFragment {
     public Window window;
     RecyclerView rv_dialogo;
     CarterasAdapter_Transaccion carterasAdapter;
+    CarterasAdapter_Transaccion.IntervaloListener eventListener;
+
+    public EleccionBilletera() {
+    }
+
+    public EleccionBilletera(CarterasAdapter_Transaccion.IntervaloListener eventListener) {
+        this.eventListener = eventListener;
+    }
 
     @Override
     public void onResume() {
@@ -59,9 +69,12 @@ public class EleccionBilletera extends AppCompatDialogFragment {
     private void refrescarRecyclerView() {
         BDCarteras bdCarteras = new BDCarteras(getContext());
         ArrayList<Cartera> lista = bdCarteras.getCarteras();
-        if (getContext() instanceof EstadisticasCartera)
-            lista.add(0,new Cartera(getResources().getString(R.string.todas_las_billeteras), bdCarteras.getBalanceTotal()));
-        carterasAdapter = new CarterasAdapter_Transaccion(lista, getContext());
+        if (getContext() instanceof EstadisticasCartera || getContext() instanceof MainActivity)
+            lista.add(0, new Cartera(getResources().getString(R.string.todas_las_billeteras), bdCarteras.getBalanceTotal()));
+        if (getContext() instanceof MainActivity)
+            carterasAdapter = new CarterasAdapter_Transaccion(getContext(), lista, eventListener);
+        else
+            carterasAdapter = new CarterasAdapter_Transaccion(lista, getContext());
         rv_dialogo.setAdapter(carterasAdapter);
 
     }
