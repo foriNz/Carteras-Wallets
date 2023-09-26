@@ -28,17 +28,15 @@ public class EleccionMes extends AppCompatDialogFragment {
     public EleccionMes() {
     }
 
-    public EleccionMes(String nombre_cartera) {
-        this.nombre_cartera = nombre_cartera;
-    }
 
     public EleccionMes(int anio) {
         this.anio = anio;
     }
 
-    public EleccionMes(int anio, String nombre_cartera) {
+    public EleccionMes(int anio, String nombre_cartera, MesesAdapter_Estadisticas.AplicarEleccionMes listener) {
         this.anio = anio;
         this.nombre_cartera = nombre_cartera;
+        this.listener = listener;
     }
 
     public EleccionMes(int anio, MesesAdapter_Estadisticas.AplicarEleccionMes listener) {

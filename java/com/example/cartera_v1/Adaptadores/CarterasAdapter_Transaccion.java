@@ -90,12 +90,15 @@ public class CarterasAdapter_Transaccion extends RecyclerView.Adapter<CarterasAd
                     if (context instanceof EstadisticasCartera)
                         ((EstadisticasCartera) context).aplicarEleccionCartera(tv_nombrebilletera.getText().toString());
                     else if (context instanceof MainActivity)
-                    // context.startActivity(new Intent(context, EstadisticasCartera.class));
-                    eventListener.aplicarEleccionCartera(tv_nombrebilletera.getText().toString());
+                        if (eventListener == null)
+                            context.startActivity(new Intent(context, EstadisticasCartera.class));
+                        else
+                            eventListener.aplicarEleccionCartera(tv_nombrebilletera.getText().toString());
                 }
             });
         }
     }
+
     public interface IntervaloListener {
         void aplicarEleccionCartera(String cartera);
     }

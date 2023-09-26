@@ -138,16 +138,23 @@ public class Cronologia extends Fragment {
             }
         });
         meses.setOnClickListener(new View.OnClickListener() {
+            EleccionMes dialogo;
+            MesesAdapter_Estadisticas.AplicarEleccionMes listener = new MesesAdapter_Estadisticas.AplicarEleccionMes() {
+                @Override
+                public void aplicarEleccionMes(String mes) {
+                    meses.setText(mes);
+                    dialogoEleccionMes.dismiss();
+                    refrescarDatos();
+                }
+            };
+
             @Override
             public void onClick(View v) {
-                EleccionMes dialogo = new EleccionMes(Integer.parseInt(anios.getText().toString()), new MesesAdapter_Estadisticas.AplicarEleccionMes() {
-                    @Override
-                    public void aplicarEleccionMes(String mes) {
-                        meses.setText(mes);
-                        dialogoEleccionMes.dismiss();
-                        refrescarDatos();
-                    }
-                });
+                if (org_billeteras.getText().toString().equals(getResources().getString(R.string.todas_las_billeteras))) {
+                    dialogo = new EleccionMes(Integer.parseInt(anios.getText().toString()), listener);
+                } else {
+                    dialogo = new EleccionMes(Integer.parseInt(anios.getText().toString()), org_billeteras.getText().toString(), listener);
+                }
                 dialogoEleccionMes = dialogo;
                 dialogo.setCancelable(false);
                 dialogo.show(getParentFragmentManager(), "dialogo");

@@ -875,7 +875,7 @@ public class BDMovimientos extends BBDDHelper {
                 "select categoria, icono, color, sum(transaccion), count(categoria) " +
                 "from t_movimientos " +
                 "inner join t_categorias on t_movimientos.categoria = t_categorias.nombre " +
-                "where anio = " + anio + " mes = " + mes + " AND transaccion " + ingresoOGasto + " 0 " + "AND nombre_cartera = \'" + cartera + "\' " +
+                "where anio = " + anio + " and mes = " + mes + " AND transaccion " + ingresoOGasto + " 0 " + "AND nombre_cartera = \'" + cartera + "\' " +
                 "group by categoria", null);
         if (cursor.moveToFirst())
             do {
