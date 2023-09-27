@@ -24,18 +24,20 @@ public class CreacionCartera extends AppCompatActivity {
         et_saldo_inicial = findViewById(R.id.et_saldo_inicial_creacion_cartera);
         et_nombre_cartera = findViewById(R.id.et_nombre_cartera_creacion_cartera);
         btn_aceptar = findViewById(R.id.btn_aceptar_creacion_cartera);
-        btn_aceptar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (et_nombre_cartera.getText().toString().trim().isEmpty())
-                    btn_aceptar.setText(R.string.btn_aceptar_nombre_vacio);
-                else {
-                    BDCarteras bdCarteras = new BDCarteras(getApplicationContext());
-                    bdCarteras.addCartera(et_nombre_cartera.getText().toString(),
-                            Double.parseDouble(et_saldo_inicial.getText().toString()));
-                    finish();
+        agregarFuncionalidades();
 
-                }
+    }
+
+    private void agregarFuncionalidades() {
+        btn_aceptar.setOnClickListener(view -> {
+            if (et_nombre_cartera.getText().toString().trim().isEmpty())
+                btn_aceptar.setText(R.string.btn_aceptar_nombre_vacio);
+            else {
+                BDCarteras bdCarteras = new BDCarteras(getApplicationContext());
+                bdCarteras.addCartera(et_nombre_cartera.getText().toString(),
+                        Double.parseDouble(et_saldo_inicial.getText().toString()));
+                finish();
+
             }
         });
     }

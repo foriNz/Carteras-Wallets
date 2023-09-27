@@ -82,6 +82,7 @@
     <string name="diciembre">Diciembre</string>
     <string name="uso_singular">movimiento</string>
     <string name="uso_plural">movimientos</string>
+    <string name="editar_categoria">Editar categoría</string>
 
 
 </resources>

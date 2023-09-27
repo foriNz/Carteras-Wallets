@@ -32,7 +32,7 @@ public class CategoriasGastos extends Fragment {
         rv_categorias.setLayoutManager(new LinearLayoutManager(getContext()));
         BDCategorias bdCategorias = new BDCategorias(getContext());
         try {
-            rv_categorias.setAdapter(new CategoriasAdapter_Administrador(bdCategorias.getCategoriasGasto(),getContext()));
+            rv_categorias.setAdapter(new CategoriasAdapter_Administrador(bdCategorias.getCategoriasGasto(), getContext(), "gasto"));
 
         } catch (Exception e) {
             e.toString();

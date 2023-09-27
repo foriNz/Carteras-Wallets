@@ -31,7 +31,7 @@ public class CategoriasIngresos extends Fragment {
         rv_categorias.setLayoutManager(new LinearLayoutManager(getContext()));
         BDCategorias bdCategorias = new BDCategorias(getContext());
         try {
-            rv_categorias.setAdapter(new CategoriasAdapter_Administrador(bdCategorias.getCategoriasIngreso(),getContext()));
+            rv_categorias.setAdapter(new CategoriasAdapter_Administrador(bdCategorias.getCategoriasIngreso(),getContext(), "ingreso"));
 
         } catch (Exception e) {
             e.toString();

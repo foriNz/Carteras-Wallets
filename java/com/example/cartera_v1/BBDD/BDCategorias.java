@@ -19,6 +19,19 @@ public class BDCategorias extends BBDDHelper {
         contexto = context;
     }
 
+    public void modificarCategoria(int id, String nombre, String color, String icono, String tipo) {
+        long idTransaccion = 0;
+        try {
+            BBDDHelper bbddHelper = new BBDDHelper(contexto);
+            SQLiteDatabase bd = bbddHelper.getWritableDatabase();
+            bd.execSQL("UPDATE " + TABLA_CATEGORIAS + " SET nombre = \'" + nombre + "\', color = \'" + color + "\', icono =\'" + icono + "\' WHERE id = " + id + " and tipo = \'" + tipo + "\'");
+            bd.close();
+        } catch (Exception e) {
+            e.toString();
+        }
+
+    }
+
     public long addCategoria(String nombre, String color, String icono, String tipo) {
         long id = 0;
         try {
@@ -39,20 +52,22 @@ public class BDCategorias extends BBDDHelper {
                 default:
                     assert false;
             }
-            values.put("id", getId(tipo));
+            values.put("id", getIdSiguiente(tipo));
             values.put("nombre", nombre);
             values.put("color", color);
             values.put("icono", icono);
             values.put("tipo", tipo);
             id = bd.insert(TABLA_CATEGORIAS, null, values);
+            bd.close();
         } catch (Exception e) {
             e.toString();
         }
+
         return id;
     }
 
     // Devuelve el ID siguiente (siempre lo pone el ultimo)
-    public long getId(String tipo) {
+    public long getIdSiguiente(String tipo) {
         long resultado;
         if (tipo.equals("ingreso"))
             resultado = getCategoriasIngreso().size();
@@ -60,6 +75,19 @@ public class BDCategorias extends BBDDHelper {
             resultado = getCategoriasGasto().size();
         return resultado;
 
+    }
+
+    public int getId(String nombre, String tipo) {
+        BBDDHelper bbddHelper = new BBDDHelper(contexto);
+        SQLiteDatabase bd = bbddHelper.getReadableDatabase();
+
+        Cursor cursorCategoria = null;
+
+        cursorCategoria = bd.rawQuery("SELECT id FROM " + TABLA_CATEGORIAS + " WHERE nombre = \'" + nombre + "\' and tipo = \'" + tipo + "\'", null);
+        close();
+        if (cursorCategoria.moveToFirst())
+            return cursorCategoria.getInt(0);
+        else return 0;
     }
 
     public ArrayList<Categoria> getCategoriasIngreso() {
@@ -124,10 +152,15 @@ public class BDCategorias extends BBDDHelper {
         Cursor cursorCategoria = null;
 
         cursorCategoria = bd.rawQuery("SELECT * FROM " + TABLA_CATEGORIAS + " WHERE nombre = \'" + nombre_categoria + "\'", null);
-        if (cursorCategoria.moveToFirst())
-            return cursorCategoria.getInt(3);
-        else return 0;
+
+        if (cursorCategoria.moveToFirst()) {
+            resultado = cursorCategoria.getInt(3);
+        }
+        else resultado = 0;
+        bd.close();
+        return resultado;
     }
+
     public String getColor(String nombre_categoria) {
         BBDDHelper bbddHelper = new BBDDHelper(contexto);
         SQLiteDatabase bd = bbddHelper.getWritableDatabase();
@@ -142,7 +175,7 @@ public class BDCategorias extends BBDDHelper {
 
     public ArrayList<String> getNombresCategoriasIngreso() {
         ArrayList<String> resultado = new ArrayList<>();
-        resultado.add(0,"General");
+        resultado.add(0, "General");
         ArrayList<Categoria> categorias = getCategoriasIngreso();
         for (int i = 0; i < categorias.size(); i++) {
             resultado.add(categorias.get(i).getNombre());
@@ -152,7 +185,7 @@ public class BDCategorias extends BBDDHelper {
 
     public ArrayList<String> getNombresCategoriasGasto() {
         ArrayList<String> resultado = new ArrayList<>();
-        resultado.add(0,"General");
+        resultado.add(0, "General");
         ArrayList<Categoria> categorias = getCategoriasGasto();
         for (int i = 0; i < categorias.size(); i++) {
             resultado.add(categorias.get(i).getNombre());

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cartera_v1.BBDD.BDCategorias;
@@ -30,6 +31,7 @@ public class CreacionCategoria extends AppCompatActivity {
     int idRecursoIconoSeleccionado;
     String color_seleccion;
     CheckBox cb_gasto, cb_ingreso;
+    Bundle datos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,15 +49,58 @@ public class CreacionCategoria extends AppCompatActivity {
         tl_colores_categorias = findViewById(R.id.tl_colores_categorias);
         cb_ingreso = findViewById(R.id.cb_ingreso);
         cb_gasto = findViewById(R.id.cb_gasto);
+        datos = getIntent().getExtras();
+        if (datos != null) {
+            nombre_categoria.setText(datos.getString("nombre"));
+
+            icono_seleccion.setImageResource(datos.getInt("icono"));
+            idRecursoIconoSeleccionado = datos.getInt("icono");
+
+            icono_seleccion.setColorFilter(Color.parseColor(datos.getString("color")));
+            icono_seleccion.setBorderColor(Color.parseColor(datos.getString("color")));
+            color_seleccion = datos.getString("color");
+            cb_gasto.setVisibility(View.INVISIBLE);
+            cb_ingreso.setVisibility(View.INVISIBLE);
+            TextView tv_titulo_creacion_categoria = findViewById(R.id.tv_titulo_creacion_categoria);
+            tv_titulo_creacion_categoria.setText(getResources().getString(R.string.editar_categoria));
+        }
         btn_atras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-        btn_guardar_borrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        rellenarColores();
+        rellenarIconos();
+        if (datos != null) {
+            btn_guardar_borrar.setOnClickListener(view -> {
+                // Verifica si el nombre no esta vacio, hay un color y un icono seleccionado
+                if (!nombre_categoria.getText().toString().trim().isEmpty()) {
+                    if (color_seleccion != null) {
+                        if (idRecursoIconoSeleccionado != 0) {
+                            BDCategorias bdCategorias = new BDCategorias(CreacionCategoria.this);
+                            bdCategorias.modificarCategoria(bdCategorias.getId(datos.getString("nombre"), datos.getString("tipo")),
+                                    nombre_categoria.getText().toString(),
+                                    color_seleccion,
+                                    String.valueOf(idRecursoIconoSeleccionado),
+                                    datos.getString("tipo"));
+                            finish();
+
+                        } else {
+                            String s = getResources().getString(R.string.toast_falta_icono_categoria);
+                            Toast.makeText(CreacionCategoria.this, s, Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        String s = getResources().getString(R.string.toast_falta_color_categoria);
+                        Toast.makeText(CreacionCategoria.this, s, Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    String s = getResources().getString(R.string.toast_falta_nombre_categoria);
+                    Toast.makeText(CreacionCategoria.this, s, Toast.LENGTH_LONG).show();
+                }
+            });
+        } else
+            btn_guardar_borrar.setOnClickListener(view -> {
                 // Verifica si el nombre no esta vacio, hay un color y un icono seleccionado
                 if (!nombre_categoria.getText().toString().trim().isEmpty()) {
                     if (color_seleccion != null) {
@@ -87,10 +132,7 @@ public class CreacionCategoria extends AppCompatActivity {
                     String s = getResources().getString(R.string.toast_falta_nombre_categoria);
                     Toast.makeText(CreacionCategoria.this, s, Toast.LENGTH_LONG).show();
                 }
-            }
-        });
-        rellenarColores();
-        rellenarIconos();
+            });
     }
 
     private void rellenarIconos() {
