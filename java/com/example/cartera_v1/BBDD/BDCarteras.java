@@ -81,4 +81,16 @@ public class BDCarteras extends BBDDHelper{
             resultado = c.getInt(0);
         return resultado;
     }
+
+    public void modificarNombre(String nombre_nuevo, String nombre_antiguo) {
+        try {
+            // TODO: 27/09/2023 update de movimientos
+            BBDDHelper bbddHelper = new BBDDHelper(contexto);
+            SQLiteDatabase bd = bbddHelper.getWritableDatabase();
+            bd.execSQL("UPDATE " + TABLA_CARTERAS + " SET nombre = \'" + nombre_nuevo + "\' WHERE nombre = \'" + nombre_antiguo + "\'");
+            bd.close();
+        } catch (Exception e) {
+            e.toString();
+        }
+    }
 }

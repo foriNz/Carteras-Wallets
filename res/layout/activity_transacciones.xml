@@ -7,6 +7,13 @@
 
     android:orientation="vertical"
     tools:context=".Activities.Transaccion">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30sp"
+        android:id="@+id/tv_titulo_transaccion"
+        android:background="@color/purple_700"
+        android:text="@string/creacion_transaccion"
+        android:gravity="center"/>
 
     <LinearLayout
         android:id="@+id/ll_panel_transacciones"

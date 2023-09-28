@@ -36,8 +36,9 @@ public class CarterasAdapter_Transaccion extends RecyclerView.Adapter<CarterasAd
     public CarterasAdapter_Transaccion(ArrayList<Cartera> listaCartera, Context context) {
         this.listaCartera = listaCartera;
         this.context = context;
-        if (listaCartera.size() == 0)
-            listaCartera.add(new Cartera(context.getResources().getString(R.string.cv_creacion_billetera)));
+        if (context instanceof Transaccion)
+            if (listaCartera.size() == 0)
+                listaCartera.add(new Cartera(context.getResources().getString(R.string.cv_creacion_billetera)));
 
     }
 
@@ -81,20 +82,24 @@ public class CarterasAdapter_Transaccion extends RecyclerView.Adapter<CarterasAd
             tv_nombrebilletera = itemView.findViewById(R.id.tv_dial_nombre_billetera);
             tv_dinerobilletera = itemView.findViewById(R.id.tv_dial_dinero_billetera);
             ll_item_cartera_eleccion = itemView.findViewById(R.id.ll_item_cartera_eleccion);
-
-            ll_item_cartera_eleccion.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (context instanceof Transaccion)
-                        ((Transaccion) context).aplicarEleccionCartera(tv_nombrebilletera.getText().toString());
-                    if (context instanceof EstadisticasCartera)
-                        ((EstadisticasCartera) context).aplicarEleccionCartera(tv_nombrebilletera.getText().toString());
-                    else if (context instanceof MainActivity)
-                        if (eventListener == null)
-                            context.startActivity(new Intent(context, EstadisticasCartera.class));
-                        else
-                            eventListener.aplicarEleccionCartera(tv_nombrebilletera.getText().toString());
+            ll_item_cartera_eleccion.setOnLongClickListener(view -> {
+                if (context instanceof MainActivity && eventListener == null) {
+                    Intent intent = new Intent(context, CreacionCartera.class);
+                    intent.putExtra("nombre", tv_nombrebilletera.getText().toString());
+                    context.startActivity(intent);
                 }
+                return true;
+            });
+            ll_item_cartera_eleccion.setOnClickListener(view -> {
+                if (context instanceof Transaccion)
+                    ((Transaccion) context).aplicarEleccionCartera(tv_nombrebilletera.getText().toString());
+                if (context instanceof EstadisticasCartera)
+                    ((EstadisticasCartera) context).aplicarEleccionCartera(tv_nombrebilletera.getText().toString());
+                else if (context instanceof MainActivity)
+                    if (eventListener == null)
+                        context.startActivity(new Intent(context, EstadisticasCartera.class));
+                    else
+                        eventListener.aplicarEleccionCartera(tv_nombrebilletera.getText().toString());
             });
         }
     }

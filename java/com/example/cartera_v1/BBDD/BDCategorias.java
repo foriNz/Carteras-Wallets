@@ -20,11 +20,21 @@ public class BDCategorias extends BBDDHelper {
     }
 
     public void modificarCategoria(int id, String nombre, String color, String icono, String tipo) {
-        long idTransaccion = 0;
         try {
             BBDDHelper bbddHelper = new BBDDHelper(contexto);
             SQLiteDatabase bd = bbddHelper.getWritableDatabase();
+            Cursor c = null;
+            String d = "";
+            if (tipo.equals("Gasto"))
+                d = "<";
+            else if (tipo.equals("Ingreso"))
+                d = ">";
+            c = bd.rawQuery("SELECT nombre from " + TABLA_CATEGORIAS + " where id = " + id, null);
+            String nombreAntiguo = c.getString(0);
             bd.execSQL("UPDATE " + TABLA_CATEGORIAS + " SET nombre = \'" + nombre + "\', color = \'" + color + "\', icono =\'" + icono + "\' WHERE id = " + id + " and tipo = \'" + tipo + "\'");
+            bd.execSQL("UPDATE " + TABLA_MOVIMIENTOS + " SET categoria = \'" + nombre + "\' where categoria = \'" + nombreAntiguo + "\'" + " transaccion " + d + " 0");
+            bd.execSQL("UPDATE " + TABLA_METAS + " SET categoria = \'" + nombre + "\' where categoria = \'" + nombreAntiguo + "\'");
+            c.close();
             bd.close();
         } catch (Exception e) {
             e.toString();
@@ -155,8 +165,7 @@ public class BDCategorias extends BBDDHelper {
 
         if (cursorCategoria.moveToFirst()) {
             resultado = cursorCategoria.getInt(3);
-        }
-        else resultado = 0;
+        } else resultado = 0;
         bd.close();
         return resultado;
     }

@@ -26,16 +26,6 @@ public class BDMovimientos extends BBDDHelper {
         contexto = context;
     }
 
-    public int getBalanceTotalDia(int dia, int mes, int anio) {
-        BBDDHelper bbddHelper = new BBDDHelper(contexto);
-        SQLiteDatabase bd = bbddHelper.getWritableDatabase();
-        int resultado;
-        Cursor cursor;
-        cursor = bd.rawQuery("SELECT SUMA, SUM(transaccion) FROM " + TABLA_MOVIMIENTOS + " WHERE dia = \'" + dia + "\' AND mes = \'" + mes + "\' AND anio = \'" + anio + "\' DESC", null);
-        resultado = cursor.getInt(1);
-        cursor.close();
-        return resultado;
-    }
 
     public ArrayList<Movimiento> getMovimientos() {
         BBDDHelper bbddHelper = new BBDDHelper(contexto);
@@ -199,7 +189,7 @@ public class BDMovimientos extends BBDDHelper {
         ArrayList<Model_Data_MovimientoPorSemana> listaAnio = new ArrayList<>();
         Model_Data_MovimientoPorSemana m;
         Cursor cursor;
-        cursor = bd.rawQuery("SELECT * FROM " + TABLA_MOVIMIENTOS + " where anio = "+anio+" and mes = "+mes+" ORDER BY anio DESC, mes DESC, dia DESC", null);
+        cursor = bd.rawQuery("SELECT * FROM " + TABLA_MOVIMIENTOS + " where anio = " + anio + " and mes = " + mes + " ORDER BY anio DESC, mes DESC, dia DESC", null);
         if (cursor.moveToFirst()) {
             int i = 0;
             do {
@@ -223,7 +213,7 @@ public class BDMovimientos extends BBDDHelper {
                     m.setSemana(c.get(Calendar.WEEK_OF_MONTH));
                     listaAnio.add(m);
                     listaAnio.get(0).addMovimiento(mov);
-                } else if (c.get(Calendar.WEEK_OF_MONTH) == listaAnio.get(i).getSemana()){
+                } else if (c.get(Calendar.WEEK_OF_MONTH) == listaAnio.get(i).getSemana()) {
                     listaAnio.get(i).addMovimiento(mov);
                 } else {
                     m = new Model_Data_MovimientoPorSemana();
@@ -237,13 +227,14 @@ public class BDMovimientos extends BBDDHelper {
         cursor.close();
         return listaAnio;
     }
+
     public ArrayList<Model_Data_MovimientoPorSemana> getMovimientosSemana(int anio, int mes, String cartera) {
         BBDDHelper bbddHelper = new BBDDHelper(contexto);
         SQLiteDatabase bd = bbddHelper.getWritableDatabase();
         ArrayList<Model_Data_MovimientoPorSemana> listaAnio = new ArrayList<>();
         Model_Data_MovimientoPorSemana m;
         Cursor cursor;
-        cursor = bd.rawQuery("SELECT * FROM " + TABLA_MOVIMIENTOS + " where anio = "+anio+" and mes = "+mes+" and nombre_cartera = \'"+cartera+"\' ORDER BY anio DESC, mes DESC, dia DESC", null);
+        cursor = bd.rawQuery("SELECT * FROM " + TABLA_MOVIMIENTOS + " where anio = " + anio + " and mes = " + mes + " and nombre_cartera = \'" + cartera + "\' ORDER BY anio DESC, mes DESC, dia DESC", null);
         if (cursor.moveToFirst()) {
             int i = 0;
             do {
@@ -267,7 +258,7 @@ public class BDMovimientos extends BBDDHelper {
                     m.setSemana(c.get(Calendar.WEEK_OF_MONTH));
                     listaAnio.add(m);
                     listaAnio.get(0).addMovimiento(mov);
-                } else if (c.get(Calendar.WEEK_OF_MONTH) == listaAnio.get(i).getSemana()){
+                } else if (c.get(Calendar.WEEK_OF_MONTH) == listaAnio.get(i).getSemana()) {
                     listaAnio.get(i).addMovimiento(mov);
                 } else {
                     m = new Model_Data_MovimientoPorSemana();
@@ -281,6 +272,7 @@ public class BDMovimientos extends BBDDHelper {
         cursor.close();
         return listaAnio;
     }
+
     private ArrayList<Movimiento> getMovimientosDelMes(int mes, int anio) {
         BBDDHelper bbddHelper = new BBDDHelper(contexto);
         SQLiteDatabase bd = bbddHelper.getWritableDatabase();
@@ -422,7 +414,7 @@ public class BDMovimientos extends BBDDHelper {
                     m.setAnio(cursor.getInt(2));
                     listaAnio.add(m);
                     listaAnio.get(0).addMovimiento(mov);
-                } else if (mov.getAnio() == listaAnio.get(i).getAnio()){
+                } else if (mov.getAnio() == listaAnio.get(i).getAnio()) {
                     listaAnio.get(i).addMovimiento(mov);
                 } else {
                     m = new Model_Data_MovimientoPorAnio();
@@ -435,13 +427,14 @@ public class BDMovimientos extends BBDDHelper {
         cursor.close();
         return listaAnio;
     }
+
     public ArrayList<Model_Data_MovimientoPorAnio> getMovimientosAnio(String cartera) {
         BBDDHelper bbddHelper = new BBDDHelper(contexto);
         SQLiteDatabase bd = bbddHelper.getWritableDatabase();
         ArrayList<Model_Data_MovimientoPorAnio> listaAnio = new ArrayList<>();
         Model_Data_MovimientoPorAnio m;
         Cursor cursor;
-        cursor = bd.rawQuery("SELECT * FROM " + TABLA_MOVIMIENTOS + " where nombre_cartera = \'"+cartera+"\' ORDER BY anio DESC, mes DESC, dia DESC", null);
+        cursor = bd.rawQuery("SELECT * FROM " + TABLA_MOVIMIENTOS + " where nombre_cartera = \'" + cartera + "\' ORDER BY anio DESC, mes DESC, dia DESC", null);
         if (cursor.moveToFirst()) {
             int i = 0;
             do {
@@ -459,7 +452,7 @@ public class BDMovimientos extends BBDDHelper {
                     m.setAnio(cursor.getInt(2));
                     listaAnio.add(m);
                     listaAnio.get(0).addMovimiento(mov);
-                } else if (mov.getAnio() == listaAnio.get(i).getAnio()){
+                } else if (mov.getAnio() == listaAnio.get(i).getAnio()) {
                     listaAnio.get(i).addMovimiento(mov);
                 } else {
                     m = new Model_Data_MovimientoPorAnio();
@@ -510,7 +503,7 @@ public class BDMovimientos extends BBDDHelper {
         Model_Data_MovimientoPorMes[] listaAnio = new Model_Data_MovimientoPorMes[12];
         Model_Data_MovimientoPorMes m;
         Cursor cursor;
-        cursor = bd.rawQuery("SELECT * FROM " + TABLA_MOVIMIENTOS + " WHERE nombre_cartera = \'"+cartera+"\' and anio = \'" + anio + "\' ORDER BY mes DESC, dia DESC", null);
+        cursor = bd.rawQuery("SELECT * FROM " + TABLA_MOVIMIENTOS + " WHERE nombre_cartera = \'" + cartera + "\' and anio = \'" + anio + "\' ORDER BY mes DESC, dia DESC", null);
         if (cursor.moveToFirst()) {
             do {
                 Movimiento mov = new Movimiento();
@@ -571,7 +564,8 @@ public class BDMovimientos extends BBDDHelper {
             if (m1.getMes() == m2.getMes()) if (m1.getAnio() == m2.getAnio()) r = true;
         return r;
     }
-// nuevo = 2,4,5
+
+    // nuevo = 2,4,5
     public ArrayList<Model_Fecha_Movimientos> getMovimientosPorDias() {
         ArrayList<Movimiento> listaMovimientos = getMovimientos();
         Model_Fecha_Movimientos mfm = new Model_Fecha_Movimientos(new ArrayList<>(), true);
@@ -597,6 +591,7 @@ public class BDMovimientos extends BBDDHelper {
         }
         return resultado;
     }
+
     public ArrayList<Model_Fecha_Movimientos> getMovimientosPorDias(int anio) {
         ArrayList<Movimiento> listaMovimientos = getMovimientos(anio);
         Model_Fecha_Movimientos mfm = new Model_Fecha_Movimientos(new ArrayList<>(), true);
@@ -622,6 +617,7 @@ public class BDMovimientos extends BBDDHelper {
         }
         return resultado;
     }
+
     public ArrayList<Model_Fecha_Movimientos> getMovimientosPorDias(String cartera) {
         ArrayList<Movimiento> listaMovimientos = getMovimientos(cartera);
         Model_Fecha_Movimientos mfm = new Model_Fecha_Movimientos(new ArrayList<>(), true);
@@ -673,6 +669,7 @@ public class BDMovimientos extends BBDDHelper {
         }
         return resultado;
     }
+
     public ArrayList<Model_Fecha_Movimientos> getMovimientosPorDias(int anio, String cartera) {
         ArrayList<Movimiento> listaMovimientos = getMovimientos(anio, cartera);
         Model_Fecha_Movimientos mfm = new Model_Fecha_Movimientos(new ArrayList<>(), true);
@@ -698,8 +695,9 @@ public class BDMovimientos extends BBDDHelper {
         }
         return resultado;
     }
+
     public ArrayList<Model_Fecha_Movimientos> getMovimientosPorDias(int mes, int anio, String cartera) {
-        ArrayList<Movimiento> listaMovimientos = getMovimientos(anio, mes , cartera);
+        ArrayList<Movimiento> listaMovimientos = getMovimientos(anio, mes, cartera);
         Model_Fecha_Movimientos mfm = new Model_Fecha_Movimientos(new ArrayList<>(), true);
         ArrayList<Model_Fecha_Movimientos> resultado = new ArrayList<>();
         if (listaMovimientos.size() != 0) {
@@ -1034,5 +1032,25 @@ public class BDMovimientos extends BBDDHelper {
 
         cursor.close();
         return lista;
+    }
+
+    public void modificarMovimiento(Movimiento m, Movimiento mNuevo) {
+        try {
+            BBDDHelper bbddHelper = new BBDDHelper(contexto);
+            SQLiteDatabase bd = bbddHelper.getWritableDatabase();
+            bd.execSQL("UPDATE " + TABLA_MOVIMIENTOS +
+                    " SET transaccion = " + mNuevo.getTransaccion() + "," +
+                    " nombre_cartera = \'" + mNuevo.getNombre_cartera() + "\'," +
+                    " mes = " + mNuevo.getMes() +
+                    ", anio = " + mNuevo.getAnio() +
+                    ", dia = " + mNuevo.getDia() +
+                    ", nota = \'" + mNuevo.getNota() + "\' " +
+                    ", categoria = \'" + mNuevo.getCategoria() + "\' " +
+                    "where id = " + m.getId() + " AND dia = " + m.getDia() + " AND mes =" + m.getMes() + " AND anio = " + m.getAnio());
+
+            bd.close();
+        } catch (Exception e) {
+            e.toString();
+        }
     }
 }

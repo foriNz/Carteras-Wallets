@@ -34,7 +34,7 @@ import java.util.Calendar;
 
 public class Transaccion extends AppCompatActivity {
     EditText et_transaccion, et_nota;
-    TextView tv_billeteraDer, tv_billeteraIzq, tv_fechaIzq, tv_fechaDer, tv_agregarFoto;
+    TextView tv_billeteraDer, tv_billeteraIzq, tv_fechaIzq, tv_fechaDer, tv_agregarFoto, tv_titulo;
     ImageView iv_foto, iv_categoria;
     Button btn_aceptar;
     LinearLayout ll_panel_transacciones, ll_billeteras_transaccion;
@@ -42,6 +42,7 @@ public class Transaccion extends AppCompatActivity {
     EleccionBilletera dialogoEleccionBilletera;
     EleccionCategoria dialogoEleccionCategoria;
     String categoria, tipo_categoria;
+    Bundle datos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,8 @@ public class Transaccion extends AppCompatActivity {
         iv_categoria = findViewById(R.id.iv_circuloCategoria);
         ll_panel_transacciones = findViewById(R.id.ll_panel_transacciones);
         ll_billeteras_transaccion = findViewById(R.id.ll_billeteras_transaccion);
+        tv_titulo = findViewById(R.id.tv_titulo_transaccion);
+        datos = getIntent().getExtras();
 
         agregarfuncionalidades();
     }
@@ -79,86 +82,99 @@ public class Transaccion extends AppCompatActivity {
         int day = c.get(Calendar.DAY_OF_MONTH);
         asignarFecha(year, month, day);
         // Shortcut al día de hoy y a ayer
-        tv_fechaDer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Calendar c = Calendar.getInstance();
-                if (tv_fechaDer.getText().equals("Ayer")) {
-                    c.add(Calendar.DATE, -1);
-                    int yearAyer = c.get(Calendar.YEAR);
-                    int monthAyer = c.get(Calendar.MONTH);
-                    int dayAyer = c.get(Calendar.DAY_OF_MONTH);
-                    asignarFecha(yearAyer, monthAyer, dayAyer);
-                    tv_fechaIzq.setText(getResources().getString(R.string.ayer));
-                    tv_fechaDer.setText(getResources().getString(R.string.hoy));
-                } else {
-                    int year = c.get(Calendar.YEAR);
-                    int month = c.get(Calendar.MONTH);
-                    int day = c.get(Calendar.DAY_OF_MONTH);
-                    asignarFecha(year, month, day);
-                    tv_fechaIzq.setText(getResources().getString(R.string.hoy));
-                    tv_fechaDer.setText(getResources().getString(R.string.ayer));
-                }
+        tv_fechaDer.setOnClickListener(view -> {
+            final Calendar c1 = Calendar.getInstance();
+            if (tv_fechaDer.getText().equals("Ayer")) {
+                c1.add(Calendar.DATE, -1);
+                int yearAyer = c1.get(Calendar.YEAR);
+                int monthAyer = c1.get(Calendar.MONTH);
+                int dayAyer = c1.get(Calendar.DAY_OF_MONTH);
+                asignarFecha(yearAyer, monthAyer, dayAyer);
+                tv_fechaIzq.setText(getResources().getString(R.string.ayer));
+                tv_fechaDer.setText(getResources().getString(R.string.hoy));
+            } else {
+                int year1 = c1.get(Calendar.YEAR);
+                int month1 = c1.get(Calendar.MONTH);
+                int day1 = c1.get(Calendar.DAY_OF_MONTH);
+                asignarFecha(year1, month1, day1);
+                tv_fechaIzq.setText(getResources().getString(R.string.hoy));
+                tv_fechaDer.setText(getResources().getString(R.string.ayer));
             }
         });
-        tv_fechaIzq.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                abrirDialogoFecha();
-            }
-        });
-        tv_agregarFoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        tv_fechaIzq.setOnClickListener(view -> abrirDialogoFecha());
+        tv_agregarFoto.setOnClickListener(view ->
                 ImagePicker.Companion.with(Transaccion.this)
                         .crop()
                         .compress(1024)
                         .maxResultSize(1080, 1080)
-                        .start();
-            }
-        });
-      /*  tv_billeteraDer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                EleccionBilletera dialogo = new EleccionBilletera();
-                dialogoEleccionBilletera = dialogo;
-                dialogo.setCancelable(false);
-                dialogo.show(getSupportFragmentManager(), "dialogo");
+                        .start());
+        ll_billeteras_transaccion.setOnClickListener(v -> abrirSeleccionCartera());
+        iv_categoria.setOnClickListener(view -> abrirSeleccionCategoria());
 
-            }
-        });*/
-        ll_billeteras_transaccion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                abrirSeleccionCartera();
-            }
-        });
-        iv_categoria.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                abrirSeleccionCategoria();
-            }
-        });
-        btn_aceptar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        if (datos != null) {
+            Movimiento m = new Movimiento();
+            m.setId(datos.getInt("id"));
+            m.setTransaccion(datos.getDouble("transaccion"));
+            m.setNombre_cartera(datos.getString("nombre_cartera"));
+            m.setCategoria(datos.getString("categoria"));
+            m.setDia(datos.getInt("dia"));
+            m.setMes(datos.getInt("mes"));
+            m.setAnio(datos.getInt("anio"));
+            m.setNota(datos.getString("nota"));
+
+            tv_titulo.setText(getResources().getString(R.string.editar_transaccion));
+            et_transaccion.setText(String.valueOf(m.getTransaccion()));
+            tv_billeteraDer.setText(m.getNombre_cartera());
+
+            if (m.getTransaccion() > 0)
+                tipo_categoria = "ingreso";
+            else tipo_categoria = "gasto";
+            aplicarEleccionCategoria(m.getCategoria(), tipo_categoria);
+            asignarFecha(dia, mes, anio);
+            tv_fechaIzq.setText(dia + "-" + mes + "-" + anio);
+            btn_aceptar.setOnClickListener(v -> {
+                if (!et_transaccion.getText().toString().isEmpty() || et_transaccion.getText().toString().equals("0")) {
+                    BDMovimientos bd = new BDMovimientos(Transaccion.this);
+                    Movimiento mNuevo = new Movimiento();
+                    m.setNombre_cartera(tv_billeteraDer.getText().toString());
+                    double transac = Double.parseDouble(et_transaccion.getText().toString());
+                    if (tipo_categoria.equals("gasto")) transac = -transac;
+                    mNuevo.setTransaccion(transac);
+                    mNuevo.setCategoria(categoria);
+                    mNuevo.setNota(et_nota.getText().toString());
+                    mNuevo.setAnio(anio);
+                    mNuevo.setDia(dia);
+                    mNuevo.setMes(mes);
+                    mNuevo.setId(m.getId());
+                    bd.modificarMovimiento(m, mNuevo);
+                } else {
+                    String s = getResources().getString(R.string.toast_falta_valor_transaccion);
+                    Toast.makeText(Transaccion.this, s, Toast.LENGTH_SHORT).show();
+                    et_transaccion.requestFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(et_transaccion, InputMethodManager.SHOW_IMPLICIT);
+                }
+            });
+
+        } else
+            btn_aceptar.setOnClickListener(v -> {
                 if (categoria != null) {
                     if (!et_transaccion.getText().toString().isEmpty() || et_transaccion.getText().toString().equals("0")) {
                         if (!tv_billeteraDer.getText().toString().isEmpty()) {
-                        BDMovimientos bdMovimientos = new BDMovimientos(Transaccion.this);
-                        Movimiento m = new Movimiento();
-                        m.setNombre_cartera(tv_billeteraDer.getText().toString());
-                        double transac = Double.parseDouble(et_transaccion.getText().toString());
-                        if (tipo_categoria.equals("gasto")) transac = -transac;
-                        m.setTransaccion(transac);
-                        m.setCategoria(categoria);
-                        m.setNota(et_nota.getText().toString());
-                        m.setAnio(anio);
-                        m.setDia(dia);
-                        m.setMes(mes);
-                        m.setId(bdMovimientos.getId());
-                        bdMovimientos.addMovimiento(m);
-                        finish();
+                            BDMovimientos bdMovimientos = new BDMovimientos(Transaccion.this);
+                            Movimiento m = new Movimiento();
+                            m.setNombre_cartera(tv_billeteraDer.getText().toString());
+                            double transac = Double.parseDouble(et_transaccion.getText().toString());
+                            if (tipo_categoria.equals("gasto")) transac = -transac;
+                            m.setTransaccion(transac);
+                            m.setCategoria(categoria);
+                            m.setNota(et_nota.getText().toString());
+                            m.setAnio(anio);
+                            m.setDia(dia);
+                            m.setMes(mes);
+                            m.setId(bdMovimientos.getId());
+                            bdMovimientos.addMovimiento(m);
+                            finish();
                         } else {
                             String s = getResources().getString(R.string.toast_falta_cartera);
                             Toast.makeText(Transaccion.this, s, Toast.LENGTH_SHORT).show();
@@ -176,8 +192,7 @@ public class Transaccion extends AppCompatActivity {
                     Toast.makeText(Transaccion.this, s, Toast.LENGTH_SHORT).show();
                     abrirSeleccionCategoria();
                 }
-            }
-        });
+            });
     }
 
     private void abrirSeleccionCartera() {
@@ -227,7 +242,10 @@ public class Transaccion extends AppCompatActivity {
     }
 
     public void aplicarEleccionCartera(String nombre) {
-        tv_billeteraDer.setText(nombre);
+        if (nombre.equals(getResources().getString(R.string.cv_creacion_billetera))) {
+            dialogoEleccionBilletera.dismiss();
+        } else
+            tv_billeteraDer.setText(nombre);
         dialogoEleccionBilletera.dismiss();
     }
 

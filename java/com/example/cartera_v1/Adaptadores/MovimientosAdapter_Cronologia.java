@@ -90,6 +90,7 @@ public class MovimientosAdapter_Cronologia extends RecyclerView.Adapter<Movimien
             holder.tv_categoria_item_cronologia.setText(listaMovimientos.get(position).getCategoria());
             holder.tv_cartera_item_cronologia.setText(listaMovimientos.get(position).getNombre_cartera());
             holder.tv_balance_item_cronologia.setText(listaMovimientos.get(position).getTransaccion()+"");
+            holder.id = listaMovimientos.get(position).getId();
         }
 
         @Override
@@ -100,6 +101,7 @@ public class MovimientosAdapter_Cronologia extends RecyclerView.Adapter<Movimien
         class MovimientoViewHolder extends RecyclerView.ViewHolder {
             CircleImageView civ_icono_item_cronologia;
             TextView tv_categoria_item_cronologia, tv_cartera_item_cronologia, tv_balance_item_cronologia;
+            int id;
 
             public MovimientoViewHolder(@NonNull View itemView) {
                 super(itemView);
