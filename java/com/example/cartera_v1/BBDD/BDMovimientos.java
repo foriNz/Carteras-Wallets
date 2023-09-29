@@ -1053,4 +1053,19 @@ public class BDMovimientos extends BBDDHelper {
             e.toString();
         }
     }
+
+    public int getUsosTotales(String categoria, String tipo) {
+        BBDDHelper bbddHelper = new BBDDHelper(contexto);
+        SQLiteDatabase bd = bbddHelper.getReadableDatabase();
+        String ingresoOGasto = ">";
+        if (tipo.equalsIgnoreCase("gasto"))
+            ingresoOGasto = "<";
+        int resultado = 0;
+        Cursor cursor = bd.rawQuery("select count(mes) from t_movimientos where categoria = \'" + categoria + "\' and transaccion "+ingresoOGasto+" 0 order by mes ASC", null);
+        if (cursor.moveToFirst())
+            resultado = cursor.getInt(0);
+
+        cursor.close();
+        return resultado;
+    }
 }

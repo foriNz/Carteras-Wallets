@@ -43,7 +43,7 @@ public class CreacionMeta extends AppCompatActivity {
         btn_aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: 17/09/2023 verificar si estan los datos
+
                 BDMetas bdm = new BDMetas(CreacionMeta.this);
                 Meta m = new Meta();
                 m.setValor_objetivo(Integer.parseInt(objetivo.getText().toString()));

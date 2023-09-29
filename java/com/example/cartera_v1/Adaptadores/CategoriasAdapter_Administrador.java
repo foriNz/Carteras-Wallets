@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cartera_v1.Activities.CreacionCategoria;
 import com.example.cartera_v1.BBDD.BDCategorias;
+import com.example.cartera_v1.BBDD.BDMovimientos;
 import com.example.cartera_v1.Entidades.Categoria;
 import com.example.cartera_v1.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -47,7 +48,12 @@ public class CategoriasAdapter_Administrador extends RecyclerView.Adapter<Catego
         holder.icono_categoria.setImageResource(Integer.parseInt(listaCategorias.get(position).getIcono()));
         holder.categoria.setText(listaCategorias.get(position).getNombre());
         holder.icono_categoria.setCircleBackgroundColor(Color.parseColor(listaCategorias.get(position).getColor()));
-        // TODO: 04/09/2023 USANZAS CATEGORIA EN MOVIMIENTOS
+        BDMovimientos bd = new BDMovimientos(context);
+        int usos = bd.getUsosTotales(listaCategorias.get(position).getNombre(), tipo);
+        if (usos > 1)
+            holder.usanzas.setText(usos + " " + context.getResources().getString(R.string.usanzas_plural));
+        else
+            holder.usanzas.setText(usos + " " + context.getResources().getString(R.string.usanzas_singular));
     }
 
     @Override
@@ -67,25 +73,25 @@ public class CategoriasAdapter_Administrador extends RecyclerView.Adapter<Catego
             usanzas = itemView.findViewById(R.id.tv_item_usanzas);
             fab_movimiento = itemView.findViewById(R.id.fab_movimiento_categoria);
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                                            @Override
-                                            public boolean onLongClick(View v) {
-                                                BDCategorias bd = new BDCategorias(context);
-                                                Intent intent = new Intent(context, CreacionCategoria.class);
-                                                intent.putExtra("nombre",categoria.getText().toString());
-                                                intent.putExtra("icono",bd.getIcono(categoria.getText().toString()));
-                                                intent.putExtra("color", bd.getColor(categoria.getText().toString()));
-                                                intent.putExtra("tipo", tipo);
-                                                context.startActivity(intent);
-                                                return true;
-                                            }
-                                        });
+                @Override
+                public boolean onLongClick(View v) {
+                    BDCategorias bd = new BDCategorias(context);
+                    Intent intent = new Intent(context, CreacionCategoria.class);
+                    intent.putExtra("nombre", categoria.getText().toString());
+                    intent.putExtra("icono", bd.getIcono(categoria.getText().toString()));
+                    intent.putExtra("color", bd.getColor(categoria.getText().toString()));
+                    intent.putExtra("tipo", tipo);
+                    context.startActivity(intent);
+                    return true;
+                }
+            });
 
-                    fab_movimiento.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            // TODO: 04/09/2023 MOVIMIENTO DE ID CATEGORIAS
-                        }
-                    });
+            fab_movimiento.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // TODO: 04/09/2023 MOVIMIENTO DE ID CATEGORIAS
+                }
+            });
         }
     }
 }
