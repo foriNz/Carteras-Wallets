@@ -201,4 +201,24 @@ public class BDCategorias extends BBDDHelper {
         }
         return resultado;
     }
+
+    public void borrarCategoria(String nombre, String tipo) {
+        try {
+            BBDDHelper bbddHelper = new BBDDHelper(contexto);
+            SQLiteDatabase bd = bbddHelper.getWritableDatabase();
+            Cursor c = null;
+            String d = "";
+            if (tipo.equalsIgnoreCase("Gasto"))
+                d = "<";
+            else if (tipo.equalsIgnoreCase("Ingreso"))
+                d = ">";
+            bd.execSQL("DELETE FROM " + TABLA_CATEGORIAS + " WHERE nombre = \'" + nombre + "\' AND tipo =\'" + tipo + "\'");
+            bd.execSQL("DELETE FROM " + TABLA_MOVIMIENTOS + " where categoria = \'" + nombre + "\' AND transaccion " + d + " 0");
+            bd.execSQL("DELETE FROM " + TABLA_METAS + " where categoria = \'" + nombre + "\' AND tipo_categoria = \'"+tipo+"\'");
+            c.close();
+            bd.close();
+        } catch (Exception e) {
+            e.toString();
+        }
+    }
 }

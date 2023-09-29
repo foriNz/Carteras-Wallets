@@ -85,6 +85,8 @@
     <string name="editar_categoria">Editar categoría</string>
     <string name="creacion_transaccion">Creación de transacción</string>
     <string name="editar_transaccion">Editar transacción</string>
+    <string name="estas_seguro_de_borrar">¿Estás seguro de borrar la categoria?</string>
+    <string name="estas_seguro_de_borrar_mensaje">Esto hará que todos tus movimientos con esta categoría se borren permanentemente</string>
 
 
 </resources>

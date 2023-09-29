@@ -1,7 +1,11 @@
 package com.example.cartera_v1.Activities;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDialog;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cartera_v1.BBDD.BDCategorias;
+import com.example.cartera_v1.BBDD.BDMovimientos;
 import com.example.cartera_v1.R;
 
 import java.util.ArrayList;
@@ -23,8 +28,7 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CreacionCategoria extends AppCompatActivity {
-    ImageView btn_atras, btn_guardar_borrar;
-    RadioGroup rg_colores, rg_iconos;
+    ImageView btn_atras, btn_guardar_borrar, btn_borrar_categoria;
     EditText nombre_categoria;
     CircleImageView icono_seleccion;
     TableLayout tl_iconos_categorias, tl_colores_categorias;
@@ -47,10 +51,12 @@ public class CreacionCategoria extends AppCompatActivity {
         icono_seleccion = findViewById(R.id.civ_icono_seleccionado);
         tl_iconos_categorias = findViewById(R.id.tl_iconos_categorias);
         tl_colores_categorias = findViewById(R.id.tl_colores_categorias);
+        btn_borrar_categoria = findViewById(R.id.btn_borrar_categoria);
         cb_ingreso = findViewById(R.id.cb_ingreso);
         cb_gasto = findViewById(R.id.cb_gasto);
         datos = getIntent().getExtras();
         if (datos != null) {
+            btn_borrar_categoria.setVisibility(View.VISIBLE);
             nombre_categoria.setText(datos.getString("nombre"));
 
             icono_seleccion.setImageResource(datos.getInt("icono"));
@@ -73,6 +79,24 @@ public class CreacionCategoria extends AppCompatActivity {
         rellenarColores();
         rellenarIconos();
         if (datos != null) {
+            btn_borrar_categoria.setOnClickListener(v -> {
+                AlertDialog.Builder builder = new AlertDialog.Builder(CreacionCategoria.this);
+                builder.setTitle(getResources().getString(R.string.estas_seguro_de_borrar))
+                        .setMessage(getResources().getString(R.string.estas_seguro_de_borrar_mensaje))
+                        .setCancelable(true)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                BDCategorias bdC = new BDCategorias(CreacionCategoria.this);
+                                bdC.borrarCategoria(datos.getString("nombre"),datos.getString("tipo"));
+                            }
+                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        }).show();
+            });
             btn_guardar_borrar.setOnClickListener(view -> {
                 // Verifica si el nombre no esta vacio, hay un color y un icono seleccionado
                 if (!nombre_categoria.getText().toString().trim().isEmpty()) {
