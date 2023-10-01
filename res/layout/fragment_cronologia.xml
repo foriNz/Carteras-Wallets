@@ -5,11 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    style="@style/SCREEN"
     tools:context=".Activities.Fragments.Cronologia">
 
     <TextView
         android:id="@+id/tv_balance_frag_movimiento"
         android:layout_width="match_parent"
+        style="@style/TEXT"
         android:layout_height="25dp"
         android:gravity="center" />
 
@@ -18,6 +20,7 @@
         android:layout_height="25dp"
         android:layout_gravity="center|top"
         android:gravity="center"
+        style="@style/TEXT"
         android:text="@string/balance_fragmento_movimientos"
         android:textSize="12sp" />
 
@@ -33,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:backgroundTint="@color/transparent"
+            style="@style/BUTTON"
             android:drawableEnd="@drawable/outline_keyboard_arrow_down_24"
             android:text="@string/todas_las_billeteras"
             android:textColor="@color/black"
@@ -42,6 +46,7 @@
             android:id="@+id/btn_periodos_cronologia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/BUTTON"
             android:backgroundTint="@color/transparent"
             android:drawableEnd="@drawable/outline_keyboard_arrow_down_24"
             android:text="@string/todo_el_historial"
@@ -59,6 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="15sp"
+            style="@style/BUTTON"
             android:backgroundTint="@color/transparent"
             android:drawableEnd="@drawable/outline_keyboard_arrow_down_24"
             android:textColor="@color/black"
@@ -69,6 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/transparent"
+            style="@style/BUTTON"
             android:drawableEnd="@drawable/outline_keyboard_arrow_down_24"
             android:textColor="@color/black"
             android:textSize="8sp" />
@@ -77,6 +84,7 @@
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/chart_frag_movimientos"
         android:layout_width="match_parent"
+        style="@style/TEXT"
         android:layout_height="200dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout

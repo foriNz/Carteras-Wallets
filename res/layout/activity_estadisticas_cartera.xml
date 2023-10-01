@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    style="@style/SCREEN"
     tools:context=".Activities.EstadisticasCartera">
 
     <TextView
@@ -101,6 +102,7 @@
         android:id="@+id/pc_ingreso_gasto_estadisticas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        style="@style/SCREEN"
         android:layout_gravity="center"
         android:layout_weight="0.5"/>
     <androidx.recyclerview.widget.RecyclerView

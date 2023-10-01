@@ -87,6 +87,8 @@
     <string name="editar_transaccion">Editar transacción</string>
     <string name="estas_seguro_de_borrar">¿Estás seguro de borrar la categoria?</string>
     <string name="estas_seguro_de_borrar_mensaje">Esto hará que todos tus movimientos con esta categoría se borren permanentemente</string>
+    <string name="dark_mode_titulo">Tema oscuro</string>
+    <string name="dark_mode">Tema oscuro</string>
 
 
 </resources>

@@ -186,7 +186,7 @@ public class EstadisticasCartera extends AppCompatActivity {
             listaCategorias.get(i).setIcon(icon);
             listaColores.add(Color.parseColor(m.getColor()));
         }
-
+        chart.setDrawHoleEnabled(false);
         chart.setEntryLabelColor(0);
         PieDataSet dataSet = new PieDataSet(listaCategorias, "");
         dataSet.setColors(listaColores);

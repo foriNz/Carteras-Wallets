@@ -84,18 +84,10 @@ public class CreacionCategoria extends AppCompatActivity {
                 builder.setTitle(getResources().getString(R.string.estas_seguro_de_borrar))
                         .setMessage(getResources().getString(R.string.estas_seguro_de_borrar_mensaje))
                         .setCancelable(true)
-                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                BDCategorias bdC = new BDCategorias(CreacionCategoria.this);
-                                bdC.borrarCategoria(datos.getString("nombre"),datos.getString("tipo"));
-                            }
-                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        }).show();
+                        .setPositiveButton("Ok", (dialog, which) -> {
+                            BDCategorias bdC = new BDCategorias(CreacionCategoria.this);
+                            bdC.borrarCategoria(datos.getString("nombre"),datos.getString("tipo"));
+                        }).setNegativeButton("No", (dialog, which) -> dialog.cancel()).show();
             });
             btn_guardar_borrar.setOnClickListener(view -> {
                 // Verifica si el nombre no esta vacio, hay un color y un icono seleccionado

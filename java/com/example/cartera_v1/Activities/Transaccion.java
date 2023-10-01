@@ -256,6 +256,7 @@ public class Transaccion extends AppCompatActivity {
         iv_categoria.setImageResource(bdCategorias.getIcono(nombre_categoria));
         categoria = nombre_categoria;
         ll_panel_transacciones.setBackgroundColor(Color.parseColor(bdCategorias.getColor(nombre_categoria)));
+        tv_titulo.setBackgroundColor(Color.parseColor(bdCategorias.getColor(nombre_categoria)));
         if (tipo.equals("ingreso")) tipo_categoria = "ingreso";
         else {
             tipo_categoria = "gasto";
