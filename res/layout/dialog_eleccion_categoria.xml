@@ -36,18 +36,7 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:gravity="center">
-        <RadioButton
-            android:background="@drawable/custom_radio_selector"
-            android:textSize="10sp"
-            android:text="@string/radiobutton_ingreso"
-            android:id="@+id/rb_categoria_ingreso"
 
-            android:layout_width="90dp"
-            android:layout_height="35dp"
-            android:textAlignment="center"
-            android:button="@color/transparent"
-            android:layout_marginLeft="30sp"
-            />
         <RadioButton
             android:background="@drawable/custom_radio_selector"
             android:checked="true"
@@ -58,6 +47,18 @@
             android:text="@string/radiobutton_gasto"
             android:textAlignment="center"
             android:button="@color/transparent"
+            />
+        <RadioButton
+            android:background="@drawable/custom_radio_selector"
+            android:textSize="10sp"
+            android:text="@string/radiobutton_ingreso"
+            android:id="@+id/rb_categoria_ingreso"
+
+            android:layout_width="90dp"
+            android:layout_height="35dp"
+            android:textAlignment="center"
+            android:button="@color/transparent"
+            android:layout_marginRight="30sp"
             />
         <RadioButton
             android:layout_marginLeft="30dp"
