@@ -58,10 +58,10 @@
             android:layout_height="35dp"
             android:textAlignment="center"
             android:button="@color/transparent"
-            android:layout_marginRight="30sp"
+            android:layout_marginRight="15sp"
             />
         <RadioButton
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginRight="30dp"
             android:id="@+id/rb_categoria_transferencia"
             android:layout_width="90dp"
