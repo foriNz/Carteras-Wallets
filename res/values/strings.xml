@@ -89,6 +89,10 @@
     <string name="estas_seguro_de_borrar_mensaje">Esto hará que todos tus movimientos con esta categoría se borren permanentemente</string>
     <string name="dark_mode_titulo">Tema oscuro</string>
     <string name="dark_mode">Tema oscuro</string>
+    <string name="ajustes">Ajustes</string>
+    <string name="sobre_mi">Sobre mi</string>
+    <string name="idioma">Idioma</string>
+    <string name="sobre_el_desarrollador">Sobre el desarrollador</string>
 
 
 </resources>

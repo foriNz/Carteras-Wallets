@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.RadioButton;
 
@@ -53,6 +54,8 @@ public class EstadisticasCartera extends AppCompatActivity {
         anios = findViewById(R.id.btn_org_periodos_anios_estadisticas);
         meses = findViewById(R.id.btn_org_periodos_meses_estadisticas);
         agregarFuncionalidades();
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getSupportActionBar().hide();
     }
 
     private void agregarFuncionalidades() {

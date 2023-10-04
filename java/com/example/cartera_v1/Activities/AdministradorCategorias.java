@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 
 import com.example.cartera_v1.Adaptadores.VPAdapter;
 import com.example.cartera_v1.R;
@@ -27,6 +28,8 @@ public class AdministradorCategorias extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_administrador_categorias);
         agregarFuncionalidades();
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getSupportActionBar().hide();
     }
 
     private void agregarFuncionalidades() {

@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -54,6 +55,8 @@ public class CreacionCategoria extends AppCompatActivity {
         btn_borrar_categoria = findViewById(R.id.btn_borrar_categoria);
         cb_ingreso = findViewById(R.id.cb_ingreso);
         cb_gasto = findViewById(R.id.cb_gasto);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getSupportActionBar().hide();
         datos = getIntent().getExtras();
         if (datos != null) {
             btn_borrar_categoria.setVisibility(View.VISIBLE);

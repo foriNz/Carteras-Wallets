@@ -9,6 +9,7 @@
         android:id="@+id/ll_item_cartera_eleccion"
         android:layout_width="match_parent"
         android:layout_height="70sp"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
         <TextView

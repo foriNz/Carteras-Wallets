@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -72,6 +73,8 @@ public class CreacionRecordatorio extends AppCompatActivity implements Intervalo
         btn_aceptar = findViewById(R.id.btn_aceptar_recordatorio);
         intervalo = findViewById(R.id.tv_intervalo_recordatorio);
         agregarFuncionalidades();
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getSupportActionBar().hide();
     }
 
     private void agregarFuncionalidades() {

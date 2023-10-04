@@ -2,23 +2,40 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/SCREEN"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/SCREEN"
     android:orientation="vertical"
     tools:context=".Activities.Transaccion">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="30sp"
-        style="@style/TEXT"
-        android:id="@+id/tv_titulo_transaccion"
 
-        android:text="@string/creacion_transaccion"
-        android:gravity="center"/>
+    <LinearLayout
+        android:id="@+id/ll_titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       >
+
+        <ImageView
+            android:id="@+id/cancelar_transaccion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="20sp"
+            android:layout_weight="1"
+            android:src="@drawable/baseline_close_24"/>
+
+        <TextView
+            android:id="@+id/tv_titulo_transaccion"
+            style="@style/TEXT"
+            android:layout_width="match_parent"
+            android:layout_height="30sp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/creacion_transaccion" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll_panel_transacciones"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
         android:orientation="horizontal">
@@ -38,6 +55,7 @@
             android:layout_height="100dp"
             android:layout_marginTop="0dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginRight="20sp"
             android:background="@color/transparent"
             android:ems="15"
             android:hint="0"
@@ -45,15 +63,7 @@
             android:textAlignment="viewEnd"
             android:textColor="@color/white" />
 
-        <Spinner
-            android:id="@+id/sp_moneda"
-            android:layout_width="wrap_content"
-            android:layout_height="10dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:paddingRight="20dp"
-            android:spinnerMode="dialog"
-            android:text="€" />
+
     </LinearLayout>
 
     <LinearLayout

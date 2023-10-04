@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,6 +35,8 @@ public class CreacionMeta extends AppCompatActivity {
         sp_categorias = findViewById(R.id.sp_categorias);
         btn_aceptar = findViewById(R.id.btn_aceptar_meta);
         agregarFuncionalidades();
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getSupportActionBar().hide();
     }
 
     private void agregarFuncionalidades() {

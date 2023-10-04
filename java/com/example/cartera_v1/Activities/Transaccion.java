@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -35,9 +36,9 @@ import java.util.Calendar;
 public class Transaccion extends AppCompatActivity {
     EditText et_transaccion, et_nota;
     TextView tv_billeteraDer, tv_billeteraIzq, tv_fechaIzq, tv_fechaDer, tv_agregarFoto, tv_titulo;
-    ImageView iv_foto, iv_categoria;
+    ImageView iv_foto, iv_categoria, cancelar_transaccion;
     Button btn_aceptar;
-    LinearLayout ll_panel_transacciones, ll_billeteras_transaccion;
+    LinearLayout ll_panel_transacciones, ll_billeteras_transaccion, ll_titulo;
     private int anio, mes, dia;
     EleccionBilletera dialogoEleccionBilletera;
     EleccionCategoria dialogoEleccionCategoria;
@@ -56,13 +57,16 @@ public class Transaccion extends AppCompatActivity {
         tv_fechaDer = findViewById(R.id.tv_fechaDer);
         btn_aceptar = findViewById(R.id.btn_aceptar);
         tv_agregarFoto = findViewById(R.id.tv_agregarFoto);
+        ll_titulo = findViewById(R.id.ll_titulo);
+        cancelar_transaccion = findViewById(R.id.cancelar_transaccion);
         iv_foto = findViewById(R.id.iv_foto);
         iv_categoria = findViewById(R.id.iv_circuloCategoria);
         ll_panel_transacciones = findViewById(R.id.ll_panel_transacciones);
         ll_billeteras_transaccion = findViewById(R.id.ll_billeteras_transaccion);
         tv_titulo = findViewById(R.id.tv_titulo_transaccion);
         datos = getIntent().getExtras();
-
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getSupportActionBar().hide();
         agregarfuncionalidades();
     }
 
@@ -101,6 +105,7 @@ public class Transaccion extends AppCompatActivity {
                 tv_fechaDer.setText(getResources().getString(R.string.ayer));
             }
         });
+        cancelar_transaccion.setOnClickListener(view -> this.finish());
         tv_fechaIzq.setOnClickListener(view -> abrirDialogoFecha());
         tv_agregarFoto.setOnClickListener(view ->
                 ImagePicker.Companion.with(Transaccion.this)
@@ -256,7 +261,7 @@ public class Transaccion extends AppCompatActivity {
         iv_categoria.setImageResource(bdCategorias.getIcono(nombre_categoria));
         categoria = nombre_categoria;
         ll_panel_transacciones.setBackgroundColor(Color.parseColor(bdCategorias.getColor(nombre_categoria)));
-        tv_titulo.setBackgroundColor(Color.parseColor(bdCategorias.getColor(nombre_categoria)));
+        ll_titulo.setBackgroundColor(Color.parseColor(bdCategorias.getColor(nombre_categoria)));
         if (tipo.equals("ingreso")) tipo_categoria = "ingreso";
         else {
             tipo_categoria = "gasto";
